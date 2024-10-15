@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    font: 14px/1.5 Lato, sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #397194;
+    font-weight: bold;
+  }
+  
+  a:visited {
+    color: #397194;
+  }
+
+  
+  input[type="submit"] {
+    background-color: #19becf;
+    background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);
+    color: white;
+    border: 1px solid #0a484f;
+    padding: 10px;
+    border-radius: 3px;
+    white-space: 10px;
+    max-width: 150px;
+  }
+  
+  a:hover {
+    color: #1780d5;
+    cursor: pointer;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  input,
+  label {
+    width: 100%;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    padding: 7px;
+    border: 1px solid #ccc;
+  }
+  
+  h2::after {
+    display: block;
+    content: "";
+    border-bottom: 1px solid #aaa;
+    width: 3em;
+    padding-top: 1em;
+  }
+  

@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  justify-content: right;
+  display: flex;
+  padding-right: 20px;
+}
+
+.list {
+  justify-content: center;
+  display: flex;
+}
+
+table,
+tr {
+  border: 1px solid #ddd;
+}
+
+table thead tr{
+  background-color: #2197a4;
+  color: white;
+}
+
+table thead th{
+  padding: 10px 30px 10px 30px;
+}
+
+
+.text-content {
+  padding: 10px 30px 10px 30px;
+}
+
+table {
+  border-collapse: collapse;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+tr:nth-child(even) {
+  background-color: #e9eeee;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.editIcon {
+  padding-right: 2em;
+}
+
+img {
+  width: 120px;
+}

@@ -1,0 +1,57 @@
+
+/* .content{
+    display: flex;
+    flex-direction: row;
+}
+
+.content div{
+    flex: 1 0 50%;
+}
+img{
+    right: 0;
+    width: 100%;
+}
+
+.content .info{
+    text-align: center;
+    margin-top: 20em;
+} */
+
+.content{
+    background-image: url('/assets/images/home6.jpg') ;
+    background-size: cover; /* Resmin tüm alanı kaplaması için */
+    background-position: center; /* Resmin ortalanması için */
+    background-repeat: no-repeat; /* Resmin tekrar etmemesi için */
+    height: 620px; /* Tüm görünüm alanını kapsaması için */
+    width: 100%;    
+    color: white;
+}
+
+.content .info{
+    padding-top: 150px;
+    text-align: center;
+}
+
+.info h1{
+    font-size: 3em;
+}
+
+.info p{
+    margin-top: 2em;
+    font-size: 1.5em;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+
+button{
+    background-color: transparent;
+    padding: 15px;
+    border: 1px solid white;
+    border-radius: 0.8em;
+    color: white;
+}
+
+a{
+    font-size: 18px;
+}
