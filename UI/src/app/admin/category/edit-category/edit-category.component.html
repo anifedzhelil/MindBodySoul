@@ -1,0 +1,37 @@
+<ng-container *ngIf="category; else notFound">
+  <form class="edit-form" #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <h2>Редактирай категория</h2>
+    <p class="field">
+      <label for="name">Име</label>
+      <input
+        type="text"
+        id="categoryName"
+        class="form-control"
+        name="categoryName"
+        [(ngModel)]="category.name"
+      />
+    </p>
+    <p class="field">
+      <label for="url-handle">Url handle</label>
+      <input
+        type="text"
+        id="url-handle"
+        name="url-handle"
+        [(ngModel)]="category.urlHandle"
+      />
+    </p>
+    <p class="field">
+      <label for="image">Снимка</label>
+      <input type="file" id="image" name="image" [(ngModel)]="category.image" />
+    </p>
+    <p class="field">
+      <input type="submit" value="Запази" />
+    </p>
+  </form>
+</ng-container>
+
+<ng-template #notFound>
+  <div class="container">
+    <div class="not-found">Категорията не е намерана!</div>
+  </div>
+</ng-template>
