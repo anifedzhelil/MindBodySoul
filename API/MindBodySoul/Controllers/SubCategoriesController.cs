@@ -26,7 +26,7 @@ namespace MindBodySoul.Controllers
             {
                 Name = reqest.Name,
                 UrlHandle = reqest.UrlHandle,
-                Logo = reqest.Logo,
+                Icon = reqest.Icon,
                 CategoryId = reqest.CategoryId
             };
 
@@ -38,7 +38,7 @@ namespace MindBodySoul.Controllers
                 Name = subCategory.Name,
                 CategoryId = subCategory.CategoryId,
                 UrlHandle = subCategory.UrlHandle,
-                Logo = subCategory.Logo
+                Icon = subCategory.Icon
             };
 
             return Ok(response);
@@ -63,7 +63,7 @@ namespace MindBodySoul.Controllers
                 Name = subCategory.Name,
                 UrlHandle = subCategory.UrlHandle,
                 CategoryId = subCategory.CategoryId,
-                Logo = subCategory.Logo
+                Icon = subCategory.Icon
             };
 
             return Ok(response);
@@ -84,7 +84,7 @@ namespace MindBodySoul.Controllers
                     Id = subCategory.Id,
                     Name = subCategory.Name,
                     UrlHandle = subCategory.UrlHandle,
-                    Logo =  subCategory.Logo,
+                    Icon =  subCategory.Icon,
                     CategoryId = subCategory.CategoryId
                 });
             }
@@ -102,7 +102,7 @@ namespace MindBodySoul.Controllers
                 Id = id,
                 Name = request.Name,
                 UrlHandle = request.UrlHandle,
-                Logo = request.Logo,
+                Icon = request.Icon,
                 CategoryId = request.CategoryId,
             };
 
@@ -118,7 +118,7 @@ namespace MindBodySoul.Controllers
                 Name = subCategory.Name,
                 UrlHandle = subCategory.UrlHandle,
                 CategoryId = subCategory.CategoryId,
-                Logo = subCategory.Logo,
+                Icon = subCategory.Icon,
 
             };
 
@@ -143,7 +143,7 @@ namespace MindBodySoul.Controllers
                 Name = subCategory.Name,
                 UrlHandle = subCategory.UrlHandle,
                 CategoryId = subCategory.CategoryId,
-                Logo = subCategory.Logo,
+                Icon = subCategory.Icon,
             };
 
             return Ok(response);
