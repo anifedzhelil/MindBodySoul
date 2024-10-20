@@ -8,6 +8,9 @@ import { AdminCategoriesListComponent } from './category/admin-categories-list/a
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AddSubcategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
+import { AdminSubcategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,13 +18,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AddCategoryComponent,
     EditCategoryComponent,
     AdminDashboardComponent,
-    AdminCategoriesListComponent
+    AdminCategoriesListComponent,
+    AddSubcategoryComponent,
+    AdminSubcategoriesListComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FontAwesomeModule,  // Ensure this is added to the imports array
-
+    RouterModule,
     FormsModule
   ]
 })
