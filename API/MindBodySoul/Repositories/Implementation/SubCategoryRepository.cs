@@ -23,7 +23,19 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<IEnumerable<SubCategory>> GetAllAsync()
         {
-            return await dbContext.SubCategories.ToListAsync();
+            var subCategories = await dbContext.SubCategories.Include(x => x.Category)
+                 .Select(s => new SubCategory
+                 {
+                     Id = s.Id,
+                     Name = s.Name,
+                     CategoryId = s.CategoryId,
+                     Icon =  s.Icon,
+                     UrlHandle = s.UrlHandle,
+                     Category = s.Category,
+                 })
+       .ToListAsync();
+
+            return subCategories;
         }
 
         public async Task<SubCategory?> GetById(Guid Id)

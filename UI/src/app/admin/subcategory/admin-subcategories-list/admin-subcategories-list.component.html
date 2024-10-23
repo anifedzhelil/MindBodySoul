@@ -1,25 +1,29 @@
+
 <div class="container">
-    <div class="title">
-      <input type="submit" value="Добави категория" (click)="addCategory()" />
-    </div>
+   
     <div class="list">
-      <ng-container *ngIf="categories$ | async as categories">
+      <div class="title">
+        <input type="submit" value="Добави подкатегория" (click)="addCategory()" />
+      </div>
+      <ng-container *ngIf="subCategories$ | async as subCategories">
         <table>
           <thead>
             <tr>
               <th>Име</th>
+              <th>Категория</th>
               <th>URL-handle</th>
-              <th>Снимка</th>
+              <th>Икона</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let category of categories">
-              <th class="text-content">{{ category.name }}</th>
-              <th class="text-content">{{ category.urlHandle }}</th>
+            <tr *ngFor="let subCategory of subCategories">
+              <th class="text-content">{{ subCategory.name }}</th>
+              <th class="text-content">{{ subCategory.category.name }}</th>
+              <th class="text-content">{{ subCategory.urlHandle }}</th>
               <th><img src="/assets/images/home6.jpg" alt=""></th>
               <th class="text-content">
-                <a class="editIcon" [routerLink]="['/admin/edit-category', category.id]">
+                <a class="editIcon" [routerLink]="['/admin/edit-category', subCategory.id]">
                   <fa-icon [icon]="faPenToSquare"></fa-icon>
                 </a>
                 <a>

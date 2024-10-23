@@ -29,7 +29,6 @@ export class AdminCategoriesListComponent {
   }
 
   addCategory(): void {
-    
     this.router.navigateByUrl('/admin/add-category');
   }
 }

@@ -4,6 +4,7 @@ import { AddCategoryComponent } from './category/add-category/add-category.compo
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminCategoriesListComponent } from './category/admin-categories-list/admin-categories-list.component';
+import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
 
 const adminRoutes: Routes = [
   {
@@ -12,9 +13,10 @@ const adminRoutes: Routes = [
     //  canActivate: [AdminGuard], // Protect the entire admin route with AdminGuard
     children: [
       { path: '', component: AdminCategoriesListComponent }, // Admin-only categories management
+      { path: 'categories', component: AdminCategoriesListComponent }, // Admin-only categories management
       { path: 'add-category', component: AddCategoryComponent }, // Admin-only categories management
       { path: 'edit-category/:id', component: EditCategoryComponent }, // Admin-only categories management
-      //{ path: 'subcategories', component: AdminSubcategoriesListComponent }, // Admin-only subcategories management
+      { path: 'subcategories', component: AdminSubCategoriesListComponent }, // Admin-only subcategories management
       // Add more admin routes here as needed
     ],
   },

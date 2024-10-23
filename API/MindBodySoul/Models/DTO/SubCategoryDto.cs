@@ -7,5 +7,7 @@
         public required string Name { get; set; }
         public required string UrlHandle { get; set; }
         public required string Icon { get; set; }
+        public Category? Category { get; set; }
+
     }
 }

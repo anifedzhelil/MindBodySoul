@@ -27,7 +27,7 @@ namespace MindBodySoul.Controllers
                 Name = reqest.Name,
                 UrlHandle = reqest.UrlHandle,
                 Icon = reqest.Icon,
-                CategoryId = reqest.CategoryId
+                CategoryId = reqest.CategoryId,
             };
 
             await subCategoryRepository.CreateAsync(subCategory);
@@ -83,9 +83,11 @@ namespace MindBodySoul.Controllers
                 {
                     Id = subCategory.Id,
                     Name = subCategory.Name,
+                    Category = subCategory.Category,
                     UrlHandle = subCategory.UrlHandle,
                     Icon =  subCategory.Icon,
                     CategoryId = subCategory.CategoryId
+                    
                 });
             }
 
@@ -119,7 +121,7 @@ namespace MindBodySoul.Controllers
                 UrlHandle = subCategory.UrlHandle,
                 CategoryId = subCategory.CategoryId,
                 Icon = subCategory.Icon,
-
+               // Category = subCategory.Category,
             };
 
             return Ok(response);
@@ -144,6 +146,7 @@ namespace MindBodySoul.Controllers
                 UrlHandle = subCategory.UrlHandle,
                 CategoryId = subCategory.CategoryId,
                 Icon = subCategory.Icon,
+               // Category = subCategory.Category,
             };
 
             return Ok(response);

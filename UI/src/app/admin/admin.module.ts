@@ -8,8 +8,8 @@ import { AdminCategoriesListComponent } from './category/admin-categories-list/a
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AddSubcategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
-import { AdminSubcategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
+import { AddSubCategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
+import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
 import { RouterModule } from '@angular/router';
 
 
@@ -19,8 +19,8 @@ import { RouterModule } from '@angular/router';
     EditCategoryComponent,
     AdminDashboardComponent,
     AdminCategoriesListComponent,
-    AddSubcategoryComponent,
-    AdminSubcategoriesListComponent
+    AddSubCategoryComponent,
+    AdminSubCategoriesListComponent
   ],
   imports: [
     CommonModule,
