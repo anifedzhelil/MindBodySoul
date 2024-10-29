@@ -17,7 +17,8 @@
           <tr *ngFor="let category of categories">
             <th class="text-content">{{ category.name }}</th>
             <th class="text-content">{{ category.urlHandle }}</th>
-            <th><img src="/assets/images/home6.jpg" alt=""></th>
+            <th>
+              <img [src]="category.image" alt=""></th>
             <th class="text-content">
               <a class="editIcon" [routerLink]="['/admin/edit-category', category.id]">
                 <fa-icon [icon]="faPenToSquare"></fa-icon>

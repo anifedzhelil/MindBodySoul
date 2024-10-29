@@ -20,6 +20,7 @@ getAllCategories(): Observable<Category[]> {
 }
 
 addCategory(model: AddCategoryRequest): Observable<void> {
+  debugger;
 return this.http.post<void>(
   `${environment.apiBaseUrl}/api/categories`,
   model
