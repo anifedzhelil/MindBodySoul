@@ -4,21 +4,26 @@ import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category/category.model';
 import { UpdateCategoryRequest } from 'src/app/models/category/update-category-request.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
 
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.css']
+  styleUrls: ['./edit-category.component.css'],
 })
-export class EditCategoryComponent implements OnInit{
+export class EditCategoryComponent implements OnInit {
   category?: Category;
   editCategorySubscription?: Subscription;
   id: string | null = null;
+  previewUrl: string | null = null;
+  file: File | null = null;
 
-  constructor(   private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private router: Router)
-    {}
+    private cloudinaryService: CloudinaryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -36,10 +41,24 @@ export class EditCategoryComponent implements OnInit{
   }
 
   onFormSubmit(): void {
+
+ 
+      if (this.previewUrl && this.file) {
+        this.cloudinaryService.uploadImage(this.file).subscribe({
+          next: (response: any) => {
+            this.updateCategory( response.secure_url);
+          },
+        });
+      } else {
+        this.updateCategory(this.category?.image);
+    }
+  }
+
+  updateCategory(imageUrl?: string){
     const updateCategoryRequest: UpdateCategoryRequest = {
       name: this.category?.name ?? '',
       UrlHandle: this.category?.urlHandle ?? '',
-      image: ''
+      image: imageUrl?? '',
     };
 
     if (this.id) {
@@ -52,5 +71,11 @@ export class EditCategoryComponent implements OnInit{
         });
     }
   }
-
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.file = fileInput.files[0];
+      this.previewUrl = URL.createObjectURL(this.file);
+    }
+  }
 }

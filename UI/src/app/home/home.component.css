@@ -22,9 +22,10 @@ img{
     background-size: cover; /* Resmin tüm alanı kaplaması için */
     background-position: center; /* Resmin ortalanması için */
     background-repeat: no-repeat; /* Resmin tekrar etmemesi için */
-    height: 620px; /* Tüm görünüm alanını kapsaması için */
+    height: calc(100vh - 120px); /* Tüm görünüm alanını kapsaması için */
     width: 100%;    
     color: white;
+    object-fit: cover
 }
 
 .content .info{

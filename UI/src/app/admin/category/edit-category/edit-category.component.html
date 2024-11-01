@@ -22,7 +22,9 @@
     </p>
     <p class="field">
       <label for="image">Снимка</label>
-      <input type="file" id="image" name="image" [(ngModel)]="category.image" />
+      <img name="image" *ngIf="!previewUrl" src={{category.image}}/>
+      <img *ngIf="previewUrl" [src]="previewUrl" alt="Category Image" on />
+      <input type="file"  id="newImage" name="newimage" (change)="onFileSelected($event)" />
     </p>
     <p class="field">
       <input type="submit" value="Запази" />
