@@ -18,13 +18,17 @@
             <th class="text-content">{{ category.name }}</th>
             <th class="text-content">{{ category.urlHandle }}</th>
             <th>
-              <img [src]="category.image" alt=""></th>
+              <img [src]="category.image" alt="" />
+            </th>
             <th class="text-content">
-              <a class="editIcon" [routerLink]="['/admin/edit-category', category.id]">
+              <a
+                class="editIcon"
+                [routerLink]="['/admin/edit-category', category.id]"
+              >
                 <fa-icon [icon]="faPenToSquare"></fa-icon>
               </a>
               <a>
-                <fa-icon [icon]="faTrashCan"></fa-icon>
+                <fa-icon [icon]="faTrashCan" (click)="onDelete()"></fa-icon>
               </a>
             </th>
           </tr>
@@ -33,3 +37,8 @@
     </ng-container>
   </div>
 </div>
+<app-delete-conformation
+  (delete)="handleDelete()"
+  (cancel)="handleCancel()"
+  [isHidden]="hideDeleteConformation"
+></app-delete-conformation>

@@ -45,11 +45,15 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<Category?> DeleteAsync(Guid id)
         {
-            var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            var existingCategory = await dbContext.Categories
+                .Include(c=>c.SubCategories)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (existingCategory is null)
             {
                 return null;
             }
+
 
             dbContext.Categories.Remove(existingCategory);
             await dbContext.SaveChangesAsync();

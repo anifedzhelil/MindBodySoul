@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddSubCategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
 import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { RouterModule } from '@angular/router';
     AdminRoutingModule,
     FontAwesomeModule,  // Ensure this is added to the imports array
     RouterModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

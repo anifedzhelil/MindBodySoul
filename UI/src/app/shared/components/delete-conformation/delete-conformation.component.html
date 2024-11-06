@@ -1,0 +1,26 @@
+<div class="modal" *ngIf="isHidden">
+  <div class="modal-content">
+    <div class="icon-content">
+      <fa-icon [icon]="faTrashCan" class="icon-delete"></fa-icon>
+    </div>
+    <div class="form-content" >
+      <h3>Сигурен ли сте че, искате да изтриете тази категория?</h3>
+      <form>
+        <div class="button-group">
+          <input
+            class="button-cancel"
+            type="button"
+            value="Отмени"
+            (click)="onCancel()"
+          />
+          <input
+            class="button-delete"
+            type="button"
+            value="Изтрий"
+            (click)="onDeleteConfirm()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -120,7 +120,6 @@ namespace MindBodySoul.Controllers
             };
 
             return Ok(response);
-
         }
 
 
@@ -133,6 +132,12 @@ namespace MindBodySoul.Controllers
             if (category is null)
             {
                 return NotFound();
+            }
+
+            if (category.SubCategories != null && category.SubCategories.Any())
+            {
+                //Cannot delete category with existing SubCategories.
+                return BadRequest("Не може да се изтрие категория със съществуващи подкатегории.");
             }
 
             var response = new CategoryDto()
