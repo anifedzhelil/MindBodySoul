@@ -14,9 +14,12 @@ import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 export class AdminCategoriesListComponent {
   categories$?: Observable<Category[]>;
   hideDeleteConformation: boolean = false;
+  hideMessageError: boolean = false;
+  errorMessage: string = '';
+  categoryId: string | undefined;
 
-  faPen = faPen; 
-  faPenToSquare = faPenToSquare; 
+  faPen = faPen;
+  faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
 
   constructor(
@@ -25,22 +28,46 @@ export class AdminCategoriesListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.categories$ = this.categoryService.getAllCategories();
+    this.loadCategories();
   }
 
   addCategory(): void {
     this.router.navigateByUrl('/admin/add-category');
   }
 
-  onDelete(): void {
+  onDelete(id: string): void {
+    this.categoryId = id;
     this.hideDeleteConformation = true;
   }
 
   handleDelete(): void {
     this.hideDeleteConformation = false;
+
+    if (this.categoryId) {
+      this.categoryService.deleteCategory(this.categoryId).subscribe({
+        next: (response) => {
+          this.loadCategories();
+        },
+        error: (err) => {
+          if (err.status === 400) {
+            console.log(err.error);
+            this.hideMessageError = true;
+            this.errorMessage = err.error;
+          }
+        },
+      });
+    }
   }
 
   handleCancel(): void {
-    this.hideDeleteConformation = false; 
+    this.hideDeleteConformation = false;
+  }
+
+  loadCategories(): void {
+    this.categories$ = this.categoryService.getAllCategories();
+  }
+
+  handleClose(): void{
+    this.hideMessageError = false;
   }
 }

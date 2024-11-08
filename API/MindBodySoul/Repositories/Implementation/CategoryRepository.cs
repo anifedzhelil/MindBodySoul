@@ -54,6 +54,10 @@ namespace MindBodySoul.Repositories.Implementation
                 return null;
             }
 
+            if (existingCategory.SubCategories != null && existingCategory.SubCategories.Any())
+            {
+                return existingCategory; 
+            }
 
             dbContext.Categories.Remove(existingCategory);
             await dbContext.SaveChangesAsync();

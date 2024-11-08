@@ -1,0 +1,20 @@
+<div class="modal" *ngIf="isHidden">
+    <div class="modal-content">
+      <div class="icon-content">
+        <fa-icon [icon]="faTriangleExclamation" class="icon-delete"></fa-icon>
+      </div>
+      <div class="message">
+        <div>
+        <h3>{{ errorMessage }}</h3>
+      </div>
+      <div>
+        <input
+        class="button-close"
+        type="button"
+        value="Затвори"
+        (click)="onClose()"
+      />
+      </div>
+    </div>
+  </div>
+  

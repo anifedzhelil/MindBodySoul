@@ -1,0 +1,56 @@
+/* delete-confirmation.component.css */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon-delete {
+    color: #e74c3c;
+    font-size: 2rem;
+  }
+  
+  h3 {
+    margin: 20px;
+  }
+  
+  .error {
+    padding: 20px;
+  }
+  
+  .icon-content {
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-close {
+    background-color: #ccc;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+  }
+  
