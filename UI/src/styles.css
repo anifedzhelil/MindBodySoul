@@ -48,6 +48,7 @@
   
   input[type="text"],
   input[type="email"],
+  select,
   input[type="password"] {
     padding: 7px;
     border: 1px solid #ccc;

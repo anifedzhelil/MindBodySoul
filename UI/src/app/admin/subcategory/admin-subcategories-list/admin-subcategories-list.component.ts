@@ -26,7 +26,7 @@ export class AdminSubCategoriesListComponent {
     this.subCategories$ = this.subCategoryService.getAllCategories();
   }
 
-  addCategory(): void {
-    this.router.navigateByUrl('/admin/add-category');
+  addSubCategory(): void {
+    this.router.navigateByUrl('/admin/add-subcategory');
   }
 }
