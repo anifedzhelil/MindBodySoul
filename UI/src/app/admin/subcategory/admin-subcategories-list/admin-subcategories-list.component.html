@@ -21,7 +21,9 @@
               <th class="text-content">{{ subCategory.name }}</th>
               <th class="text-content">{{ subCategory.category.name }}</th>
               <th class="text-content">{{ subCategory.urlHandle }}</th>
-              <th><img src="/assets/images/home6.jpg" alt=""></th>
+              <th>
+                <app-awesome-icons [selectedIcon]="subCategory.icon"></app-awesome-icons>
+              </th>
               <th class="text-content">
                 <a class="editIcon" [routerLink]="['/admin/edit-category', subCategory.id]">
                   <fa-icon [icon]="faPenToSquare"></fa-icon>
