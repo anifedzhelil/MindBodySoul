@@ -1,0 +1,11 @@
+
+@import "/src/app/shared/styles/form.css";
+
+.not-found{
+    border: 1px solid rgb(145, 146, 122);
+    background-color: rgb(252, 253, 214);
+    width: 100%;
+    text-align: center;
+    padding: 2em;
+    font-size: 16px;
+}

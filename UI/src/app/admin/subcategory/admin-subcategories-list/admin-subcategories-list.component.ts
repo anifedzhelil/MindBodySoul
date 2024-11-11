@@ -23,7 +23,7 @@ export class AdminSubCategoriesListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.subCategories$ = this.subCategoryService.getAllCategories();
+    this.subCategories$ = this.subCategoryService.getAllSubCategories();
   }
 
   addSubCategory(): void {

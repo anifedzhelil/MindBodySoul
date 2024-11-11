@@ -12,6 +12,7 @@ import { AddSubCategoryComponent } from './subcategory/add-subcategory/add-subca
 import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     AdminDashboardComponent,
     AdminCategoriesListComponent,
     AddSubCategoryComponent,
-    AdminSubCategoriesListComponent
+    AdminSubCategoriesListComponent,
+    EditSubCategoryComponent
   ],
   imports: [
     CommonModule,

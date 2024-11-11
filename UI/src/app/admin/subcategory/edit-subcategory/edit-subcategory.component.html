@@ -1,0 +1,49 @@
+<ng-container *ngIf="subCategory; else notFound">
+    <form class="add-form" #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <h2>Добави подкатегория</h2>
+    <p class="field">
+      <label for="name">Име</label>
+      <input
+        type="text"
+        id="subCategoryName"
+        class="form-control"
+        name="subCategoryName"
+        [(ngModel)]="subCategory.name"
+      />
+    </p>
+    <p class="field">
+      <label for="category">Категория</label>
+      <select name="category" id="category" [(ngModel)]="subCategory.categoryId">
+        <option value="">---Избери категория---</option>
+        <option
+          *ngFor="let category of categories$ | async"
+          [value]="category.id"
+        >
+          {{ category.name }}
+        </option>
+      </select>
+    </p>
+    <p class="field">
+      <label for="url-handle">Url handle</label>
+      <input
+        type="text"
+        id="url-handle"
+        name="url-handle"
+        [(ngModel)]="subCategory.urlHandle"
+      />
+    </p>
+    <p class="field">
+      <label for="image">Икона</label>
+      <input type="text" id="icon" name="icon" [(ngModel)]="subCategory.icon" />
+    </p>
+    <p class="field">
+      <input type="submit" value="Запази" />
+    </p>
+  </form>
+</ng-container>
+<ng-template #notFound>
+    <div class="container">
+      <div class="not-found">Подкатегорията не е намерана!</div>
+    </div>
+  </ng-template>
+  

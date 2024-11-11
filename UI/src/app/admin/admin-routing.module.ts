@@ -6,26 +6,26 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminCategoriesListComponent } from './category/admin-categories-list/admin-categories-list.component';
 import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategories-list/admin-subcategories-list.component';
 import { AddSubCategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
+import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
 
 const adminRoutes: Routes = [
   {
     path: 'admin',
-    component: AdminDashboardComponent, // Admin Dashboard as the main component for admin area
-    //  canActivate: [AdminGuard], // Protect the entire admin route with AdminGuard
+    component: AdminDashboardComponent, 
     children: [
-      { path: '', component: AdminCategoriesListComponent }, // Admin-only categories management
-      { path: 'categories', component: AdminCategoriesListComponent }, // Admin-only categories management
-      { path: 'add-category', component: AddCategoryComponent }, // Admin-only categories management
-      { path: 'add-subcategory', component: AddSubCategoryComponent }, // Admin-only subcategories management
-      { path: 'edit-category/:id', component: EditCategoryComponent }, // Admin-only categories management
-      { path: 'subcategories', component: AdminSubCategoriesListComponent }, // Admin-only subcategories management
-      // Add more admin routes here as needed
+      { path: '', component: AdminCategoriesListComponent }, 
+      { path: 'categories', component: AdminCategoriesListComponent }, 
+      { path: 'add-category', component: AddCategoryComponent }, 
+      { path: 'add-subcategory', component: AddSubCategoryComponent }, 
+      { path: 'edit-category/:id', component: EditCategoryComponent },
+      { path: 'edit-subcategory/:id', component: EditSubCategoryComponent },
+      { path: 'subcategories', component: AdminSubCategoriesListComponent },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(adminRoutes)], // Use forChild to register the child routes for the admin module
+  imports: [RouterModule.forChild(adminRoutes)], 
   exports: [RouterModule],
 })
 export class AdminRoutingModule {}
