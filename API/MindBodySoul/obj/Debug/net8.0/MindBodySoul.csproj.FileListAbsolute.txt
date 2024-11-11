@@ -146,3 +146,5 @@ D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.pdb
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.genruntimeconfig.cache
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\ref\MindBodySoul.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBody.546EC580.Up2Date
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
