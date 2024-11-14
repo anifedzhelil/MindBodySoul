@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "MindBodySoul.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MindBodySoul.Models.DTO.RegisterRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MindBodySoul.Controllers.CategoriesController",
     "Method": "CreateCategory",
     "RelativePath": "api/Categories",
