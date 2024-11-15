@@ -21,6 +21,7 @@ namespace MindBodySoul.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto reqest)
         {
 
@@ -70,7 +71,6 @@ namespace MindBodySoul.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await categoryRepository.GetAllAsync();
@@ -96,6 +96,7 @@ namespace MindBodySoul.Controllers
         //PUT https:/localhost:7108/api/categories{id}
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditCategory([FromRoute] Guid id, UpdateCategoryRequestDto request)
         {
             var category = new Category
@@ -127,7 +128,8 @@ namespace MindBodySoul.Controllers
         //DELETE: https:/localhost:7108/api/categories{id}
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        [Authorize(Roles = "Writer")]
+         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var category = await categoryRepository.DeleteAsync(id);
             if (category is null)

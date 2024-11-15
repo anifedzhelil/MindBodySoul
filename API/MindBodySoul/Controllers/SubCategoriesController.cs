@@ -1,4 +1,5 @@
 ﻿using CodePulse.API.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
@@ -19,6 +20,7 @@ namespace MindBodySoul.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateSubCategory([FromBody] CreateSubCategoryRequestDto reqest)
         {
 
@@ -97,6 +99,7 @@ namespace MindBodySoul.Controllers
         //PUT https:/localhost:7108/api/subCategories{id}
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditSubCategory([FromRoute] Guid id, UpdateSubCategoryRequestDto request)
         {
             var subCategory = new SubCategory
@@ -131,6 +134,7 @@ namespace MindBodySoul.Controllers
         //DELETE: https:/localhost:7108/api/subCategories{id}
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             var subCategory = await subCategoryRepository.DeleteAsync(id);
