@@ -1,1 +1,68 @@
-<p>register works!</p>
+<form [formGroup]="registerForm">
+  <h2>Регистрация</h2>
+  <div class="field">
+    <label for="userName">Потребителско име</label>
+    <input
+      type="text"
+      id="userName"
+      name="userName"
+      ngModel
+      formControlName="email"
+    />
+  </div>
+
+  <div *ngIf="registerForm.get('userName')?.touched">
+    <div *ngIf="registerForm.get('userName')?.errors?.['required']">
+      Въведете потребителско име!
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="email">Имейл</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      ngModel
+      formControlName="email"
+    />
+  </div>
+
+  <div *ngIf="registerForm.get('email')?.touched">
+    <div *ngIf="registerForm.get('email')?.errors?.['required']">
+      Въведетет имейл!
+    </div>
+    <div *ngIf="registerForm.get('email')?.errors?.['email']">
+      Невалиден имейл!
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="password">Парола</label>
+    <input
+      type="text"
+      id="password"
+      name="password"
+      formControlName="password"
+    />
+  </div>
+
+  <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
+    Невалидна парола, паролата трябва да бъде по-дълга от
+    {{ registerForm.get('password')?.errors?.['maxlength'].requiredLength}}
+  </div>
+
+  <div class="field">
+    <label for="repeatPassword">Повтори парола</label>
+    <input
+      type="text"
+      id="repeatPassword"
+      name="repeatPassword"
+      formControlName="repeatPassword"
+    />
+  </div>
+
+  <div class="field">
+    <input type="submit" class="submit" value="Регистрирай се" />
+  </div>
+</form>

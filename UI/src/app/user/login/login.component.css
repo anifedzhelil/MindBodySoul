@@ -1,0 +1,9 @@
+@import "/src/app/shared/styles/form.css";
+
+.submit{
+    max-width: 100%;
+}
+
+.center{
+    text-align: center;
+}

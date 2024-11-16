@@ -1,5 +1,5 @@
 <ng-container *ngIf="subCategory; else notFound">
-    <form class="add-form" #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
     <h2>Добави подкатегория</h2>
     <p class="field">
       <label for="name">Име</label>

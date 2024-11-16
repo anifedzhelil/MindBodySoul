@@ -1,1 +1,40 @@
-<p>login works!</p>
+<form #loginForm="ngForm" (ngSubmit)="submitHandler()">
+  <h2>Вход</h2>
+  <div class="field">
+    <label for="email">Имейл</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      ngModel
+      email
+      required
+      #emailInput="ngModel"
+    />
+  </div>
+
+  <div *ngIf="emailInput.touched">
+    <div *ngIf="emailInput.errors?.['required']">Въведете имейл!</div>
+    <div *ngIf="emailInput.errors?.['email']">Невалиден имейл!</div>
+  </div>
+  <div class="field">
+    <label for="password">Парола</label>
+    <input
+      type="text"
+      id="password"
+      name="password"
+      ngModel
+      #passwordInput="ngModel"
+    />
+  </div>
+  <!-- *ngIf="passwordInput.errors?.['appMaxCount']">
+      Invalid Password, because length is longer than
+      {{ passwordInput.errors?.['appMaxCount']}
+    </div-->
+  <div class="field">
+    <input type="submit" class="submit" value="Вход"/>
+  </div>
+  <div class="field center">
+    <a [routerLink]="'/register'">Регистрирай се!</a>
+  </div>
+</form>
