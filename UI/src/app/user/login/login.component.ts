@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { LoginRequest } from 'src/app/models/user/login-request.model';
 
 @Component({
   selector: 'app-login',
@@ -9,22 +11,22 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
 
+  constructor(private authService: AuthService) {}
+
   submitHandler(): void {
-    debugger;
     if (!this.loginForm) return;
 
-    const form = this.loginForm;
 
-    // form.reset();
-
-    if (form.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
 
-    form.setValue({
-      email: '',
-      password: '',
+    const value: { email: string; password: string } = this.loginForm.value;
+    this.authService.login(value)
+    .subscribe({
+      next: (response) => {
+        console.log(response);
+      }
     });
-    const value: { email: string; password: string } = form.value;
   }
 }

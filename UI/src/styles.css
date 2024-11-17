@@ -23,13 +23,22 @@
   
   input[type="submit"] {
     background-color: #19becf;
-    background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);
+    /*background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);*/
+    background: #397194;
     color: white;
-    border: 1px solid #0a484f;
+    border: 1px solid #076974;
     padding: 10px;
     border-radius: 3px;
     white-space: 10px;
     max-width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  input[type="submit"]:hover {
+    background: #4486af;
+    cursor: pointer;
+
   }
   
   a:hover {
