@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AddCategoryRequest } from 'src/app/models/category/add-category-request.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
-import { CloudinaryService } from 'src/app/services/cloudinary.service';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-add-category',

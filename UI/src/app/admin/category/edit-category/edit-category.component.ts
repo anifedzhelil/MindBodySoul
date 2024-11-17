@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category/category.model';
 import { UpdateCategoryRequest } from 'src/app/models/category/update-category-request.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
-import { CloudinaryService } from 'src/app/services/cloudinary.service';
+import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -41,24 +41,22 @@ export class EditCategoryComponent implements OnInit {
   }
 
   onFormSubmit(): void {
-
- 
-      if (this.previewUrl && this.file) {
-        this.cloudinaryService.uploadImage(this.file).subscribe({
-          next: (response: any) => {
-            this.updateCategory( response.secure_url);
-          },
-        });
-      } else {
-        this.updateCategory(this.category?.image);
+    if (this.previewUrl && this.file) {
+      this.cloudinaryService.uploadImage(this.file).subscribe({
+        next: (response: any) => {
+          this.updateCategory(response.secure_url);
+        },
+      });
+    } else {
+      this.updateCategory(this.category?.image);
     }
   }
 
-  updateCategory(imageUrl?: string){
+  updateCategory(imageUrl?: string) {
     const updateCategoryRequest: UpdateCategoryRequest = {
       name: this.category?.name ?? '',
       UrlHandle: this.category?.urlHandle ?? '',
-      image: imageUrl?? '',
+      image: imageUrl ?? '',
     };
 
     if (this.id) {

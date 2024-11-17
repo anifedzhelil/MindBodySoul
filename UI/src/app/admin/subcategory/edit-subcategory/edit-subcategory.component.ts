@@ -5,7 +5,7 @@ import { Category } from 'src/app/models/category/category.model';
 import { SubCategory } from 'src/app/models/subcategory/subcategory.model';
 import { UpdateSubCategoryRequest } from 'src/app/models/subcategory/update-subcategory-request.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
-import { SubCategoryService } from 'src/app/services/subcategory.service';
+import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
   selector: 'app-edit-subcategory',
@@ -42,12 +42,12 @@ export class EditSubCategoryComponent implements OnInit {
     });
   }
 
-  onFormSubmit(): void{
+  onFormSubmit(): void {
     const updateSubCategoryRequest: UpdateSubCategoryRequest = {
       name: this.subCategory?.name ?? '',
       UrlHandle: this.subCategory?.urlHandle ?? '',
-      icon: this.subCategory?.icon?? '',
-      categoryId: this.subCategory?.categoryId?? ''
+      icon: this.subCategory?.icon ?? '',
+      categoryId: this.subCategory?.categoryId ?? '',
     };
 
     if (this.id) {
