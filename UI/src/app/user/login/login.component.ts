@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoginRequest } from 'src/app/models/user/login-request.model';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user/user.module';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +14,41 @@ import { LoginRequest } from 'src/app/models/user/login-request.model';
 export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private cookieService: CookieService,
+    private router: Router
+  ) {}
 
   submitHandler(): void {
     if (!this.loginForm) return;
-
 
     if (this.loginForm.invalid) {
       return;
     }
 
     const value: { email: string; password: string } = this.loginForm.value;
-    this.authService.login(value)
-    .subscribe({
+    this.authService.login(value).subscribe({
       next: (response) => {
-        console.log(response);
-      }
+        this.cookieService.set(
+          'Authorization',
+          `Berear ${response.token}`,
+          undefined,
+          '/',
+          undefined,
+          true,
+          'Strict'
+        );
+ 
+        this.authService.setUser({
+          username: response.userName,
+          roles: response.roles
+        })
+
+        this.router.navigateByUrl('/');
+      },
     });
   }
+
+
 }
