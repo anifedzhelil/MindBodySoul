@@ -10,8 +10,9 @@ import { UserModule } from './user/user.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import {CloudinaryModule} from '@cloudinary/ng';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CloudinaryModule } from '@cloudinary/ng';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent],
@@ -23,9 +24,15 @@ import {CloudinaryModule} from '@cloudinary/ng';
     HttpClientModule,
     AdminModule,
     UserModule,
-    CloudinaryModule
+    CloudinaryModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

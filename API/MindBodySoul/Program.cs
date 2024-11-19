@@ -51,6 +51,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.IncludeErrorDetails = true;
         options.SaveToken = true;
+        options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(5);
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -72,8 +73,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             },
             OnMessageReceived = context =>
             {
-                // Token alımında hata ayıklamak için
-                Console.WriteLine("Token received: " + context.Token);
+                // Log the Authorization header
+                var authHeader = context.Request.Headers["Authorization"].ToString();
+                Console.WriteLine("Authorization header received: " + authHeader);
+
+                if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer "))
+                {
+                    context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                    Console.WriteLine("Token extracted: " + context.Token);
+                }
+                else
+                {
+                    Console.WriteLine("Authorization header is missing or not in Bearer format.");
+                }
+
                 return Task.CompletedTask;
             },
             OnTokenValidated = context =>
@@ -99,10 +112,9 @@ app.UseHttpsRedirection();
 app.UseCors(options =>
 {
     options.AllowAnyHeader();
-    options.AllowAnyOrigin();
-    options.SetIsOriginAllowed(origin => true);// allow any origin
-
     options.AllowAnyMethod();
+    options.AllowCredentials();
+    options.SetIsOriginAllowed(origin => true);// allow any origin
 });
 
 app.UseAuthentication();

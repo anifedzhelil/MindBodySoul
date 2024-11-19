@@ -26,14 +26,14 @@ export class SubCategoryService {
 
   addCategory(model: AddSubCategoryRequest): Observable<void> {
     return this.http.post<void>(
-      `${environment.apiBaseUrl}/api/subcategories`,
+      `${environment.apiBaseUrl}/api/subcategories?addAuth=true`,
       model
     );
   }
 
   updateSubCategory(id: string, model: UpdateSubCategoryRequest) {
     return this.http.put<void>(
-      `${environment.apiBaseUrl}/api/subcategories/${id}`,
+      `${environment.apiBaseUrl}/api/subcategories/${id}?addAuth=true`,
       model
     );
   }

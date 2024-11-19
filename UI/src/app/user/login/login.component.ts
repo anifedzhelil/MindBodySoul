@@ -32,7 +32,7 @@ export class LoginComponent {
       next: (response) => {
         this.cookieService.set(
           'Authorization',
-          `Berear ${response.token}`,
+          `Bearer ${response.token}`,
           undefined,
           '/',
           undefined,
