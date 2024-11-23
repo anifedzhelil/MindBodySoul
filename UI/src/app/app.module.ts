@@ -13,9 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { GlobalLoaderComponent } from './core/global-loader/global-loader.component';
+import { CoreModule } from './core/core/core.module';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +26,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     HttpClientModule,
     AdminModule,
     UserModule,
+    CoreModule,
     CloudinaryModule,
   ],
   providers: [

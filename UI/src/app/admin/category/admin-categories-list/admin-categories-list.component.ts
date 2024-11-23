@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category/category.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-admin-categories-list',
@@ -12,6 +13,7 @@ import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
   styleUrls: ['./admin-categories-list.component.css'],
 })
 export class AdminCategoriesListComponent {
+  categories: Category[] = [];
   categories$?: Observable<Category[]>;
   hideDeleteConformation: boolean = false;
   hideMessageError: boolean = false;
@@ -24,6 +26,7 @@ export class AdminCategoriesListComponent {
 
   constructor(
     private categoryService: CategoryService,
+    private loaderService: LoaderService,
     private router: Router
   ) {}
 
@@ -64,10 +67,16 @@ export class AdminCategoriesListComponent {
   }
 
   loadCategories(): void {
-    this.categories$ = this.categoryService.getAllCategories();
+    this.loaderService.showLoader();
+      this.categoryService.getAllCategories().subscribe({
+        next: (categories) => {
+          this.categories = categories;
+          this.loaderService.hideLoader();
+        },
+      });
   }
 
-  handleClose(): void{
+  handleClose(): void {
     this.hideMessageError = false;
   }
 }

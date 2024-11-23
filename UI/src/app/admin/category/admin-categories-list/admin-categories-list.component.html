@@ -1,9 +1,10 @@
+<app-global-loader></app-global-loader>
 <div class="container">
   <div class="list">
     <div class="title">
       <input type="submit" value="Добави категория" (click)="addCategory()" />
     </div>
-    <ng-container *ngIf="categories$ | async as categories">
+    <ng-container *ngIf="categories">
       <table>
         <thead>
           <tr>

@@ -16,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    debugger;
     if (this.isAuthRequired(request)) {
       const authRequest = request.clone({
         setHeaders: {

@@ -5,6 +5,7 @@ import { SubCategoryService } from 'src/app/services/subcategories/subcategory.s
 import { Router } from '@angular/router';
 import { SubCategory } from 'src/app/models/subcategory/subcategory.model';
 import { Observable } from 'rxjs';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-admin-subcategories-list',
@@ -13,17 +14,25 @@ import { Observable } from 'rxjs';
 })
 export class AdminSubCategoriesListComponent {
   subCategories$?: Observable<SubCategory[]>;
+  subCategories: SubCategory[] = [];
   faPen = faPen; // Solid icon
   faPenToSquare = faPenToSquare; // Regular icon
   faTrashCan = faTrashCan;
 
   constructor(
     private subCategoryService: SubCategoryService,
-    private router: Router
+    private router: Router,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit(): void {
-    this.subCategories$ = this.subCategoryService.getAllSubCategories();
+    this.loaderService.showLoader();
+    this.subCategoryService.getAllSubCategories().subscribe({
+      next: (subCategories) => {
+        this.subCategories = subCategories;
+        this.loaderService.hideLoader();
+      },
+    });
   }
 
   addSubCategory(): void {

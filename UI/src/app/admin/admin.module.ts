@@ -13,6 +13,7 @@ import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategori
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
+import { CoreModule } from "../core/core/core.module";
 
 
 @NgModule({
@@ -28,10 +29,11 @@ import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-su
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FontAwesomeModule,  // Ensure this is added to the imports array
+    FontAwesomeModule, // Ensure this is added to the imports array
     RouterModule,
     FormsModule,
-    SharedModule
-  ]
+    SharedModule,
+    CoreModule
+]
 })
 export class AdminModule { }

@@ -1,11 +1,11 @@
-
+<app-global-loader></app-global-loader>
 <div class="container">
    
     <div class="list">
       <div class="title">
         <input type="submit" value="Добави подкатегория" (click)="addSubCategory()" />
       </div>
-      <ng-container *ngIf="subCategories$ | async as subCategories">
+      <ng-container *ngIf="subCategories">
         <table>
           <thead>
             <tr>
