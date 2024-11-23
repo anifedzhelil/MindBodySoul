@@ -1,0 +1,38 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 200px);
+  display: flex;
+  align-items: center;
+  margin-top: 100px;
+  flex-direction: column;
+}
+
+span {
+  font-size: 150px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color: rgb(9, 103, 103);
+}
+
+.sun {
+  display: inline-block;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background: orange;
+  box-shadow: 0 0 10px orange, 0 0 6px orange, 0 0 20px yellow,
+    inset 0 0 80px yellow;
+  margin: auto;
+}
+
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.message {
+  margin-bottom: 20px;
+}

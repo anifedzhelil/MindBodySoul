@@ -15,12 +15,12 @@ import { CloudinaryModule } from '@cloudinary/ng';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalLoaderComponent } from './core/global-loader/global-loader.component';
 import { CoreModule } from './core/core/core.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
@@ -28,6 +28,7 @@ import { CoreModule } from './core/core/core.module';
     UserModule,
     CoreModule,
     CloudinaryModule,
+    AppRoutingModule
   ],
   providers: [
     {

@@ -21,7 +21,8 @@
   }
 
   
-  input[type="submit"] {
+  input[type="submit"],
+  input[type="button"] {
     background-color: #19becf;
     /*background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);*/
     background: #397194;
@@ -34,7 +35,8 @@
     font-weight: bold;
   }
 
-  input[type="submit"]:hover {
+  input[type="submit"]:hover,
+  input[type="button"]:hover {
     background: #4486af;
     cursor: pointer;
   }
