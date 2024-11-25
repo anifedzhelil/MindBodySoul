@@ -11,5 +11,8 @@ namespace MindBodySoul.Data
 
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleTags> ArticleTags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

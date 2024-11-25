@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MindBodySoul.Data;
 
@@ -11,9 +12,11 @@ using MindBodySoul.Data;
 namespace MindBodySoul.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241124190848_ArticlesTables")]
+    partial class ArticlesTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,8 +77,6 @@ namespace MindBodySoul.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
-
-                    b.HasIndex("TagId");
 
                     b.ToTable("ArticleTags");
                 });
@@ -159,21 +160,11 @@ namespace MindBodySoul.Migrations
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.ArticleTags", b =>
                 {
-                    b.HasOne("MindBodySoul.Models.Domain.Article", "Article")
+                    b.HasOne("MindBodySoul.Models.Domain.Article", null)
                         .WithMany("ArticleTags")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("MindBodySoul.Models.Domain.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.SubCategory", b =>
