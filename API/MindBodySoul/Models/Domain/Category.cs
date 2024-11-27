@@ -8,8 +8,6 @@ namespace MindBodySoul.Models.Domain
         public required string Name { get; set; }
         public required string UrlHandle { get; set; }
         public required string Image { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
         public ICollection<SubCategory>? SubCategories { get; set; }
 
 

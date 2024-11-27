@@ -13,8 +13,7 @@ import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategori
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
-import { CoreModule } from "../core/core/core.module";
-
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import { CoreModule } from "../core/core/core.module";
     AdminCategoriesListComponent,
     AddSubCategoryComponent,
     AdminSubCategoriesListComponent,
-    EditSubCategoryComponent
+    EditSubCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +32,7 @@ import { CoreModule } from "../core/core/core.module";
     RouterModule,
     FormsModule,
     SharedModule,
-    CoreModule
-]
+    CoreModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}
