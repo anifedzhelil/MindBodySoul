@@ -29,6 +29,9 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IArticleTagRepository, ArticleTagRepository>();
 
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
@@ -104,7 +107,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+    });
+
+    app.UseDeveloperExceptionPage();
+
 }
 
 app.UseHttpsRedirection();
@@ -116,7 +126,7 @@ app.UseCors(options =>
     options.AllowCredentials();
     options.SetIsOriginAllowed(origin => true);// allow any origin
 });
-
+    
 app.UseAuthentication();
 app.UseAuthorization();
 
