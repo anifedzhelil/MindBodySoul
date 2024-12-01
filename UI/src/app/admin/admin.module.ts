@@ -14,6 +14,9 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
 import { CoreModule } from '../core/core.module';
+import { AddTagComponent } from './tag/add-tag/add-tag.component';
+import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.component';
+import { EditTagComponent } from './tag/edit-tag/edit-tag.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { CoreModule } from '../core/core.module';
     AddSubCategoryComponent,
     AdminSubCategoriesListComponent,
     EditSubCategoryComponent,
+    AddTagComponent,
+    AdminTagListComponent,
+    EditTagComponent,
   ],
   imports: [
     CommonModule,

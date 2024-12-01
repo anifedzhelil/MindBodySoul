@@ -8,6 +8,8 @@ import { AdminSubCategoriesListComponent } from './subcategory/admin-subcategori
 import { AddSubCategoryComponent } from './subcategory/add-subcategory/add-subcategory.component';
 import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-subcategory.component';
 import { authGuard } from '../core/guards/auth.guard';
+import { AddTagComponent } from './tag/add-tag/add-tag.component';
+import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.component';
 
 const adminRoutes: Routes = [
   {
@@ -47,6 +49,16 @@ const adminRoutes: Routes = [
       {
         path: 'subcategories',
         component: AdminSubCategoriesListComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'tags',
+        component: AdminTagListComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'add-tag',
+        component: AddTagComponent,
         canActivate: [authGuard],
       },
     ],

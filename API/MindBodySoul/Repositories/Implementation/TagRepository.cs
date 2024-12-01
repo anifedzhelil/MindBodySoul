@@ -14,14 +14,21 @@ namespace MindBodySoul.Repositories.Implementation
         }
         public async Task<(bool isCreated, Tag Tag)> CreateAsync(Tag tag)
         {
-            var exestingTag = await dbContext.Tags
-                .FirstOrDefaultAsync(t => t.Name.Equals(tag.Name, StringComparison.OrdinalIgnoreCase));
-
-            if (exestingTag != null)
+            try
             {
-                return (false, exestingTag);
-            }
+                var existingTag = await dbContext.Tags
+                    .FirstOrDefaultAsync(t => t.Name.ToLower() == tag.Name.ToLower());
 
+                if (existingTag != null)
+                {
+                    return (false, existingTag);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
             await dbContext.Tags.AddAsync(tag);
             await dbContext.SaveChangesAsync();
 
@@ -30,24 +37,24 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<Tag?> DeleteAsync(Guid id)
         {
-            var exestingTag = await dbContext.Tags
+            var existingTag = await dbContext.Tags
                .Include(t => t.ArticleTags)
                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (exestingTag is null)
+            if (existingTag is null)
             {
                 return null;
             }
 
-            if (exestingTag.ArticleTags != null && exestingTag.ArticleTags.Any())
+            if (existingTag.ArticleTags != null && existingTag.ArticleTags.Any())
             {
-                return exestingTag;
+                return existingTag;
             }
 
-            dbContext.Tags.Remove(exestingTag);
+            dbContext.Tags.Remove(existingTag);
             await dbContext.SaveChangesAsync();
 
-            return exestingTag;
+            return existingTag;
         }
 
         public async Task<IEnumerable<Tag>> GetAllAsync()
@@ -60,18 +67,28 @@ namespace MindBodySoul.Repositories.Implementation
             return await dbContext.Tags.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<Tag?> UpdateAsync(Tag tag)
+        public async Task<(bool isUpdated, Tag? Tag)> UpdateAsync(Tag tag)
         {
-            var existingTag = await dbContext.Tags.FirstOrDefaultAsync(x => x.Id == tag.Id);
-            
-            if (existingTag != null)
+            var currentTag = await dbContext.Tags
+               .Include(t => t.ArticleTags)
+                .FirstOrDefaultAsync(x => x.Id == tag.Id);
+
+            if (currentTag == null)
             {
-                dbContext.Entry(tag).CurrentValues.SetValues(tag);
-                await dbContext.SaveChangesAsync();
-                return tag;
+                return (false, null);
             }
 
-            return null;
+            var existingTag  = await dbContext.Tags
+                  .FirstOrDefaultAsync(t => t.Name.ToLower() == tag.Name.ToLower());
+
+            if (existingTag != null)
+            {
+                return (false, existingTag);
+            }
+
+            dbContext.Entry(currentTag).CurrentValues.SetValues(tag);
+            await dbContext.SaveChangesAsync();
+            return (true, tag);
         }
     }
 }

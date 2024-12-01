@@ -8,11 +8,11 @@ namespace MindBodySoul.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TagController : Controller
+    public class TagsController : Controller
     {
         private readonly ITagRepository tagRepository;
 
-        public TagController(ITagRepository tagRepository)
+        public TagsController(ITagRepository tagRepository)
         {
             this.tagRepository = tagRepository;
         }
@@ -29,7 +29,7 @@ namespace MindBodySoul.Controllers
 
             var result = await tagRepository.CreateAsync(tag);
 
-            if (result.isCreated)
+            if (!result.isCreated)
             {
               return BadRequest($"Тагът '{result.Tag?.Name}' съществува!");
             } 
@@ -60,7 +60,7 @@ namespace MindBodySoul.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> GetTagById([FromBody] Guid id)
+        public async Task<IActionResult> GetTagById([FromRoute] Guid id)
         {
             var tag = await tagRepository.GetById(id);
 
@@ -89,17 +89,23 @@ namespace MindBodySoul.Controllers
                 Name = request.Name
             };
 
-            tag = await tagRepository.UpdateAsync(tag);
+            var  result = await tagRepository.UpdateAsync(tag);
 
-            if (tag == null)
+            if (result.Tag == null)
             {
                 return NotFound();
             }
 
+            if (!result.isUpdated)
+            {
+                return BadRequest($"Тагът '{result.Tag?.Name}' съществува!");
+
+            }
+
             var response = new TagDto
             {
-                Id = tag.Id,
-                Name = tag.Name
+                Id = result.Tag.Id,
+                Name = result.Tag.Name
             };
 
             return Ok(response);

@@ -17,10 +17,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (token && user) {
     token = token.replace('Bearer ', '');
     const decodenToken: any = jwtDecode(token);
-
+    
     //Check if token is expired
     const expirationDate = decodenToken.exp * 1000;
     const currentTime = new Date().getTime();
+    
     if (expirationDate < currentTime) {
       authService.logout();
       return router.createUrlTree(['/login'], {

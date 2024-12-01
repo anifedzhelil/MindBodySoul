@@ -232,9 +232,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.TagController",
+    "ContainingType": "MindBodySoul.Controllers.TagsController",
     "Method": "CreateTag",
-    "RelativePath": "api/Tag",
+    "RelativePath": "api/Tags",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -248,9 +248,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.TagController",
+    "ContainingType": "MindBodySoul.Controllers.TagsController",
     "Method": "GetAllTags",
-    "RelativePath": "api/Tag",
+    "RelativePath": "api/Tags",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -258,9 +258,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.TagController",
+    "ContainingType": "MindBodySoul.Controllers.TagsController",
     "Method": "GetTagById",
-    "RelativePath": "api/Tag/{id}",
+    "RelativePath": "api/Tags/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -269,19 +269,14 @@
         "Name": "id",
         "Type": "System.Guid",
         "IsRequired": true
-      },
-      {
-        "Name": "id",
-        "Type": "",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.TagController",
+    "ContainingType": "MindBodySoul.Controllers.TagsController",
     "Method": "EditTag",
-    "RelativePath": "api/Tag/{id}",
+    "RelativePath": "api/Tags/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -300,9 +295,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.TagController",
+    "ContainingType": "MindBodySoul.Controllers.TagsController",
     "Method": "DeleteTag",
-    "RelativePath": "api/Tag/{id}",
+    "RelativePath": "api/Tags/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

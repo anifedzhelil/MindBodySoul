@@ -35,7 +35,7 @@ export class AddSubCategoryComponent implements OnInit {
     this.addSubCategorySubscrision = this.subCategoryService
       .addCategory(this.model)
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.router.navigateByUrl('/admin/subcategories');
         },
         error: (err) => {

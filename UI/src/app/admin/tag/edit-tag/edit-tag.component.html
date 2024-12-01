@@ -1,0 +1,30 @@
+<div class="modal" *ngIf="isHidden">
+    <div class="modal-content">
+      <form #form="ngForm">
+        <div>
+          <label for="name"> Редактирай таг</label>
+        </div>
+        <div>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            name="name"
+            [(ngModel)]="model.name"
+          />
+        </div>
+        <div class="button-group">
+          <div>
+            <input type="button" (click)="onSubmit()" value="Запази" />
+          </div>
+          <div>
+            <input type="button" value="Откажи" (click)="onCancel()"/>
+          </div>
+        </div>
+        <div>
+          <span class="error">{{ errorMessage }}</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  

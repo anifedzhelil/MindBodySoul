@@ -1,0 +1,19 @@
+@import "/src/app/shared/styles/table.css";
+
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .title {
+    justify-content: right;
+    display: flex;
+  }
+  
+  .list {
+    flex: 0 0 80%;
+  }
+  
+  

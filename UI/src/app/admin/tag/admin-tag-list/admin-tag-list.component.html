@@ -1,0 +1,60 @@
+<app-global-loader></app-global-loader>
+<div class="container">
+  <div class="list">
+    <div class="title">
+      <input type="submit" value="Добави таг" (click)="addTag()" />
+    </div>
+    <ng-container *ngIf="tags">
+      <table>
+        <thead>
+          <tr>
+            <th>Име</th>
+            <th>Категория</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of tags">
+            <th class="text-content">{{ tag.name }}</th>
+            <th class="text-content">0</th>
+            <th class="text-content">
+              <a
+                class="editIcon"
+                (click)="onUpdate(tag.id)"
+              >
+                <fa-icon [icon]="faPenToSquare"></fa-icon>
+              </a>
+              <a>
+                <fa-icon [icon]="faTrashCan" (click)="onDelete(tag.id)"></fa-icon>
+              </a>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+</div>
+
+<app-delete-conformation
+  (delete)="handleDelete()"
+  (cancel)="handleCancel()"
+  [isHidden]="hideDeleteConformation"
+></app-delete-conformation>
+<app-add-tag 
+(submit)="onSubmit()"
+(cancel)="onCancel()"
+[isHidden]="hideAddForm"
+></app-add-tag>
+
+<app-edit-tag 
+(submit)="onUpdateSubmit()"
+
+(cancel)="onUpdateCancel()"
+[tagId]="tagId"
+[isHidden]="hideUpdateForm"
+></app-edit-tag>
+<!--app-error-message
+  [isHidden]="hideMessageError"
+  [errorMessage]="errorMessage"
+  (close)="handleClose()"
+></app-error-message-->
