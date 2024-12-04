@@ -17,3 +17,7 @@ form {
     flex-shrink: 1;
     padding-top: 1.5em;
   }
+
+  .error{
+    color: red;
+  }

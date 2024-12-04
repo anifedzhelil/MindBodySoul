@@ -1,0 +1,31 @@
+<form #form="ngForm">
+    <h2>Добави категория</h2>
+    <div class="field">
+        <label for="title">Заглавие</label>
+        <input type="text" id="title">
+    </div>
+    <div class="field">
+        <label for="category">Категория</label>
+        <select  id="category"></select>
+    </div>
+    <div class="field">
+        <label for="subCategory"></label>
+        <select  id="subCategory"></select>
+    </div>
+    <!--div class="field">
+        <label for="content">Съдържание</label>
+        <quill-editor
+            name="content"
+            [modules]="editorModules"
+            >
+        </quill-editor>
+    </div-->
+    <div class="field">
+        <label for="image">Снимка</label>
+        <input type="file"  name="image">
+    </div>
+    <div class="field">
+        <label for="tags">Тагове</label>
+        <select name="tags"></select>
+    </div>
+</form>

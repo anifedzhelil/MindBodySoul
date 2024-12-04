@@ -8,10 +8,12 @@ D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.pdb
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Azure.Core.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Azure.Identity.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Humanizer.dll
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
@@ -140,11 +142,9 @@ D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\staticwebassets\ms
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MindBodySoul.props
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\staticwebassets.pack.json
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\scopedcss\bundle\MindBodySoul.styles.css
+D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBody.546EC580.Up2Date
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\refint\MindBodySoul.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.pdb
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.genruntimeconfig.cache
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\ref\MindBodySoul.dll
-D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBody.546EC580.Up2Date
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll

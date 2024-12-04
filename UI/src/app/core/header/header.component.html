@@ -8,6 +8,7 @@
         <ul>
           <ng-container *ngIf="user !== undefined  && user?.roles?.includes('Writer')">
             <li><a [routerLink]="'/admin'">Админ</a></li>
+            <li><a [routerLink]="'/add-article'">Добави статия</a></li>
           </ng-container>
           <li><a href="">Начална страница</a></li>
           <li><a href="">Категории</a></li>

@@ -17,8 +17,8 @@ export class AddCategoryComponent implements OnDestroy {
   private file?: File;
 
   ngOnInit(): void {
-    console.log('add category');
   }
+  
   constructor(
     private categoryService: CategoryService,
     private cloudinaryService: CloudinaryService,

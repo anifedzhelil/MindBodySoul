@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm">
+<form [formGroup]="form" (ngSubmit)="register()">
   <h2>Регистрация</h2>
   <div class="field">
     <label for="userName">Потребителско име</label>
@@ -6,16 +6,14 @@
       type="text"
       id="userName"
       name="userName"
-      ngModel
-      formControlName="email"
+      formControlName="userName"
     />
   </div>
-
-  <div *ngIf="registerForm.get('userName')?.touched">
-    <div *ngIf="registerForm.get('userName')?.errors?.['required']">
+  <ng-container *ngIf="userName?.touched">
+    <div class="error" *ngIf="userNameErrors?.['required']">
       Въведете потребителско име!
     </div>
-  </div>
+  </ng-container>
 
   <div class="field">
     <label for="email">Имейл</label>
@@ -23,46 +21,61 @@
       type="text"
       id="email"
       name="email"
-      ngModel
       formControlName="email"
     />
   </div>
 
-  <div *ngIf="registerForm.get('email')?.touched">
-    <div *ngIf="registerForm.get('email')?.errors?.['required']">
-      Въведетет имейл!
+  <ng-container *ngIf="email?.touched">
+    <div class="error" *ngIf="emailErrors?.['required']">Въведете имейл!</div>
+    <div class="error" *ngIf="emailErrors?.['email']">
+      Въведете коректен имейл!
     </div>
-    <div *ngIf="registerForm.get('email')?.errors?.['email']">
-      Невалиден имейл!
+  </ng-container>
+
+  <ng-container formGroupName="passGroup">
+    <div class="field">
+      <label for="password">Парола</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      />
     </div>
-  </div>
+    <ng-container *ngIf="password?.touched">
+      <div class="error" *ngIf="passwordErrors?.['required']">
+        Въведете парола!
+      </div>
+      <div class="error" *ngIf="passwordErrors?.['appPasswordValidator']">
+        Паролата трябва да е минимум 6 символа, с поне една главна и една малка
+        буква!
+      </div>
+    </ng-container>
 
-  <div class="field">
-    <label for="password">Парола</label>
-    <input
-      type="text"
-      id="password"
-      name="password"
-      formControlName="password"
-    />
-  </div>
-
-  <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
-    Невалидна парола, паролата трябва да бъде по-дълга от
-    {{ registerForm.get('password')?.errors?.['maxlength'].requiredLength}}
-  </div>
-
-  <div class="field">
-    <label for="repeatPassword">Повтори парола</label>
-    <input
-      type="text"
-      id="repeatPassword"
-      name="repeatPassword"
-      formControlName="repeatPassword"
-    />
-  </div>
+    <div class="field">
+      <label for="repeatPassword">Повтори парола</label>
+      <input
+        type="password"
+        id="repeatPassword"
+        name="repeatPassword"
+        formControlName="repeatPassword"
+      />
+    </div>
+    <ng-container *ngIf="form.get('passGroup')?.get('repeatPassword')?.touched">
+      <div
+        class="error"
+        *ngIf="repeatPasswordErrors?.['matchPasswordsValidator'] || repeatPasswordErrors?.['required']"
+      >
+        Двете пароли трябва да съвпаднат!
+      </div>
+    </ng-container>
+  </ng-container>
 
   <div class="field">
     <input type="submit" class="submit" value="Регистрирай се" />
   </div>
+  <div class="field center">
+    <span>Имате ли профил? <a [routerLink]="'/login'">Вход</a></span>
+  </div>
+  <div>{{ errorMessage }}</div>
 </form>

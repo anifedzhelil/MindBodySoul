@@ -54,9 +54,23 @@ namespace MindBodySoul.Controllers
 
         //Post: {apibaseurl/api/auth/register}
         [HttpPost]
-        [Route("register")]
+        [Route("register")] 
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
+            var existingUser = await userManager.FindByNameAsync(request.UserName);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("UserName", "Потребителското име е заето.");
+                return ValidationProblem(ModelState);
+            }
+
+            var existingUserByEmail = await userManager.FindByEmailAsync(request.Email.Trim());
+            if (existingUserByEmail != null)
+            {
+                ModelState.AddModelError("Email", "Съществува потребител с този имейл.");
+                return ValidationProblem(ModelState);
+            }
+
             var user = new IdentityUser
             {
                 UserName = request.UserName.Trim(),
