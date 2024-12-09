@@ -8,13 +8,13 @@ namespace MindBodySoul.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArticleController : Controller
+    public class ArticlesController : Controller
     {
 
         private readonly IArticleRepository articleRepository;
         private readonly IArticleTagRepository articleTagRepository;
 
-        public ArticleController(IArticleRepository articleRepository, IArticleTagRepository articleTagRepository)
+        public ArticlesController(IArticleRepository articleRepository, IArticleTagRepository articleTagRepository)
         {
             this.articleRepository = articleRepository;
             this.articleTagRepository = articleTagRepository;

@@ -34,7 +34,7 @@ import { EditTagComponent } from './tag/edit-tag/edit-tag.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FontAwesomeModule, // Ensure this is added to the imports array
+FontAwesomeModule,
     RouterModule,
     FormsModule,
     SharedModule,

@@ -3,11 +3,10 @@
     public class SubCategoryDto
     {
         public Guid Id { get; set; }
-        public required Guid CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public required string Name { get; set; }
-        public required string UrlHandle { get; set; }
-        public required string Icon { get; set; }
+        public string? UrlHandle { get; set; }
+        public string? Icon { get; set; }
         public Category? Category { get; set; }
-
     }
 }

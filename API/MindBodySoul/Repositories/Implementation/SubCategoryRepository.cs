@@ -8,19 +8,16 @@ namespace MindBodySoul.Repositories.Implementation
     public class SubCategoryRepository : ISubCategoryRepository
     {
         private readonly ApplicationDbContext dbContext;
-
         public SubCategoryRepository(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-
         public async Task<SubCategory> CreateAsync(SubCategory subCategory)
         {
             object value = await dbContext.SubCategories.AddAsync(subCategory);
             await dbContext.SaveChangesAsync();
             return subCategory;
         }
-
         public async Task<IEnumerable<SubCategory>> GetAllAsync()
         {
             var subCategories = await dbContext.SubCategories.Include(x => x.Category)
@@ -37,7 +34,6 @@ namespace MindBodySoul.Repositories.Implementation
 
             return subCategories;
         }
-
         public async Task<SubCategory?> GetById(Guid Id)
         {
             return await dbContext.SubCategories.FirstOrDefaultAsync(c => c.Id == Id);
@@ -54,7 +50,6 @@ namespace MindBodySoul.Repositories.Implementation
 
             return null;
         }
-
         public async Task<SubCategory?> DeleteAsync(Guid id)
         {
             var existingSubCategory = await dbContext.SubCategories.FirstOrDefaultAsync(x => x.Id == id);
@@ -67,6 +62,14 @@ namespace MindBodySoul.Repositories.Implementation
             await dbContext.SaveChangesAsync();
 
             return existingSubCategory;
+        }
+        public async Task<IEnumerable<SubCategory>> GetByCategoryId(Guid categoryId)
+        {
+            var subCategories = await dbContext.SubCategories
+                .Where(x => x.CategoryId == categoryId)
+                .ToListAsync();
+
+            return subCategories;
         }
     }
 }

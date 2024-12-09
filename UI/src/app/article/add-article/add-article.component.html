@@ -1,31 +1,132 @@
-<form #form="ngForm">
-    <h2>Добави категория</h2>
-    <div class="field">
-        <label for="title">Заглавие</label>
-        <input type="text" id="title">
-    </div>
-    <div class="field">
-        <label for="category">Категория</label>
-        <select  id="category"></select>
-    </div>
-    <div class="field">
-        <label for="subCategory"></label>
-        <select  id="subCategory"></select>
-    </div>
-    <!--div class="field">
-        <label for="content">Съдържание</label>
-        <quill-editor
-            name="content"
-            [modules]="editorModules"
-            >
-        </quill-editor>
-    </div-->
-    <div class="field">
-        <label for="image">Снимка</label>
-        <input type="file"  name="image">
-    </div>
-    <div class="field">
-        <label for="tags">Тагове</label>
-        <select name="tags"></select>
-    </div>
+<form #form="ngForm" (submit)="addArticleSubmit(form)">
+  <h2>Добави статия</h2>
+  <div class="field">
+    <label for="title">Заглавие *</label>
+    <input
+      type="text"
+      name="title"
+      id="title"
+      [(ngModel)]="article.title"
+      #inputTitle="ngModel"
+      required
+    />
+    <ng-container *ngIf="inputTitle.touched">
+      <p class="error" *ngIf="inputTitle.errors?.['required']">
+        Въведете заглавие!
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="field">
+    <label for="category">Категория *</label>
+    <select
+      name="category"
+      id="category"
+      ngModel
+      #categorySelect="ngModel"
+      required
+      (change)="onCategoryChange($event)"
+    >
+      <option value="" disabled>Изберете категория</option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+
+  <ng-container *ngIf="categorySelect.touched">
+    <p class="error" *ngIf="categorySelect.errors?.['required']">
+      Изберете категория!
+    </p>
+  </ng-container>
+
+  <div class="field">
+    <label for="subCategory">Подкатегория *</label>
+    <select
+      id="subCategory"
+      name="subCategory"
+      [(ngModel)]="article.subCategoryId"
+      #subCategorySelect="ngModel"
+      required
+    >
+    <option value="" disabled>Изберете подкатегория</option>
+      <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
+        {{ subCategory.name }}
+      </option>
+    </select>
+   </div>
+
+   <ng-container *ngIf="subCategorySelect.touched">
+    <p class="error" *ngIf="subCategorySelect.errors?.['required']">
+      Изберете подкатегория!
+    </p>
+  </ng-container>
+
+  <div class="field">
+    <label for="tags">Тагове</label>
+    <select2
+      [data]="tags"
+      id="tags"
+      name="tags"
+      (update)="onTagsUpdate($event)"
+      ngModel
+      [multiple]="true"
+      placeholder="Select tags"
+    >
+    </select2>
+  </div>
+
+  <div class="field">
+    <label for="content">Съдържание *</label>
+  </div>
+  <div class="NgxEditor__Wrapper editor">
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor
+      name="content"
+      id="content"
+      [editor]="editor"
+      [(ngModel)]="article.content"
+      [disabled]="false"
+      [placeholder]="'Type here...'"
+      required
+      #contentEditor="ngModel"
+      minlength="150"
+    ></ngx-editor>
+  </div>
+  <div class="field">
+    <ng-container *ngIf="contentEditor.touched">
+      <p class="error" *ngIf="contentEditor.errors?.['required']">
+        Полето не може да бъде празно!
+      </p>
+      <p class="error" *ngIf="contentEditor.errors?.['minlength']">
+        Въведете най-малко 150 символа!
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="field">
+    <label for="image">Снимка *</label>
+    <img *ngIf="previewUrl" [src]="previewUrl" alt="Article Image" on />
+    <input
+      type="file"
+      name="image"
+      ngModel
+      #fileInput="ngModel"
+      (change)="onFileUploadChange($event)"
+      required
+    />
+  </div>
+  <ng-container *ngIf="fileInput.touched">
+    <p class="error" *ngIf="!selectedFile">Моля, изберете снимка!</p>
+  </ng-container>
+  
+  <div class="field">
+    <input type="submit" value="Запази" />
+  </div>
+  
+  <ng-container *ngIf="errorMessage!==''">
+    <p class="error">
+      {{errorMessage}}
+    </p>
+  </ng-container>
 </form>

@@ -7,10 +7,8 @@ namespace MindBodySoul.Repositories.Interface
         Task<SubCategory> CreateAsync(SubCategory subCategory);
         Task<SubCategory> UpdateAsync(SubCategory subCategory);
         Task<SubCategory> DeleteAsync(Guid id);       
-
         Task<IEnumerable<SubCategory>> GetAllAsync();
-
         Task<SubCategory?> GetById(Guid id);
-
+        Task<IEnumerable<SubCategory>> GetByCategoryId(Guid categoryId);
     }
 }

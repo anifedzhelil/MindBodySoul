@@ -2,4 +2,14 @@
 
 form{
     max-width: 50%;;
+    margin-bottom: 15px;
+}
+
+.editor{
+    height: 300px;
+    overflow-y: auto;
+}
+
+img{
+    width: 150px;
 }

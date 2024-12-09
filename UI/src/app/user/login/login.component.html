@@ -14,8 +14,12 @@
   </div>
 
   <div *ngIf="emailInput.touched">
-    <div *ngIf="emailInput.errors?.['required']">Въведете имейл!</div>
-    <div *ngIf="emailInput.errors?.['email']">Невалиден имейл!</div>
+    <div class="error" *ngIf="emailInput.errors?.['required']">
+      Въведете имейл!
+    </div>
+    <div class="error" *ngIf="emailInput.errors?.['email']">
+      Невалиден имейл!
+    </div>
   </div>
   <div class="field">
     <label for="password">Парола</label>
@@ -26,16 +30,28 @@
       ngModel
       #passwordInput="ngModel"
       required
+      appPasswordValidator
     />
+    <ng-container *ngIf="passwordInput?.touched">
+      <div class="error" *ngIf="passwordInput?.errors?.['required']">
+        Въведете парола!
+      </div>
+      <div
+        class="error"
+        *ngIf="passwordInput?.errors?.['appPasswordValidator']"
+      >
+        Паролата трябва да е минимум 6 символа, с поне една главна и една малка
+        буква!
+      </div>
+    </ng-container>
   </div>
-  <!-- *ngIf="passwordInput.errors?.['appMaxCount']">
-      Invalid Password, because length is longer than
-      {{ passwordInput.errors?.['appMaxCount']}
-    </div-->
   <div class="field">
-    <input type="submit" class="submit" value="Вход"/>
+    <input type="submit" class="submit" value="Вход" />
   </div>
   <div class="field center">
     <a [routerLink]="'/register'">Регистрирай се!</a>
+    <div class="error">
+      {{ this.errorMessage }}
+    </div>
   </div>
 </form>

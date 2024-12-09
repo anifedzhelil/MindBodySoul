@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "MindBodySoul.Controllers.ArticleController",
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
     "Method": "CreateArticle",
-    "RelativePath": "api/Article",
+    "RelativePath": "api/Articles",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -16,9 +16,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.ArticleController",
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
     "Method": "GetAllArticles",
-    "RelativePath": "api/Article",
+    "RelativePath": "api/Articles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -26,9 +26,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MindBodySoul.Controllers.ArticleController",
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
     "Method": "GetArticleById",
-    "RelativePath": "api/Article/{id}",
+    "RelativePath": "api/Articles/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -225,6 +225,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.SubCategoriesController",
+    "Method": "GetSubCategoriesByCategoryId",
+    "RelativePath": "api/SubCategories/Category/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
         "Type": "System.Guid",
         "IsRequired": true
       }

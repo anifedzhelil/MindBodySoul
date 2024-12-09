@@ -18,10 +18,13 @@ export class LoginComponent {
     private router: Router
   ) {}
 
+  errorMessage: string| undefined="";
+
   submitHandler(): void {
     if (!this.loginForm) return;
 
     if (this.loginForm.invalid) {
+      this.errorMessage = "Въведете коректен имейл адрес и парола!";
       return;
     }
 
@@ -40,11 +43,15 @@ export class LoginComponent {
  
         this.authService.setUser({
           username: response.userName,
-          roles: response.roles
+          roles: response.roles,
+          userId: response.userId
         })
 
         this.router.navigateByUrl('/');
       },
+      error: (err) =>   {
+        this.errorMessage = "Имейл адресът или паролата са грешни!";        
+      }
     });
   }
 

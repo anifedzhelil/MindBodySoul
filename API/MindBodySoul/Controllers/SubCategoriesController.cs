@@ -47,8 +47,8 @@ namespace MindBodySoul.Controllers
         }
 
 
-        [HttpGet]
-        [Route("{id:Guid}")]
+        [HttpGet("{id:Guid}")]
+
         public async Task<IActionResult> GetSubCategoryById([FromRoute] Guid id)
         {
             var subCategory = await subCategoryRepository.GetById(id);
@@ -90,6 +90,28 @@ namespace MindBodySoul.Controllers
                     Icon =  subCategory.Icon,
                     CategoryId = subCategory.CategoryId
                     
+                });
+            }
+
+            return Ok(response);
+        }
+
+      
+        [HttpGet("Category/{categoryId:Guid}")]
+
+        public async Task<IActionResult> GetSubCategoriesByCategoryId([FromRoute] Guid categoryId)
+        {
+            var subCategories = await subCategoryRepository.GetByCategoryId(categoryId);
+
+            //map domain method to Dto
+
+            var response = new List<SubCategoryDto>();
+            foreach (var subCategory in subCategories)
+            {
+                response.Add(new SubCategoryDto
+                {
+                    Id = subCategory.Id,
+                    Name = subCategory.Name,
                 });
             }
 

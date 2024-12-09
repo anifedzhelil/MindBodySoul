@@ -61,10 +61,10 @@
         formControlName="repeatPassword"
       />
     </div>
-    <ng-container *ngIf="form.get('passGroup')?.get('repeatPassword')?.touched">
+    <ng-container *ngIf="repeatPassword?.touched">
       <div
         class="error"
-        *ngIf="repeatPasswordErrors?.['matchPasswordsValidator'] || repeatPasswordErrors?.['required']"
+        *ngIf="repeatPasswordErrors?.['matchPasswordsValidator']"
       >
         Двете пароли трябва да съвпаднат!
       </div>

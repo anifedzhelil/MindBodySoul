@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "6cRGs4JVMjU1XUCBcpM/lz0hE/R9pbFTvGktABzyRQU=",
+  "Hash": "bFgPWxJZyIG5SOR9dZeyXgJCJMFiVHr+pF2dNfNKAcA=",
   "Source": "MindBodySoul",
   "BasePath": "_content/MindBodySoul",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

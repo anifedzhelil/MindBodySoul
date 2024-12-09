@@ -50,12 +50,17 @@ export class RegisterComponent {
     return this.passGroup?.get('password');
   }
 
+  get repeatPassword() {
+    return this.passGroup?.get('repeatPassword');
+  }
+
+
   get passwordErrors() {
-    return this.passGroup?.get('password')?.errors;
+    return this.password?.errors;
   }
 
   get repeatPasswordErrors() {
-    return this.passGroup?.get('repeatPassword')?.errors;
+    return this.repeatPassword?.errors;
   }
 
   constructor(

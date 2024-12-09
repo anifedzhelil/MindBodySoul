@@ -12,8 +12,15 @@ import {
   faMortarPestle,
   faBrain,
   faXmark,
+  faFishFins,
   IconDefinition,
+  faBowlRice,
+  faBottleDroplet,
+  faHandHoldingDroplet,
+  faHotTubPerson,
+  faHandsHoldingCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { faPagelines } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-awesome-icons',
@@ -21,9 +28,9 @@ import {
   styleUrls: ['./awesome-icons.component.css'],
 })
 export class AwesomeIconsComponent {
-  @Input() selectedIcon: string  = 'faXmark';
-  
-  icons= {
+  @Input() selectedIcon: string = 'faXmark';
+
+  icons = {
     faHeart: faHeart,
     faLeaf: faLeaf,
     faAppleAlt: faAppleAlt,
@@ -35,9 +42,16 @@ export class AwesomeIconsComponent {
     faFire: faFire,
     faMortarPestle: faMortarPestle,
     faBrain: faBrain,
+    faPagelines: faPagelines,
+    faFishFins: faFishFins,
+    faBowlRice: faBowlRice,
+    faBottleDroplet: faBottleDroplet,
+    faHandHoldingDroplet: faHandHoldingDroplet,
+    faHotTubPerson: faHotTubPerson,
+    faHandsHoldingCircle: faHandsHoldingCircle,
   };
 
-  getIcon(iconKey: string): IconDefinition  {
+  getIcon(iconKey: string): IconDefinition {
     return this.icons[iconKey as keyof typeof this.icons] || faXmark;
   }
 }

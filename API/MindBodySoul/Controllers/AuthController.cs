@@ -38,6 +38,7 @@ namespace MindBodySoul.Controllers
 
                     var response = new LoginResponseDto()
                     {
+                        UserId = identityUser.Id,
                         UserName = identityUser.UserName ?? "",
                         Roles = roles.ToList(),
                         Token = jwtToken

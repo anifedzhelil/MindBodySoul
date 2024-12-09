@@ -18,6 +18,12 @@ export class SubCategoryService {
     );
   }
 
+  getSubCategoriesByCategoryId(categoryId: string): Observable<SubCategory[]> {
+    return this.http.get<SubCategory[]>(
+      `${environment.apiBaseUrl}/api/subcategories/Category/${categoryId}`
+    );
+  }
+
   getSubCategoryById(id: string): Observable<SubCategory> {
     return this.http.get<SubCategory>(
       `${environment.apiBaseUrl}/api/subcategories/${id}`
