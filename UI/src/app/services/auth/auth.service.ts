@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginRequest } from 'src/app/models/user/login-request.model';
 import { RegisterRequest } from 'src/app/models/user/register-request.model';
@@ -15,7 +16,7 @@ export class AuthService {
   );
   user$ = this.user$$.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   login(request: LoginRequest): Observable<User> {
     return this.http
@@ -28,8 +29,17 @@ export class AuthService {
             userId: response.userId,
             token: response.token,
           };
-          console.log("log", user);
           this.setUser(user);
+
+          this.cookieService.set(
+            'Authorization',
+            `Bearer ${response.token}`,
+            undefined,
+            '/', 
+            undefined,
+            true, 
+            'Strict'
+          );
         })
       );
   }
@@ -52,6 +62,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('user');
+    this.cookieService.delete('Authorization', '/');
     this.user$$.next(undefined);
   }
   
