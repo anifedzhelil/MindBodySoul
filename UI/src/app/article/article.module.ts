@@ -6,11 +6,13 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { Select2Module } from 'ng-select2-component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ArticlesListComponent } from './articles-list/articles-list.component';
 
 
 @NgModule({
   declarations: [
-    AddArticleComponent
+    AddArticleComponent,
+    ArticlesListComponent
   ],
   
   imports: [

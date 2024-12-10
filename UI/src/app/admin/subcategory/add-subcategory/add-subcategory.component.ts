@@ -18,7 +18,7 @@ export class AddSubCategoryComponent implements OnInit {
   model: AddSubCategoryRequest = {
     name: '',
     categoryId: '',
-    urlHandle: '',
+    urlHandle: 'urlHandle',
     icon: '',
   };
 

@@ -45,7 +45,7 @@ export class EditSubCategoryComponent implements OnInit {
   onFormSubmit(): void {
     const updateSubCategoryRequest: UpdateSubCategoryRequest = {
       name: this.subCategory?.name ?? '',
-      UrlHandle: this.subCategory?.urlHandle ?? '',
+      UrlHandle: 'UrlHandle',
       icon: this.subCategory?.icon ?? '',
       categoryId: this.subCategory?.categoryId ?? '',
     };

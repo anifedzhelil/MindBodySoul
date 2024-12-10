@@ -11,7 +11,7 @@
             <tr>
               <th>Име</th>
               <th>Категория</th>
-              <th>URL-handle</th>
+              <!--th>URL-handle</th-->
               <th>Икона</th>
               <th></th>
             </tr>
@@ -20,7 +20,7 @@
             <tr *ngFor="let subCategory of subCategories">
               <th class="text-content">{{ subCategory.name }}</th>
               <th class="text-content">{{ subCategory.category.name }}</th>
-              <th class="text-content">{{ subCategory.urlHandle }}</th>
+              <!--th class="text-content">{{ subCategory.urlHandle }}</th-->
               <th>
                 <app-awesome-icons [selectedIcon]="subCategory.icon"></app-awesome-icons>
               </th>

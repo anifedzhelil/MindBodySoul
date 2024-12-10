@@ -12,11 +12,17 @@ import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.servic
   styleUrls: ['./edit-category.component.css'],
 })
 export class EditCategoryComponent implements OnInit {
-  category?: Category;
+  category: Category = {
+    name: '',
+    image: '',
+    urlHandle: '',
+    id: ' '
+  };
   editCategorySubscription?: Subscription;
   id: string | null = null;
   previewUrl: string | null = null;
   file: File | null = null;
+  categoryNotFound: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,11 +39,16 @@ export class EditCategoryComponent implements OnInit {
           this.categoryService.getCategoryById(this.id).subscribe({
             next: (response) => {
               this.category = response;
+              this.categoryNotFound = false;
             },
+            error: (err) =>{
+              this.categoryNotFound = true;
+            }
           });
         }
       },
     });
+
   }
 
   onFormSubmit(): void {

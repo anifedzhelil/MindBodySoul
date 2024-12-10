@@ -14,7 +14,8 @@ export class AddCategoryComponent implements OnDestroy {
   model: AddCategoryRequest;
 
   private addCategorySubscrision?: Subscription;
-  private file?: File;
+  previewUrl: string | null = null;
+  file?: File;
 
   ngOnInit(): void {
   }
@@ -40,6 +41,7 @@ export class AddCategoryComponent implements OnDestroy {
         .uploadImage(this.file)
         .subscribe((response: any) => {
           this.model.image = response.secure_url;
+          this.model.urlHandle = 'urlHandle';
 
           this.addCategorySubscrision = this.categoryService
             .addCategory(this.model)
@@ -57,6 +59,11 @@ export class AddCategoryComponent implements OnDestroy {
 
   onFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
+    if (element.files && element.files.length > 0) {
     this.file = element.files?.[0];
+    this.previewUrl = URL.createObjectURL(this.file);
+  } else {
+    this.file = undefined;
+  }
   }
 }
