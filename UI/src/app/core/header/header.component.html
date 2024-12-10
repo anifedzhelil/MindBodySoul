@@ -6,7 +6,7 @@
     <div class="navbar">
       <nav>
         <ul>
-          <ng-container *ngIf="user !== undefined  && user?.roles?.includes('Writer')">
+          <ng-container *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
             <li><a [routerLink]="'/admin'">Админ</a></li>
             <li><a [routerLink]="'/add-article'">Добави статия</a></li>
           </ng-container>
@@ -26,7 +26,7 @@
       <a [routerLink]="'/login'">Вход</a>
     </ng-container>
     <ng-template #showLogout>
-      <a name="username" id="username">{{ this.user?.username }}</a>
+      <a name="username" id="username">{{ this.user?.userName }}</a>
       <a (click)="onLogout()">Изход</a>
     </ng-template>
   </div>

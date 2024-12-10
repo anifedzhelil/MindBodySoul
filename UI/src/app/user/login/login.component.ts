@@ -1,24 +1,25 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
+  errorMessage: string| undefined="";
+  private subscription: Subscription | undefined;
 
   constructor(
     private authService: AuthService,
-    private cookieService: CookieService,
     private router: Router
   ) {}
 
-  errorMessage: string| undefined="";
 
   submitHandler(): void {
     if (!this.loginForm) return;
@@ -29,31 +30,21 @@ export class LoginComponent {
     }
 
     const value: { email: string; password: string } = this.loginForm.value;
-    this.authService.login(value).subscribe({
-      next: (response) => {
-        this.cookieService.set(
-          'Authorization',
-          `Bearer ${response.token}`,
-          undefined,
-          '/',
-          undefined,
-          true,
-          'Strict'
-        );
- 
-        this.authService.setUser({
-          username: response.userName,
-          roles: response.roles,
-          userId: response.userId
-        })
 
+    this.subscription = this.authService.login(value).subscribe({
+      next: () => {
+        // Навигация към началната страница след успешен вход
         this.router.navigateByUrl('/');
       },
-      error: (err) =>   {
-        this.errorMessage = "Имейл адресът или паролата са грешни!";        
-      }
+      error: () => {
+        this.errorMessage = 'Имейл адресът или паролата са грешни!';
+      },
     });
   }
 
-
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

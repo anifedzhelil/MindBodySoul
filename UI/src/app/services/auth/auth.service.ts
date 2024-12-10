@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginRequest } from 'src/app/models/user/login-request.model';
-import { LoginResponse } from 'src/app/models/user/login-response.model';
 import { RegisterRequest } from 'src/app/models/user/register-request.model';
 import { User } from 'src/app/models/user/user.module';
 import { environment } from 'src/environments/environment.development';
@@ -12,15 +10,37 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class AuthService {
-  $user = new BehaviorSubject<User | undefined>(undefined);
+  private user$$ = new BehaviorSubject<User | undefined>(
+    this.getUserFromLocalStorage()
+  );
+  user$ = this.user$$.asObservable();
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient) {}
 
-  login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(
-      `${environment.apiBaseUrl}/api/auth/login`,
-      request
-    );
+  login(request: LoginRequest): Observable<User> {
+    return this.http
+      .post<User>(`${environment.apiBaseUrl}/api/auth/login`, request)
+      .pipe(
+        tap((response) => {
+          const user: User = {
+            userName: response.userName,
+            roles: response.roles,
+            userId: response.userId,
+            token: response.token,
+          };
+          console.log("log", user);
+          this.setUser(user);
+        })
+      );
+  }
+
+  setUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.user$$.next(user);
+  }
+
+  getUser(): User | undefined {
+    return this.user$$.value;
   }
 
   register(request: RegisterRequest): Observable<any> {
@@ -30,33 +50,13 @@ export class AuthService {
     );
   }
 
-  setUser(user: User): void {
-    this.$user.next(user);
-    localStorage.setItem('user-userId', user.userId);
-    localStorage.setItem('user-username', user.username);
-    localStorage.setItem('user-roles', user.roles.join(','));
-  }
-
-  user(): Observable<User | undefined> {
-    return this.$user.asObservable();
-  }
-
-  getUser(): User | undefined {
-    const username = localStorage.getItem('user-username');
-    const roles = localStorage.getItem('user-roles');
-    const userId = localStorage.getItem('user-userId');
-
-    if (username && roles && userId) {
-      const user: User = { userId:userId, username: username, roles: roles?.split(',') };
-      return user;
-    }
-
-    return undefined;
-  }
-
   logout(): void {
-    localStorage.clear();
-    this.cookieService.delete('Authorization', '/');
-    this.$user.next(undefined);
+    localStorage.removeItem('user');
+    this.user$$.next(undefined);
+  }
+  
+  private getUserFromLocalStorage(): User | undefined {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : undefined;
   }
 }
