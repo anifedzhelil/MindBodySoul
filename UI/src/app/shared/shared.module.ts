@@ -6,6 +6,8 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 import { AwesomeIconsComponent } from './components/awesome-icons/awesome-icons.component';
 import { SpinnerComponent } from './components/spinner/spinner/spinner.component';
 import { PasswordValidatorDirective } from './validators/password/password-validator.directive';
+import { SlicesPipe } from './pipes/slices.pipe';
+import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { PasswordValidatorDirective } from './validators/password/password-valid
     AwesomeIconsComponent,
     SpinnerComponent,
     PasswordValidatorDirective,
+    SlicesPipe,
+    ElapsedTimePipe,
   ],
   imports: [CommonModule, FontAwesomeModule],
   exports: [
@@ -22,6 +26,8 @@ import { PasswordValidatorDirective } from './validators/password/password-valid
     AwesomeIconsComponent,
     SpinnerComponent,
     PasswordValidatorDirective,
+    SlicesPipe,
+    ElapsedTimePipe
   ],
 })
 export class SharedModule {}

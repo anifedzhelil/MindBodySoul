@@ -1,0 +1,11 @@
+    <div class="container">
+        <div *ngIf="article" class="article">
+          <div class="title"><p>{{article.title}}</p></div>
+          <div class="imageContent">
+            <img [src]="article.imageUrl" alt="Article Image" />
+          </div>
+          <div  [innerHTML]="article.content">
+          </div>
+        </div>
+      </div>
+  <div>

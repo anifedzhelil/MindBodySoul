@@ -1,15 +1,20 @@
-<div class="container">
-    <ng-container >
-        <div class="article">
-            <h2></h2>
-            <div class="content">
-                <div>
-
-                </div> 
-                <div>
-                    
-                </div>               
-            </div>
+<div class="main">
+  <div class="container">
+    <div class="articleList" *ngFor="let article of articles">
+      <article>
+        <div class="imageContent">
+          <img [src]="article.imageUrl" alt="Article Image" />
         </div>
-    </ng-container>
+        <div>
+          <div class="title" >
+            <a [routerLink]="[article.id]">{{ article.title }}</a>
+
+          </div>
+
+          <p [innerHTML]="article.content | slices : 300"></p>
+        </div>
+      </article>
+    </div>
+  </div>
 </div>
+<router-outlet> </router-outlet>
