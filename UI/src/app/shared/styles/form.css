@@ -1,23 +1,56 @@
+.form-container {
+  background-color: white;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  padding: 3em;
+  max-width: 600px;
+  margin-top: 20px;
+
+  border-radius: 3px;
+}
 
 form {
-    background-color: white;
-    border: 1px solid #aaa;
-    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
-    margin: 0 auto;
-    padding: 3em;
-    max-width: 450px;
-    margin-top: 20px;
-    border-radius: 3px;
-  }
-  
-  .field {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    flex-shrink: 1;
-    padding-top: 1.5em;
-  }
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
 
-  .error{
-    color: red;
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  flex-shrink: 1;
+  padding-top: 1.5em;
+}
+
+input[type="select"],
+select input[type="text"],
+input[type="password"] {
+  max-width: 100%;
+}
+
+.error {
+  color: red;
+}
+
+@media screen and (max-width: 800px) {
+  .form-container {
+    max-width: 450px;
   }
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    padding: 2em;
+    border: none;
+    box-shadow: none;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  input[type="submit"],
+  input[type="button"] {
+    width: 100%;
+    max-width: 100%;
+  }
+}

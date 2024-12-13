@@ -25,7 +25,7 @@ namespace MindBodySoul.Controllers
         public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequestDto request)
         {
 
-            var article = new Article
+                var article = new Article
             {
                 Title = request.Title,
                 Content = request.Content,
@@ -45,7 +45,7 @@ namespace MindBodySoul.Controllers
 
             object value = await articleTagRepository.AddRangeAsync(articleTags);
 
-            return Ok(response);
+            return Ok();
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace MindBodySoul.Controllers
                 return NotFound();
             }
 
-            var response = new ArticleDto
+            var response = new ArticleDetailsDto
             {
                 Id = id,
                 Title = article.Title,
@@ -67,7 +67,15 @@ namespace MindBodySoul.Controllers
                 ImageUrl = article.ImageUrl,
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
-                ArticleTags = article.ArticleTags
+                CategoryName = article.SubCategory?.Category?.Name,
+                SubCategoryName = article.SubCategory?.Name,
+                Tags = article.ArticleTags
+                       .Select(at => new TagDto
+                       {
+                           Id = at.Tag.Id,
+                           Name = at.Tag.Name
+                       })
+        .ToList()
             };
 
             return Ok(response);

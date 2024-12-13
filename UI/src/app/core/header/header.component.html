@@ -3,23 +3,26 @@
     <img src="assets/images/logo.png" />
   </div>
   <div class="content">
-    <div class="navbar">
+    <div class="toogle-menu" (click)="toggleMenu()">
+      <fa-icon [icon]="faBarChart"></fa-icon>
+    </div>
+    <div class="navbar" [class.open]="isMenuOpen">
       <nav>
         <ul>
+          <li><a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a></li>
           <ng-container *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
-            <li><a [routerLink]="'/admin'">Админ</a></li>
-            <li><a [routerLink]="'/add-article'">Добави статия</a></li>
-          </ng-container>
-          <li><a href="">Начална страница</a></li>
-          <li><a href="">Категории</a></li>
-          <li><a [routerLink]="'/articles'">Статии</a></li>
-          <li><a href="">Контакти</a></li>
+            <li><a [routerLink]="'/admin'" (click)="toggleMenu()">Админ</a></li>
+            <li><a [routerLink]="'/add-article'" (click)="toggleMenu()">Добави статия</a></li>
+          </ng-container> 
+          <li><a href="" (click)="toggleMenu()">Категории</a></li>
+          <li><a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a></li>
+          <li><a href="" (click)="toggleMenu()">Контакти</a></li>
         </ul>
       </nav>
     </div>
     <div class="search">
       <input type="search" placeholder="Търсене..." />
-      <i class="fas fa-search"></i>
+      <fa-icon [icon]="faSearch"></fa-icon>
     </div>
   </div>
   <div class="login">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user/user.module';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import {  faBars, faSearch} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,13 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   user?: User;
+  faBarChart = faBars;
+  faSearch = faSearch;
+  isMenuOpen = false;
 
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {

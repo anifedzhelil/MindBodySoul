@@ -1,58 +1,58 @@
-
-/* .content{
-    display: flex;
-    flex-direction: row;
+.content {
+  background-image: url("/assets/images/home6.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: calc(100vh - 120px);
+  width: 100%;
+  color: white;
+  object-fit: cover;
 }
 
-.content div{
-    flex: 1 0 50%;
-}
-img{
-    right: 0;
-    width: 100%;
+.content .info {
+  padding-top: 150px;
+  text-align: center;
 }
 
-.content .info{
+.info h1 {
+  font-size: 3em;
+}
+
+.info p {
+  margin-top: 2em;
+  font-size: 1.5em;
+  padding-left: 10em;
+  padding-right: 10em;
+}
+
+button {
+  background-color: transparent;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 0.8em;
+  color: white;
+}
+
+a {
+  font-size: 18px;
+}
+
+@media screen and (max-width: 800px) {
+    
+.content .info {
+    padding-top: 50px;
     text-align: center;
-    margin-top: 20em;
-} */
-
-.content{
-    background-image: url('/assets/images/home6.jpg') ;
-    background-size: cover; /* Resmin tüm alanı kaplaması için */
-    background-position: center; /* Resmin ortalanması için */
-    background-repeat: no-repeat; /* Resmin tekrar etmemesi için */
-    height: calc(100vh - 120px); /* Tüm görünüm alanını kapsaması için */
-    width: 100%;    
-    color: white;
-    object-fit: cover
-}
-
-.content .info{
-    padding-top: 150px;
-    text-align: center;
-}
-
-.info h1{
-    font-size: 3em;
-}
-
-.info p{
-    margin-top: 2em;
+  }
+  
+  .info h1 {
+    font-size: 2em;
+  }
+  
+  .info p {
+    margin-top: 1em;
     font-size: 1.5em;
-    padding-left: 10em;
-    padding-right: 10em;
-}
-
-
-button{
-    background-color: transparent;
-    padding: 15px;
-    border: 1px solid white;
-    border-radius: 0.8em;
-    color: white;
-}
-
-a{
-    font-size: 18px;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  
 }

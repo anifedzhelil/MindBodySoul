@@ -27,6 +27,9 @@ export class ArticleDetailsComponent implements OnInit {
             next: (response) => {
               this.article = response;
             },
+            error: (err)=>{
+              console.error(err)
+            }
           });
         }
       },

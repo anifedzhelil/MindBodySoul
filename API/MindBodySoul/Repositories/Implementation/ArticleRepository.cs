@@ -34,7 +34,10 @@ namespace MindBodySoul.Repositories.Implementation
         public async Task<Article?> GetById(Guid id)
         {
             return await dbContext.Articles
+                .Include(a=>a.SubCategory)
+                        .ThenInclude(sc => sc.Category) 
                 .Include(a => a.ArticleTags)
+                            .ThenInclude(at => at.Tag)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

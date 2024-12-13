@@ -6,13 +6,10 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   flex: 0 1 1100px;
-  flex-wrap: wrap;
   gap: 1em;
   padding: 1em;
-  /*background: #fff;
-     box-shadow: 0 0 1em 0 rgb(0, 0, 0, 0.1);
-    border-radius: 0.1em;*/
 }
 
 .artcileList {
@@ -49,11 +46,35 @@ img {
   display: flex;
 }
 
-.title{
+.title {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.title a{
+.title a {
   font-size: 25px;
+}
+
+@media (max-width: 800px) {
+  .container {
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .articleList {
+    gap: 2em;
+  }
+
+  img {
+    width: 200px;
+  }
+  article {
+    padding: 10px;
+  }
+
+  @media (max-width: 600px) {
+    img {
+      width: 150px;
+    }
+  }
 }

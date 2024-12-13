@@ -2,7 +2,7 @@
 
 
 .container {
-    width: 100%;
+  width: 1000px;
     display: flex;
     justify-content: center;
   }
@@ -15,5 +15,11 @@
   .list {
     flex: 0 0 80%;
   }
+
   
+  @media screen and (max-width: 1000px) {
+    .container {
+      width: 100%;
+    }
+  }
   

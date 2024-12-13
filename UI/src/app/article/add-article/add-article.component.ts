@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {
-  Select2UpdateEvent,
-} from 'ng-select2-component';
+import { Router } from '@angular/router';
+import { Select2UpdateEvent } from 'ng-select2-component';
 import { Editor } from 'ngx-editor';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
 import { Category } from 'src/app/models/category/category.model';
@@ -46,7 +45,8 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     private subCategoryService: SubCategoryService,
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -119,23 +119,23 @@ export class AddArticleComponent implements OnInit, OnDestroy {
             this.article.userId = user.userId;
           }
           //console.log(this.article);
-         this.articleService.addArticle(this.article).subscribe({
-          next: (response) => {
-            this.errorMessage = "УСПЕХ!"
-            
-          },
-          error: (err)=> {
-            this.errorMessage = "Невалидни данни, въведете коректни данни!"
-          }
-         })
+          this.articleService.addArticle(this.article).subscribe({
+            next: (response) => {
+              this.errorMessage = '';
+              this.router.navigateByUrl('/articles');
+            },
+            error: (err) => {
+              this.errorMessage = 'Невалидни данни, въведете коректни данни!';
+            },
+          });
         });
     }
   }
 
   onTagsUpdate(event: Select2UpdateEvent): void {
-   this.article.tagsIDs = [];
-   event.options.map(option => {
-    this.article.tagsIDs?.push(String(option.value));
-   });
+    this.article.tagsIDs = [];
+    event.options.map((option) => {
+      this.article.tagsIDs?.push(String(option.value));
+    });
   }
 }

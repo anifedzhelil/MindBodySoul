@@ -1,11 +1,17 @@
     <div class="container">
-        <div *ngIf="article" class="article">
+        <div *ngIf="article" class="article" >
           <div class="title"><p>{{article.title}}</p></div>
+          <div class="category"><p>{{article.categoryName}} / {{article.subCategoryName}}</p></div>
+          <div class="date">{{article.createdDate | formatTime}}</div>
           <div class="imageContent">
             <img [src]="article.imageUrl" alt="Article Image" />
           </div>
           <div  [innerHTML]="article.content">
           </div>
+            <div class="tags">
+              <div class="tag" *ngFor="let tag of article.tags">{{tag.name}}</div> 
+            </div>
+
         </div>
       </div>
   <div>

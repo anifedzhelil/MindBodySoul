@@ -5,9 +5,11 @@ export interface ArticleDetails {
   title: string;
   content: string;
   subCategoryId: string;
+  categoryName: string;
+  subCategoryName: string;
   userId: string;
   imageUrl: string;
-  createdDate: Date;
-  updatedDate: Date;
-  tagsIDs: Tag[];
-} 
+  createdDate: string;
+  updatedDate: string;
+  tags: { name: string; id: string }[];
+}

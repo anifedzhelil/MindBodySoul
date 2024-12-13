@@ -1,40 +1,9 @@
-/*.tabs {
-    width: 100%;
-    background-color: white;
-    border: 1px solid #ddd;
-  }
-  
-  .tabs a {
-    height: 50px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border: none;
-    background-color: #f7fcfc;
-  }
-  
-  .active {
-    border: none;
-    border-right: 1px solid black;
-    height: 50px;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #e2f8f9;
-  }
-  
-  button:hover{
-      background-color: #e2f8f9 !important;
-      cursor: pointer;
-  }
-  */
-
-  /* Container for the tab buttons */
 .tabs {
   display: flex;
-  border-bottom: 2px solid #ccc; /* Optional: border at the bottom of the tabs */
+  border-bottom: 2px solid #ccc;
   margin-bottom: 1em;
 }
 
-/* Style for individual tab buttons */
 .tab-button {
   background-color: transparent;
   border: none;
@@ -47,23 +16,26 @@
   transition: border-bottom 0.3s ease;
 }
 
-/* Hover effect for tab buttons */
 .tab-button:hover {
-  border-bottom: 3px solid #2197a4; /* Highlight on hover */
+  border-bottom: 3px solid #2197a4;
   color: #2197a4;
 }
 
-/* Active tab button */
 .tab-button.active {
-  border-bottom: 3px solid #2197a4; /* Show as active */
+  border-bottom: 3px solid #2197a4;
   color: #2197a4;
   font-weight: bold;
 }
 
-/* Responsive behavior (optional) */
 @media (max-width: 600px) {
   .tab-button {
-      font-size: 0.9em;
-      padding: 0.8em;
+    font-size: 0.9em;
+    padding: 0.8em;
   }
+}
+
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

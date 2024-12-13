@@ -6,9 +6,8 @@
           <img [src]="article.imageUrl" alt="Article Image" />
         </div>
         <div>
-          <div class="title" >
+          <div class="title">
             <a [routerLink]="[article.id]">{{ article.title }}</a>
-
           </div>
 
           <p [innerHTML]="article.content | slices : 300"></p>

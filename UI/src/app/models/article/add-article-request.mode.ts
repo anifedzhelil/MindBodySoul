@@ -6,5 +6,5 @@ export interface AddArticleRequest{
     userId: string;
     imageUrl: string; 
     createdDate: Date;
-    tagsIDs?: string[]; // List of tag IDs as strings
+    tagsIDs?: string[];
 }
