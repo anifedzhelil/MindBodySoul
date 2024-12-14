@@ -48,11 +48,6 @@ export class CategoryService {
 
   deleteCategory(id: string): Observable<Category> {
     return this.http
-      .delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        })
-      );
+      .delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`);
   }
 }

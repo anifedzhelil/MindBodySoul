@@ -6,6 +6,8 @@ namespace MindBodySoul.Models.DTO
         public Guid Id { get; set; }
         public required string Title { get; set; }
 
+        public Guid? CategoryId { get; set; }
+        public Guid SubCategoryId { get; set; }
         public string? CategoryName { get; set; }
         public string? SubCategoryName { get; set; }
         public required string Content { get; set; }

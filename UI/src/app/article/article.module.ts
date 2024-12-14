@@ -10,13 +10,16 @@ import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
+import { EditArticleComponent } from './edit-article/edit-article.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
     AddArticleComponent,
     ArticlesListComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    EditArticleComponent
   ],
   
   imports: [
@@ -26,6 +29,7 @@ import { SharedModule } from "../shared/shared.module";
     NgxEditorModule,
     Select2Module,
     OverlayModule,
+    FontAwesomeModule,
     SharedModule
 ]
 })

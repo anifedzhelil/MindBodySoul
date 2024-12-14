@@ -1,0 +1,62 @@
+@import "/src/app/shared/styles/form.css";
+.cont-width {
+  max-width: 50%;
+}
+.editor {
+  height: 300px;
+  overflow-y: auto;
+}
+
+img {
+  width: 150px;
+}
+.tags {
+  display: flex;
+  flex-direction: row;
+}
+.tag {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 10px 15px;
+  color: #253f50;
+  margin: 5px;
+  position: relative;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.tag fa-icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: rgb(145, 133, 133);
+  font-size: 15px;
+}
+
+@media (max-width: 800px) {
+  .cont-width {
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+
+  form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .cont-width {
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+    padding: none;
+  }
+
+  form {
+    width: 100%;
+    padding: 2em;
+  }
+}

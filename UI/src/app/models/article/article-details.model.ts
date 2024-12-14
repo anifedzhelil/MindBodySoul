@@ -7,6 +7,7 @@ export interface ArticleDetails {
   subCategoryId: string;
   categoryName: string;
   subCategoryName: string;
+  categoryId: string;
   userId: string;
   imageUrl: string;
   createdDate: string;

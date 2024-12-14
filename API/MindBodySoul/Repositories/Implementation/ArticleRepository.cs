@@ -21,9 +21,20 @@ namespace MindBodySoul.Repositories.Implementation
             return article;
         }
 
-        public Task<Article> DeleteAsync(Guid id)
+        public async Task<Article?> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var exestingArticle = await dbContext.Articles
+              .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (exestingArticle is null)
+            {
+                return null;
+            }
+
+            dbContext.Articles.Remove(exestingArticle);
+            await dbContext.SaveChangesAsync();
+
+            return exestingArticle;
         }
 
         public async Task<IEnumerable<Article>> GetAllAsync()
@@ -34,7 +45,7 @@ namespace MindBodySoul.Repositories.Implementation
         public async Task<Article?> GetById(Guid id)
         {
             return await dbContext.Articles
-                .Include(a=>a.SubCategory)
+                .Include(a => a.SubCategory)
                         .ThenInclude(sc => sc.Category) 
                 .Include(a => a.ArticleTags)
                             .ThenInclude(at => at.Tag)

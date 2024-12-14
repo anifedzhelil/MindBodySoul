@@ -19,7 +19,6 @@ import { TagService } from 'src/app/services/tag/tag.service';
   styleUrls: ['./add-article.component.css'],
 })
 export class AddArticleComponent implements OnInit, OnDestroy {
-  selectedCategory: Category | undefined;
   previewUrl: string | null = null;
   errorMessage: string = '';
   article: AddArticleRequest = {
@@ -133,6 +132,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   }
 
   onTagsUpdate(event: Select2UpdateEvent): void {
+    if(this.article)
     this.article.tagsIDs = [];
     event.options.map((option) => {
       this.article.tagsIDs?.push(String(option.value));

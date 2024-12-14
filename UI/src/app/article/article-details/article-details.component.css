@@ -11,7 +11,7 @@
   max-width: 1100px;
   width: 100%;
   gap: 1em;
-  padding: 50px;
+  padding: 30px;
   background: #fff;
   box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.1);
 }
@@ -56,4 +56,21 @@ img {
 .tag:hover {
   cursor: pointer;
   background-color: #ddd;
+}
+
+.buttons{
+  width: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.buttons fa-icon{
+  font-size: 25px;
+  margin: 5px;
+}
+
+.error{
+  color: rgb(196, 34, 34);
 }

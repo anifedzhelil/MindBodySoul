@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
 import { ArticleDetails } from 'src/app/models/article/article-details.model';
 import { ArticleListResponse } from 'src/app/models/article/article-list-response.model';
+import { Article } from 'src/app/models/article/article.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -31,4 +32,9 @@ export class ArticleService {
       `${environment.apiBaseUrl}/api/articles/${id}`,
     );
   }
+
+   deleteArticle(id: string): Observable<Article> {
+      return this.http
+        .delete<Article>(`${environment.apiBaseUrl}/api/articles/${id}?addAuth=true`);
+    }
 }

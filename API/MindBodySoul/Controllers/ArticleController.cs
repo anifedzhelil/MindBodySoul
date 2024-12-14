@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
+using MindBodySoul.Repositories.Implementation;
 using MindBodySoul.Repositories.Interface;
 
 namespace MindBodySoul.Controllers
@@ -12,12 +13,12 @@ namespace MindBodySoul.Controllers
     {
 
         private readonly IArticleRepository articleRepository;
-        private readonly IArticleTagRepository articleTagRepository;
+        private readonly IArticleTagsRepository articleTagsRepository;
 
-        public ArticlesController(IArticleRepository articleRepository, IArticleTagRepository articleTagRepository)
+        public ArticlesController(IArticleRepository articleRepository, IArticleTagsRepository articleTagsRepository)
         {
             this.articleRepository = articleRepository;
-            this.articleTagRepository = articleTagRepository;
+            this.articleTagsRepository = articleTagsRepository;
         }
 
         [HttpPost]
@@ -43,7 +44,7 @@ namespace MindBodySoul.Controllers
                 TagId = tagId
             }).ToList();
 
-            object value = await articleTagRepository.AddRangeAsync(articleTags);
+            object value = await articleTagsRepository.AddRangeAsync(articleTags);
 
             return Ok();
         }
@@ -68,6 +69,8 @@ namespace MindBodySoul.Controllers
                 CreatedDate = article.CreatedDate,
                 UpdatedDate = article.UpdatedDate,
                 CategoryName = article.SubCategory?.Category?.Name,
+                CategoryId = article.SubCategory?.Category?.Id,
+                SubCategoryId = article.SubCategoryId,
                 SubCategoryName = article.SubCategory?.Name,
                 Tags = article.ArticleTags
                        .Select(at => new TagDto
@@ -102,6 +105,22 @@ namespace MindBodySoul.Controllers
                 });
             }
             return Ok(response);
+        }
+        //DELETE: https:/localhost:7108/api/categories{id}
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
+        {
+            var article = await articleRepository.DeleteAsync(id);
+            if (article is null)
+            {
+                return NotFound();
+            }
+
+            await articleTagsRepository.DeleteRangeAsync(id);
+           
+            return Ok();
         }
 
     }
