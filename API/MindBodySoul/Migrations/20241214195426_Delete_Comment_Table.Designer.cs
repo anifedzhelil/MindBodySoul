@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MindBodySoul.Data;
 
@@ -11,9 +12,11 @@ using MindBodySoul.Data;
 namespace MindBodySoul.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241214195426_Delete_Comment_Table")]
+    partial class Delete_Comment_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,35 +106,6 @@ namespace MindBodySoul.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MindBodySoul.Models.Domain.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("MindBodySoul.Models.Domain.SubCategory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -203,17 +177,6 @@ namespace MindBodySoul.Migrations
                     b.Navigation("Article");
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("MindBodySoul.Models.Domain.Comment", b =>
-                {
-                    b.HasOne("MindBodySoul.Models.Domain.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.SubCategory", b =>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MindBodySoul")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c189b5904453a06b8ae4d35815a8445e5d62b11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+513a0f45f4f9a34a08a265e428ec6a8dee782c03")]
 [assembly: System.Reflection.AssemblyProductAttribute("MindBodySoul")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MindBodySoul")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
