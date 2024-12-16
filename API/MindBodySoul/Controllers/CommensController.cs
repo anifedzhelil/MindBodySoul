@@ -1,9 +1,7 @@
-﻿using Azure.Core;
-using CodePulse.API.Models.DTO;
+﻿using CodePulse.API.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.EntityFrameworkCore;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
 using MindBodySoul.Repositories.Interface;
@@ -15,24 +13,26 @@ namespace MindBodySoul.Controllers
     public class CommentsController : Controller
     {
         private readonly ICommentRepository commentRepository;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public CommentsController(ICommentRepository commentRepository)
+        public CommentsController(ICommentRepository commentRepository, UserManager<IdentityUser> userManager)
         {
             this.commentRepository = commentRepository;
+            this.userManager = userManager;
         }
 
 
         [HttpPost]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> CreateComment([FromBody] CreateCommentRequestDto reqest)
+        [Authorize(Roles = "Reader")]
+        public async Task<IActionResult> CreateComment([FromBody] CreateCommentRequestDto request)
         {
 
             var comment = new Comment
             {
-                Content = reqest.Content,
-                ArticleId = reqest.ArticleId,
-                CreatedDate = reqest.CreatedDate,
-                UserId = reqest.UserId,
+                Content = request.Content,
+                ArticleId = request.ArticleId,
+                CreatedDate = request.CreatedDate,
+                UserId = request.UserId,
             };
 
             await commentRepository.CreateAsync(comment);
@@ -40,10 +40,10 @@ namespace MindBodySoul.Controllers
             var response = new CommentDto()
             {
                 Id = comment.Id,
-                Content = reqest.Content,
-                ArticleId = reqest.ArticleId,
-                CreatedDate = reqest.CreatedDate,
-                UserId = reqest.UserId,
+                Content = comment.Content,
+                ArticleId = comment.ArticleId,
+                CreatedDate = comment.CreatedDate,
+                UserId = comment.UserId,
             };
 
 
@@ -75,26 +75,30 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("{articleId:Guid}")]
-        
+        [HttpGet("allComments/{articleId:Guid}")]
         public async Task<IActionResult> GetAllComments([FromRoute] Guid articleId)
         {
             var comments = await commentRepository.GetAllAsync(articleId);
 
             //map domain method to Dto
 
+            var userIds = comments.Select(c => c.UserId).Distinct();
+
             var response = new List<CommentDto>();
             foreach (var comment in comments)
             {
+            var user = await userManager.FindByIdAsync(comment.UserId.ToString());
+
+
                 response.Add(new CommentDto
                 {
                     Id = comment.Id,
                     ArticleId= comment.ArticleId,
                     Content= comment.Content,
-                    CreatedDate= comment.CreatedDate, UserId= comment.UserId,
-                    UpdatedDate = comment.UpdatedDate   
-
+                    CreatedDate= comment.CreatedDate, 
+                    UserId= comment.UserId,
+                    UpdatedDate = comment.UpdatedDate,
+                    UserName = user?.UserName,
                 });
             }
 
@@ -103,18 +107,11 @@ namespace MindBodySoul.Controllers
 
         //PUT https:/localhost:7108/api/comment{id}
         [HttpPut]
-        [Route("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> UpdateComment([FromRoute] Guid id, UpdateCommentRequestDto request)
+        [Authorize(Roles = "Reader")]
+        public async Task<IActionResult> UpdateComment(UpdateCommentRequestDto request)
         {
-            var comment = new Comment
-            {
-                Id = id,
-                Content = request.Content,
-                UpdatedDate = request.UpdatedDate,
-            };
 
-            comment = await commentRepository.UpdateAsync(comment);
+            var comment = await commentRepository.UpdateAsync(request.Id, request.Content, request.UpdatedDate);
 
             if (comment == null)
             {
@@ -137,7 +134,7 @@ namespace MindBodySoul.Controllers
         //DELETE: https:/localhost:7108/api/categories{id}
         [HttpDelete]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Reader")]
          public async Task<IActionResult> DeleteComment([FromRoute] Guid id)
         {
             var comment = await commentRepository.DeleteAsync(id);

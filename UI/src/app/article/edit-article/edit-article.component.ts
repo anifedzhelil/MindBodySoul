@@ -57,7 +57,6 @@ export class EditArticleComponent implements OnInit {
         if (this.id != null) {
           this.articleService.getArticleById(this.id).subscribe({
             next: (response) => {
-              debugger;
               this.article = response;
 
               this.selectedCategoryId = response.categoryId;

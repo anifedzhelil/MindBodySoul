@@ -16,8 +16,8 @@ img {
 }
 
 .logo {
-  flex: 1 1 25%;
-  width: fit-content;
+  flex: 1 1 15%;
+  width: fit-1content;
 }
 
 .toogle-menu {
@@ -33,7 +33,7 @@ img {
 }
 
 .content {
-  flex: 1 1 55%;
+  flex: 1 1 70%;
   display: flex;
   justify-content: flex-end;
 }
@@ -167,6 +167,14 @@ ul > li:last-of-type {
   }
 }
 
+@media screen and (max-width: 1400px) {
+
+  ul > li > a {
+    padding: 0.5em 0.5em 0 0.5em;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
 @media screen and (max-width: 600px) {
   .content {
     display: flex;

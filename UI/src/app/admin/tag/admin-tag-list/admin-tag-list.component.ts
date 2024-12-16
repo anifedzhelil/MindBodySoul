@@ -98,4 +98,8 @@ export class AdminTagListComponent {
   onUpdateCancel(): void {
     this.hideUpdateForm = false;
   }
+
+  handleClose(): void {
+    this.hideMessageError = false;
+  }
 }

@@ -1,0 +1,30 @@
+<div class="modal" *ngIf="!isHidden">
+    <div class="modal-content" >
+      <form #form="ngForm" (ngSubmit)="onSubmit()" >
+        <h3>Редактирай коментар</h3>
+        <p class="field" >
+          <label for="name">Коментар</label>
+          <textarea
+            type=""
+            id="content"
+            name="content"
+            required
+            [(ngModel)]="comment.content"
+            #inputContent="ngModel"
+            rows="6"
+          ></textarea>
+        </p>
+        <ng-container *ngIf="inputContent.touched">
+          <p *ngIf="inputContent?.errors?.['required']" class="error">
+            Въведете коментар!
+          </p>
+        </ng-container>
+    
+        <p class="button-group">
+          <input type="submit" value="Запази"  />
+          <input type="button" value="Откажи" (click)="onCancel()"/>
+        </p>
+      </form>
+    </div>
+  </div>
+  

@@ -9,14 +9,14 @@
         <thead>
           <tr>
             <th>Име</th>
-            <th>Категория</th>
+            <!--th>Брой статии</th-->
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let tag of tags">
             <th class="text-content">{{ tag.name }}</th>
-            <th class="text-content">0</th>
+            <!--th class="text-content">0</th-->
             <th class="text-content">
               <a
                 class="editIcon"
@@ -53,8 +53,8 @@
 [tagId]="tagId"
 [isHidden]="hideUpdateForm"
 ></app-edit-tag>
-<!--app-error-message
+<app-error-message
   [isHidden]="hideMessageError"
   [errorMessage]="errorMessage"
   (close)="handleClose()"
-></app-error-message-->
+></app-error-message>

@@ -7,3 +7,8 @@
 .center{
    text-align: center;
 }
+
+
+.form-container {
+   max-width: 500px;
+}

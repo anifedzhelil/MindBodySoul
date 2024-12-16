@@ -2,6 +2,10 @@ D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\appsettings.Develo
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\appsettings.json
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.staticwebassets.endpoints.json
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.exe
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.deps.json
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.runtimeconfig.json
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.dll
+D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.pdb
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Azure.Core.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Azure.Identity.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\Humanizer.dll
@@ -146,9 +150,5 @@ D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBody.546EC580.
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\refint\MindBodySoul.dll
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.pdb
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.deps.json
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.runtimeconfig.json
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.dll
-D:\My Projects\MindBodySoul\API\MindBodySoul\bin\Debug\net8.0\MindBodySoul.pdb
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\MindBodySoul.genruntimeconfig.cache
 D:\My Projects\MindBodySoul\API\MindBodySoul\obj\Debug\net8.0\ref\MindBodySoul.dll

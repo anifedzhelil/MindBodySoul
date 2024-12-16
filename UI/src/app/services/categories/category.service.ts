@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AddCategoryRequest } from 'src/app/models/category/add-category-request.model';
 import { Category } from 'src/app/models/category/category.model';
 
 import { environment } from 'src/environments/environment.development';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UpdateCategoryRequest } from 'src/app/models/category/update-category-request.model';
-import { CookieService } from 'ngx-cookie-service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient) {}
 
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(
@@ -47,7 +43,8 @@ export class CategoryService {
   }
 
   deleteCategory(id: string): Observable<Category> {
-    return this.http
-      .delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`);
+    return this.http.delete<Category>(
+      `${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`
+    );
   }
 }

@@ -8,6 +8,7 @@ import { SpinnerComponent } from './components/spinner/spinner/spinner.component
 import { PasswordValidatorDirective } from './validators/password/password-validator.directive';
 import { SlicesPipe } from './pipes/slices.pipe';
 import { FormatTimePipe } from './pipes/format-time.pipe';
+import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormatTimePipe } from './pipes/format-time.pipe';
     PasswordValidatorDirective,
     SlicesPipe,
     FormatTimePipe,
+    ElapsedTimePipe,
   ],
   imports: [CommonModule, FontAwesomeModule],
   exports: [
@@ -28,6 +30,7 @@ import { FormatTimePipe } from './pipes/format-time.pipe';
     PasswordValidatorDirective,
     SlicesPipe,
     FormatTimePipe,
+    ElapsedTimePipe
   ],
 })
 export class SharedModule {}

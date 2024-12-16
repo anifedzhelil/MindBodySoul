@@ -25,14 +25,12 @@ export class EditTagComponent implements OnChanges {
   @Output() submit = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
-  private editTagSubscription?: Subscription;
-
   model: Tag = {
     name: '',
     id: '',
   };
 
-  constructor(private tagService: TagService, private router: Router) {}
+  constructor(private tagService: TagService) {}
 
   ngOnChanges(): void {
     this.tagService.getTagById(this.tagId).subscribe({
@@ -44,7 +42,7 @@ export class EditTagComponent implements OnChanges {
   }
 
   onSubmit(): void {
-    this.editTagSubscription = this.tagService
+    this.tagService
       .updateTag(this.tagId, this.model)
       .subscribe({
         next: () => {

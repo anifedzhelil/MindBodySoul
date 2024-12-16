@@ -32,6 +32,7 @@ builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IArticleTagsRepository, ArticleTagsRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {

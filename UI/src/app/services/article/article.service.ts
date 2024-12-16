@@ -27,7 +27,6 @@ export class ArticleService {
   }
 
   getArticleById(id: string): Observable<ArticleDetails> {
-    debugger;
     return this.http.get<ArticleDetails>(
       `${environment.apiBaseUrl}/api/articles/${id}`,
     );

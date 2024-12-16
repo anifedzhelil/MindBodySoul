@@ -1,0 +1,41 @@
+<div *ngIf="allComments" class="list">
+  <div *ngFor="let comment of allComments" class="item">
+    <div class="details">
+      <small class="username">{{ comment.userName }}</small>
+      <small>
+        {{
+          comment.updatedDate == null
+            ? (comment.createdDate.toString() | elapsedTime)
+            : (comment.updatedDate.toString() | elapsedTime)
+        }}</small
+      >
+      <div *ngIf="comment.userId === user?.userId">
+        <a class="editIcon">
+          <fa-icon
+            [icon]="faPenToSquare"
+            (click)="showEditPopup(comment.id)"
+          ></fa-icon>
+        </a>
+        <a>
+          <fa-icon
+            class="error"
+            [icon]="faTrashCan"
+            (click)="deleteComment(comment.id)"
+          ></fa-icon>
+        </a>
+      </div>
+    </div>
+    <div class="comment">{{ comment.content }}</div>
+    <hr />
+  </div>
+</div>
+<div *ngIf="!allComments">
+  <p>Няма добавени коментари.</p>
+</div>
+<app-edit-comment
+  *ngIf="selectedComment"
+  [comment]="selectedComment"
+  [isHidden]="isPopupHidden"
+  (submit)="onCommentUpdated($event)"
+  (cancel)="onPopupClosed()"
+></app-edit-comment>

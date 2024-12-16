@@ -15,10 +15,10 @@
     </div>
 
     <div *ngIf="emailInput.touched">
-      <div class="error" *ngIf="emailInput.errors?.['required']">
+      <div class="field error" *ngIf="emailInput.errors?.['required']">
         Въведете имейл!
       </div>
-      <div class="error" *ngIf="emailInput.errors?.['email']">
+      <div class="field error" *ngIf="emailInput.errors?.['email']">
         Невалиден имейл!
       </div>
     </div>
@@ -34,11 +34,11 @@
         appPasswordValidator
       />
       <ng-container *ngIf="passwordInput?.touched">
-        <div class="error" *ngIf="passwordInput?.errors?.['required']">
+        <div class="field error" *ngIf="passwordInput?.errors?.['required']">
           Въведете парола!
         </div>
         <div
-          class="error"
+          class="field error"
           *ngIf="passwordInput?.errors?.['appPasswordValidator']"
         >
           Паролата трябва да е минимум 6 символа, с поне една главна и една

@@ -1,11 +1,18 @@
 <div class="container">
   <div *ngIf="article" class="article">
-    <div class="buttons" *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
+    <div
+      class="buttons"
+      *ngIf="user?.userName !== undefined && user?.roles?.includes('Writer')"
+    >
       <a class="editIcon" [routerLink]="['/edit-article', article.id]">
         <fa-icon [icon]="faPenToSquare"></fa-icon>
       </a>
       <a>
-        <fa-icon class="error" [icon]="faTrashCan" (click)="onDelete()"></fa-icon>
+        <fa-icon
+          class="error"
+          [icon]="faTrashCan"
+          (click)="onDelete()"
+        ></fa-icon>
       </a>
     </div>
     <div class="title">
@@ -21,6 +28,28 @@
     <div [innerHTML]="article.content"></div>
     <div class="tags">
       <div class="tag" *ngFor="let tag of article.tags">{{ tag.name }}</div>
+    </div>
+    <div><hr /></div>
+    <div class="comments">
+      <app-add-comment
+        [articleId]="id"
+        [user]="user"
+        (commentAdded)="updateComments()"
+      ></app-add-comment>
+    </div>
+    <div class="comments-list">
+      <ng-container *ngIf="comments$ | async as comments; else loading">
+        <app-comments-list
+          [allComments]="comments"
+          [user]="user"
+          (submitDelete)="updateComments()"
+          (commentUpdated)="updateComments()"
+
+        ></app-comments-list>
+      </ng-container>
+      <ng-template #loading>
+        <p>Зареждане на коментари...</p>
+      </ng-template>
     </div>
   </div>
 </div>

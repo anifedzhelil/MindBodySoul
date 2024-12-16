@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommentModule } from "../comment/comment.module";
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     Select2Module,
     OverlayModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    CommonModule,
+    CommentModule
 ]
 })
 export class ArticleModule { }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 import { ArticleDetails } from 'src/app/models/article/article-details.model';
 import { User } from 'src/app/models/user/user.module';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CommentService } from 'src/app/services/comment/comment.service';
+import { ArticleComment } from 'src/app/models/comment/article-comment';
 
 @Component({
   selector: 'app-article-details',
@@ -16,6 +19,8 @@ export class ArticleDetailsComponent implements OnInit {
   article: ArticleDetails | undefined;
   id: string | null = null;
 
+  comments$: Observable<ArticleComment[]> = new Observable<ArticleComment[]>();
+
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
 
@@ -25,7 +30,8 @@ export class ArticleDetailsComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private commentService: CommentService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +53,7 @@ export class ArticleDetailsComponent implements OnInit {
               console.error(err);
             },
           });
+          this.comments$ = this.commentService.getAllComments(this.id);
         }
       },
     });
@@ -63,13 +70,17 @@ export class ArticleDetailsComponent implements OnInit {
       this.articleService.deleteArticle(this.id).subscribe({
         next: (response) => {
           this.router.navigateByUrl('/articles');
-          
-        }
+        },
       });
     }
   }
 
-  
+  updateComments(): void {
+    if (this.id) {
+      this.comments$ = this.commentService.getAllComments(this.id);
+    }
+  }
+
   handleCancel(): void {
     this.hideDeleteConformation = false;
   }

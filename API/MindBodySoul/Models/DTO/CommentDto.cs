@@ -10,5 +10,7 @@ namespace MindBodySoul.Models.DTO
         public DateTime? UpdatedDate { get; set; }
         public required Guid ArticleId { get; set; } 
         public required Guid UserId { get; set; } 
+    
+        public string? UserName {  get; set; }
     }
 }

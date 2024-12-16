@@ -23,21 +23,28 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<IEnumerable<Comment>> GetAllAsync(Guid articleId)
         {
-            return await dbContext.Comments.Where(x=> x.ArticleId == articleId).ToListAsync();
+            return await dbContext.Comments.Where(x=> x.ArticleId == articleId)
+                .ToListAsync();
         }
 
         public async Task<Comment?> GetById(Guid Id)
         {
             return await dbContext.Comments.FirstOrDefaultAsync(c => c.Id == Id);
         }
-        public async Task<Comment?> UpdateAsync(Comment comment)
+        public async Task<Comment?> UpdateAsync(Guid id, string content, DateTime updatedDate)
         {
-            var existingComment = await dbContext.Comments.FirstOrDefaultAsync(x => x.Id == comment.Id);
+            var existingComment = await dbContext.Comments.FirstOrDefaultAsync(x => x.Id == id);
             if (existingComment != null)
             {
-                dbContext.Entry(existingComment).CurrentValues.SetValues(comment);
+                var updatedValues = new
+                {
+                    Content = content,
+                    UpdatedDate = updatedDate
+                };
+
+                dbContext.Entry(existingComment).CurrentValues.SetValues(updatedValues);
                 await dbContext.SaveChangesAsync();
-                return comment;
+                return existingComment;
             }
 
             return null;

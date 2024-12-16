@@ -306,44 +306,10 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Comments/{id}": {
-      "get": {
-        "tags": [
-          "Comments"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       },
       "put": {
         "tags": [
           "Comments"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -364,6 +330,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Comments/{id}": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -392,7 +381,7 @@
         }
       }
     },
-    "/api/Comments/{articleId}": {
+    "/api/Comments/allComments/{articleId}": {
       "get": {
         "tags": [
           "Comments"

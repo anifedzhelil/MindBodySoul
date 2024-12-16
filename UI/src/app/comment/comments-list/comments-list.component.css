@@ -1,0 +1,33 @@
+.list {
+  width: 100%;
+  padding: 2rem;
+}
+
+.item {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+}
+
+.details {
+  justify-content: right;
+  align-items: center;
+  display: flex;
+}
+
+fa-icon {
+  font-size: 13px;
+  margin: 5px;
+}
+
+.error {
+  color: rgb(196, 34, 34);
+}
+
+
+.username{
+    color: rgb(82, 83, 96);
+    font-weight: bolder;
+    padding-right: 10px;
+}
