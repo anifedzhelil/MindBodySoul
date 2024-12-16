@@ -13,12 +13,17 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
   styleUrls: ['./admin-subcategories-list.component.css'],
 })
 export class AdminSubCategoriesListComponent {
-  subCategories$?: Observable<SubCategory[]>;
   subCategories: SubCategory[] = [];
-  faPen = faPen; // Solid icon
-  faPenToSquare = faPenToSquare; // Regular icon
+  subCategoryId: string | undefined;
+
+  faPen = faPen;
+  faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
 
+  hideDeleteConformation: boolean = false;
+  hideMessageError: boolean = false;
+  errorMessage: string = '';
+  
   constructor(
     private subCategoryService: SubCategoryService,
     private router: Router,
@@ -26,6 +31,42 @@ export class AdminSubCategoriesListComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loadSubCategories();
+  }
+
+  addSubCategory(): void {
+    this.router.navigateByUrl('/admin/add-subcategory');
+  }
+
+  onDeleteSubcategory(subCategoryId: string) {
+    this.subCategoryId = subCategoryId;
+    this.hideDeleteConformation = true;
+  }
+
+  handleCancel(): void {
+    this.hideDeleteConformation = false;
+  }
+
+  handleDelete(): void {
+    this.hideDeleteConformation = false;
+
+    if (this.subCategoryId) {
+      this.subCategoryService.deleteSubCategory(this.subCategoryId).subscribe({
+        next: (response) => {
+          this.loadSubCategories();
+        },
+        error: (err) => {
+          if (err.status === 400) {
+            console.log(err.error);
+            this.hideMessageError = true;
+            this.errorMessage = err.error;
+          }
+        },
+      });
+    }
+  }
+
+  loadSubCategories(): void{
     this.loaderService.showLoader();
     this.subCategoryService.getAllSubCategories().subscribe({
       next: (subCategories) => {
@@ -35,7 +76,7 @@ export class AdminSubCategoriesListComponent {
     });
   }
 
-  addSubCategory(): void {
-    this.router.navigateByUrl('/admin/add-subcategory');
+  handleClose(): void {
+    this.hideMessageError = false;
   }
 }

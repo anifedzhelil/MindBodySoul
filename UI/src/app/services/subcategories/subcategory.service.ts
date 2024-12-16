@@ -43,4 +43,10 @@ export class SubCategoryService {
       model
     );
   }
+
+  deleteSubCategory(id: string): Observable<SubCategory> {
+    return this.http.delete<SubCategory>(
+      `${environment.apiBaseUrl}/api/subcategories/${id}?addAuth=true`
+    );
+  }
 }

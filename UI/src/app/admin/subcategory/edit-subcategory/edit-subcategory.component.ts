@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category/category.model';
 import { SubCategory } from 'src/app/models/subcategory/subcategory.model';
 import { UpdateSubCategoryRequest } from 'src/app/models/subcategory/update-subcategory-request.model';
 import { CategoryService } from 'src/app/services/categories/category.service';
+import { IconsService } from 'src/app/services/icons/icon-service.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
@@ -16,14 +18,16 @@ export class EditSubCategoryComponent implements OnInit {
   subCategory?: SubCategory;
   categories$?: Observable<Category[]>;
 
-  editSubCategorySubscription?: Subscription;
   id: string | null = null;
+
+  iconsKeys = this.iconsService.getIconKeys();
 
   constructor(
     private categoryService: CategoryService,
     private subCategoryService: SubCategoryService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private iconsService: IconsService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +46,11 @@ export class EditSubCategoryComponent implements OnInit {
     });
   }
 
-  onFormSubmit(): void {
+  onFormSubmit(form: NgForm): void {
+    if (form.invalid) {
+      return;
+    }
+
     const updateSubCategoryRequest: UpdateSubCategoryRequest = {
       name: this.subCategory?.name ?? '',
       UrlHandle: 'UrlHandle',
@@ -51,7 +59,7 @@ export class EditSubCategoryComponent implements OnInit {
     };
 
     if (this.id) {
-      this.editSubCategorySubscription = this.subCategoryService
+      this.subCategoryService
         .updateSubCategory(this.id, updateSubCategoryRequest)
         .subscribe({
           next: (response) => {

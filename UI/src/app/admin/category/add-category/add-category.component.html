@@ -1,5 +1,5 @@
 <div class="form-container">
-  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
     <h2>Добави категория</h2>
     <p class="field">
       <label for="name">Име</label>
@@ -44,6 +44,9 @@
     </ng-container>
     <p class="field">
       <input type="submit" value="Запази" />
+    </p>
+    <p class="field error" *ngIf="form.valid">
+      <span>Въведете валидни данни!</span>
     </p>
   </form>
 </div>

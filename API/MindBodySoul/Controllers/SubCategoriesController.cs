@@ -157,12 +157,18 @@ namespace MindBodySoul.Controllers
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteSubCategory([FromRoute] Guid id)
         {
             var subCategory = await subCategoryRepository.DeleteAsync(id);
             if (subCategory is null)
             {
                 return NotFound();
+            }
+
+            if (subCategory.Articles != null && subCategory.Articles.Any())
+            {
+                //Cannot delete category with existing Articles.
+                return BadRequest("Не може да се изтрие подкатегории със съществуващи статии.");
             }
 
             var response = new SubCategoryDto()

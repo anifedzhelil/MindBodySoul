@@ -1,29 +1,50 @@
-<ng-container *ngIf="subCategory; else notFound">
-    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
-    <h2>Добави подкатегория</h2>
-    <p class="field">
-      <label for="name">Име</label>
-      <input
-        type="text"
-        id="subCategoryName"
-        class="form-control"
-        name="subCategoryName"
-        [(ngModel)]="subCategory.name"
-      />
-    </p>
-    <p class="field">
-      <label for="category">Категория</label>
-      <select name="category" id="category" [(ngModel)]="subCategory.categoryId">
-        <option value="">---Избери категория---</option>
-        <option
-          *ngFor="let category of categories$ | async"
-          [value]="category.id"
+<div class="form-container">
+  <ng-container *ngIf="subCategory; else notFound">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+      <h2>Добави подкатегория</h2>
+      <p class="field">
+        <label for="name">Име</label>
+        <input
+          type="text"
+          id="subCategoryName"
+          class="form-control"
+          name="subCategoryName"
+          [(ngModel)]="subCategory.name"
+          #inputSubCategoryName="ngModel"
+          required
+        />
+      </p>
+      <ng-container *ngIf="inputSubCategoryName.touched">
+        <p *ngIf="inputSubCategoryName?.errors?.['required']" class="error">
+          Въведете име на подкатегория!
+        </p>
+      </ng-container>
+
+      <p class="field">
+        <label for="category">Категория</label>
+        <select
+          name="category"
+          id="category"
+          required
+          [(ngModel)]="subCategory.categoryId"
+          #selectCategory="ngModel"
         >
-          {{ category.name }}
-        </option>
-      </select>
-    </p>
-    <!--p class="field">
+          <option value="">---Избери категория---</option>
+          <option
+            *ngFor="let category of categories$ | async"
+            [value]="category.id"
+          >
+            {{ category.name }}
+          </option>
+        </select>
+      </p>
+      <ng-container *ngIf="selectCategory.touched">
+        <p class="error" *ngIf="selectCategory.errors?.['required']">
+          Изберете подкатегория!
+        </p>
+      </ng-container>
+
+      <!--p class="field">
       <label for="url-handle">Url handle</label>
       <input
         type="text"
@@ -32,18 +53,37 @@
         [(ngModel)]="subCategory.urlHandle"
       />
     </p-->
-    <p class="field">
-      <label for="image">Икона</label>
-      <input type="text" id="icon" name="icon" [(ngModel)]="subCategory.icon" />
-    </p>
-    <p class="field">
-      <input type="submit" value="Запази" />
-    </p>
-  </form>
-</ng-container>
-<ng-template #notFound>
+      <p class="field">
+        <label for="image">Икона</label>
+        <select
+          name="icons"
+          id="icons"
+          [(ngModel)]="subCategory.icon"
+          #selectIcon="ngModel"
+          required
+        >
+          <option value="">---Изберете икона---</option>
+          <option *ngFor="let key of iconsKeys" [value]="key">
+            {{ key }}
+          </option>
+        </select>
+      </p>
+      <ng-container *ngIf="selectIcon.touched">
+        <p class="error" *ngIf="selectIcon.errors?.['required']">
+          Изберете икона!
+        </p>
+      </ng-container>
+      <p class="field">
+        <input type="submit" value="Запази" />
+      </p>
+      <p class="field error" *ngIf="form.invalid">
+        <span>Въведете валидни данни!</span>
+      </p>
+    </form>
+  </ng-container>
+  <ng-template #notFound>
     <div class="container">
       <div class="not-found">Подкатегорията не е намерана!</div>
     </div>
   </ng-template>
-  
+</div>

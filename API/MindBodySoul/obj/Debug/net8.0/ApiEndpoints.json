@@ -313,7 +313,7 @@
   },
   {
     "ContainingType": "MindBodySoul.Controllers.SubCategoriesController",
-    "Method": "DeleteCategory",
+    "Method": "DeleteSubCategory",
     "RelativePath": "api/SubCategories/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,

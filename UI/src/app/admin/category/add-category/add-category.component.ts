@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AddCategoryRequest } from 'src/app/models/category/add-category-request.model';
@@ -16,10 +17,10 @@ export class AddCategoryComponent implements OnDestroy {
   private addCategorySubscrision?: Subscription;
   previewUrl: string | null = null;
   file?: File;
+  invalid: boolean = false;
 
-  ngOnInit(): void {
-  }
-  
+  ngOnInit(): void {}
+
   constructor(
     private categoryService: CategoryService,
     private cloudinaryService: CloudinaryService,
@@ -35,7 +36,13 @@ export class AddCategoryComponent implements OnDestroy {
     this.addCategorySubscrision?.unsubscribe();
   }
 
-  onFormSubmit() {
+  onFormSubmit(form: NgForm) {
+    if (form.invalid) {
+      this.invalid = true;
+      return;
+    }
+    this.invalid = false;
+
     if (this.file) {
       this.cloudinaryService
         .uploadImage(this.file)
@@ -60,10 +67,10 @@ export class AddCategoryComponent implements OnDestroy {
   onFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     if (element.files && element.files.length > 0) {
-    this.file = element.files?.[0];
-    this.previewUrl = URL.createObjectURL(this.file);
-  } else {
-    this.file = undefined;
-  }
+      this.file = element.files?.[0];
+      this.previewUrl = URL.createObjectURL(this.file);
+    } else {
+      this.file = undefined;
+    }
   }
 }
