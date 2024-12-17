@@ -14,7 +14,6 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 })
 export class AdminCategoriesListComponent {
   categories: Category[] = [];
-  categories$?: Observable<Category[]>;
   hideDeleteConformation: boolean = false;
   hideMessageError: boolean = false;
   errorMessage: string = '';

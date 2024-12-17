@@ -58,6 +58,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "GetArticlesByCategory",
+    "RelativePath": "api/Articles/byCategory/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "GetArticlesBySubCategory",
+    "RelativePath": "api/Articles/bySubCategory/{subCategoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subCategoryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MindBodySoul.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",

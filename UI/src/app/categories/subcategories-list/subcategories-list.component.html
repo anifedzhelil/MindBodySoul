@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="list">
+    <ng-container *ngIf="!selectedSubCategory">
+      <div class="list-item" *ngFor="let subCategory of subCategories">
+        <a class="wrapper" (click)="selectSubCategory(subCategory.id)">
+          <app-awesome-icons
+            [selectedIcon]="subCategory.icon"
+          ></app-awesome-icons>
+          <span class="title">{{ subCategory.name }}</span>
+        </a>
+      </div>
+      <div *ngIf="emptyList">
+        <p>Няма добавени подкатегории...</p>
+      </div>
+    </ng-container>
+    <div class="articles">
+      <ng-container *ngIf="articles$ | async as articles; else loading">
+        <app-articles [articles]="articles"></app-articles>
+      </ng-container>
+      <ng-template #loading>
+        <p class="loading">Зареждане...</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, FormatWidth } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { DeleteConformationComponent } from './components/delete-conformation/delete-conformation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
@@ -9,6 +9,8 @@ import { PasswordValidatorDirective } from './validators/password/password-valid
 import { SlicesPipe } from './pipes/slices.pipe';
 import { FormatTimePipe } from './pipes/format-time.pipe';
 import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
+import { RouterModule } from '@angular/router';
+import {ArticlesComponent} from './components/articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,9 @@ import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
     SlicesPipe,
     FormatTimePipe,
     ElapsedTimePipe,
+    ArticlesComponent
   ],
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, RouterModule],
   exports: [
     DeleteConformationComponent,
     ErrorMessageComponent,
@@ -30,7 +33,8 @@ import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
     PasswordValidatorDirective,
     SlicesPipe,
     FormatTimePipe,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    ArticlesComponent
   ],
 })
 export class SharedModule {}

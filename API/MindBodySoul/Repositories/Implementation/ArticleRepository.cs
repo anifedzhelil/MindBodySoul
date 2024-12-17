@@ -42,11 +42,34 @@ namespace MindBodySoul.Repositories.Implementation
             return await dbContext.Articles.ToListAsync();
         }
 
+        public async Task<IEnumerable<Article>?> GetAllByCategoryAsync(Guid categoryId)
+        {
+
+            var articles = await dbContext.Articles
+                .Include(a => a.SubCategory)
+                .Where(a => a.SubCategory != null && a.SubCategory.CategoryId == categoryId).ToListAsync();
+           
+            return articles;
+        }
+
+        public async Task<IEnumerable<Article>?> GetAllBySubategoryAsync(Guid subCategoryId)
+        {
+            var articles = await dbContext.Articles
+                .Where(a => a.SubCategoryId == subCategoryId).ToListAsync();
+
+            if (articles == null)
+            {
+                return null;
+            }
+
+            return articles;
+        }
+
         public async Task<Article?> GetById(Guid id)
         {
             return await dbContext.Articles
                 .Include(a => a.SubCategory)
-                        .ThenInclude(sc => sc.Category) 
+                        .ThenInclude(sc => sc.Category)
                 .Include(a => a.ArticleTags)
                             .ThenInclude(at => at.Tag)
                 .FirstOrDefaultAsync(a => a.Id == id);

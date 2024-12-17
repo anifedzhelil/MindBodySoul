@@ -93,6 +93,8 @@ ul > li:last-of-type {
     flex-wrap: wrap;
     height: auto;
     padding: 0;
+    position: relative; 
+  z-index: 100; 
   }
 
   .logo {

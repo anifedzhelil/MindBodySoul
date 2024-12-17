@@ -106,6 +106,57 @@ namespace MindBodySoul.Controllers
             }
             return Ok(response);
         }
+
+        [HttpGet("bySubCategory/{subCategoryId:Guid}")]
+
+        public async Task<IActionResult> GetArticlesBySubCategory([FromRoute] Guid subCategoryId)
+        {
+            var articles = await articleRepository.GetAllBySubategoryAsync(subCategoryId);
+
+            var response = new List<ArticleDto>();
+
+            foreach (var article in articles)
+            {
+                response.Add(new ArticleDto
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                    ArticleTags = article.ArticleTags
+                });
+            }
+            return Ok(response);
+        }
+
+
+
+        [HttpGet("byCategory/{categoryId:Guid}")]
+
+        public async Task<IActionResult> GetArticlesByCategory([FromRoute] Guid categoryId)
+        {
+            var articles = await articleRepository.GetAllByCategoryAsync(categoryId);
+
+            var response = new List<ArticleDto>();
+
+            foreach (var article in articles)
+            {
+                response.Add(new ArticleDto
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                    ArticleTags = article.ArticleTags
+                });
+            }
+            return Ok(response);
+        }
+
         //DELETE: https:/localhost:7108/api/categories{id}
         [HttpDelete]
         [Route("{id:Guid}")]

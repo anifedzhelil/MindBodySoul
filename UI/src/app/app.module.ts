@@ -14,9 +14,14 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
 import { ArticleModule } from './article/article.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
@@ -28,6 +33,7 @@ import { ArticleModule } from './article/article.module';
     UserModule,
     CoreModule,
     CloudinaryModule,
+    SharedModule,
     AppRoutingModule,
   ],
   providers: [

@@ -1,19 +1,13 @@
 <div class="main">
   <div class="container">
-    <div class="articleList" *ngFor="let article of articles">
-      <article>
-        <div class="imageContent">
-          <img [src]="article.imageUrl" alt="Article Image" />
-        </div>
-        <div>
-          <div class="title">
-            <a [routerLink]="[article.id]">{{ article.title }}</a>
-          </div>
-
-          <p [innerHTML]="article.content | slices : 300"></p>
-        </div>
-      </article>
+      <div class="articles">
+        <ng-container *ngIf="articles$ | async as articles; else loading">
+          <app-articles [articles]="articles"></app-articles>
+        </ng-container>
+        <ng-template #loading>
+          <p class="loading">Зареждане...</p>
+        </ng-template>
+      </div>
     </div>
   </div>
-</div>
-<router-outlet> </router-outlet>
+

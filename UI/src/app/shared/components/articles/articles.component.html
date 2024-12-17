@@ -1,0 +1,17 @@
+<div class="articleList" *ngFor="let article of articles">
+  <article>
+    <div class="imageContent">
+      <img [src]="article.imageUrl" alt="Article Image" />
+    </div>
+    <div>
+      <div class="title">
+        <a [routerLink]="['/articles', article.id]">{{ article.title }}</a>
+      </div>
+
+      <p [innerHTML]="article.content | slices : 300"></p>
+    </div>
+  </article>
+</div>
+<div *ngIf="articles?.length  == 0" class="message">
+  <p>Няма добавени статии...</p>
+</div>

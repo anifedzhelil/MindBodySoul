@@ -10,13 +10,12 @@
       <nav>
         <ul>
           <li><a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a></li>
-          <ng-container *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
+          <li><a [routerLink]="'/categories'" (click)="toggleMenu()">Категории</a></li>
+          <li><a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a></li><ng-container *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
             <li><a [routerLink]="'/admin'" (click)="toggleMenu()">Админ</a></li>
             <li><a [routerLink]="'/add-article'" (click)="toggleMenu()">Добави статия</a></li>
           </ng-container> 
-          <li><a href="" (click)="toggleMenu()">Категории</a></li>
-          <li><a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a></li>
-          <li><a href="" (click)="toggleMenu()">Контакти</a></li>
+          
         </ul>
       </nav>
     </div>

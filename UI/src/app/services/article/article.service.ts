@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
 import { ArticleDetails } from 'src/app/models/article/article-details.model';
-import { ArticleListResponse } from 'src/app/models/article/article-list-response.model';
+import { ArticleList } from 'src/app/models/article/article-list-response.model';
 import { Article } from 'src/app/models/article/article.model';
 import { environment } from 'src/environments/environment.development';
 
@@ -20,9 +20,21 @@ export class ArticleService {
     );
   }
 
-  getAllArticles(): Observable<ArticleListResponse[]> {
-    return this.http.get<ArticleListResponse[]>(
+  getAllArticles(): Observable<ArticleList[]> {
+    return this.http.get<ArticleList[]>(
       `${environment.apiBaseUrl}/api/articles`
+    );
+  }
+
+  getAllArticlesByCategory(categoryId: string): Observable<ArticleList[]> {
+    return this.http.get<ArticleList[]>(
+      `${environment.apiBaseUrl}/api/articles/byCategory/${categoryId}`
+    );
+  }
+
+  getAllArticlesBySubCategory(subCategoryId: string): Observable<ArticleList[]> {
+    return this.http.get<ArticleList[]>(
+      `${environment.apiBaseUrl}/api/articles/bySubCategory/${subCategoryId}`
     );
   }
 

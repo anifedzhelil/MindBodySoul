@@ -112,6 +112,7 @@ namespace MindBodySoul.Controllers
                 {
                     Id = subCategory.Id,
                     Name = subCategory.Name,
+                    Icon = subCategory.Icon
                 });
             }
 
