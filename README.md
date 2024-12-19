@@ -14,11 +14,11 @@ The backend is built with ASP.NET Core.
 
 <h3>Some images</h3>
 <img src="https://github.com/user-attachments/assets/30e66405-96ee-4496-93dd-fbca7392b65c"/>
-![Screenshot (222)](https://github.com/user-attachments/assets/dc4846f7-131a-41ff-a1bc-29726eaa1ce0)
-![Screenshot (226)](https://github.com/user-attachments/assets/2c6d906c-b82a-48c9-b548-876e627ddb13)
-![Screenshot (225)](https://github.com/user-attachments/assets/4c1709b3-a863-4227-a302-a6b2dcac3b99)
-![Screenshot (224)](https://github.com/user-attachments/assets/55286f27-4803-4a8d-8822-fc2921c0753c)
-![Screenshot (223)](https://github.com/user-attachments/assets/f111330f-4aba-4ddc-8497-e7e23acd367b)
+<img src="https://github.com/user-attachments/assets/dc4846f7-131a-41ff-a1bc-29726eaa1ce0"/>
+<img src="https://github.com/user-attachments/assets/2c6d906c-b82a-48c9-b548-876e627ddb13"/>
+<img src="https://github.com/user-attachments/assets/4c1709b3-a863-4227-a302-a6b2dcac3b99"/>
+<img src="https://github.com/user-attachments/assets/55286f27-4803-4a8d-8822-fc2921c0753c"/>
+<img src="https://github.com/user-attachments/assets/f111330f-4aba-4ddc-8497-e7e23acd367b"/>
 
 
 
