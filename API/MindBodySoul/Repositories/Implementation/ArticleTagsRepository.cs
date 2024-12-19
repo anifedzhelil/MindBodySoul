@@ -27,6 +27,19 @@ namespace MindBodySoul.Repositories.Implementation
             throw new NotImplementedException();
         }
 
+        public async Task<ArticleTags> DeleteAsync(Guid articleId, Guid tagId)
+        {
+            var articleTag = await dbContext.ArticleTags
+              .Where(at => at.ArticleId == articleId && at.TagId == tagId)
+              .FirstOrDefaultAsync();
+
+            dbContext.ArticleTags.Remove(articleTag);
+
+            await dbContext.SaveChangesAsync();
+
+            return articleTag;
+        }
+
         public async Task<List<ArticleTags>> DeleteRangeAsync(Guid articleId)
         {
             var articleTags = await dbContext.ArticleTags

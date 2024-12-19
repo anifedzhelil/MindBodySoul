@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
-  selector: 'app-global-loader',
-  templateUrl: './global-loader.component.html',
-  styleUrls: ['./global-loader.component.css']
+  selector: 'app-loader',
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.css']
 })
-export class GlobalLoaderComponent {
+export class LoaderComponent {
   constructor(public loaderServices: LoaderService){}
 }

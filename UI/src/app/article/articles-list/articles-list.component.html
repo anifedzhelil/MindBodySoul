@@ -1,13 +1,15 @@
 <div class="main">
   <div class="container">
-      <div class="articles">
-        <ng-container *ngIf="articles$ | async as articles; else loading">
-          <app-articles [articles]="articles"></app-articles>
-        </ng-container>
-        <ng-template #loading>
-          <p class="loading">Зареждане...</p>
-        </ng-template>
+    <div class="articles">
+      <div class="search" *ngIf="search">
+        <p>Резултати от търсенето за думата: {{ search }}</p>
       </div>
+      <ng-container *ngIf="articles$ | async as articles; else loading">
+        <app-articles [articles]="articles"></app-articles>
+      </ng-container>
+      <ng-template #loading>
+        <app-loader></app-loader>
+      </ng-template>
     </div>
   </div>
-
+</div>

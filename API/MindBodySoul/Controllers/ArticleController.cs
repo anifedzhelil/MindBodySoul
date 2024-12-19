@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
@@ -63,6 +64,7 @@ namespace MindBodySoul.Controllers
             var response = new ArticleDetailsDto
             {
                 Id = id,
+                UserId = article.UserId,
                 Title = article.Title,
                 Content = article.Content,
                 ImageUrl = article.ImageUrl,
@@ -84,8 +86,34 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
+       [HttpGet]
+       [Route("getAll/{search}")]
+        public async Task<IActionResult> GetFilteredArticles([FromRoute] string search) 
+        {
+            
+                var articles = await articleRepository.GetAllAsync(search);
+
+            var response = new List<ArticleDto>();
+
+            foreach (var article in articles)
+            {
+                response.Add(new ArticleDto
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                    ArticleTags = article.ArticleTags
+                });
+            }
+            return Ok(response);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllArticles() 
+        [Route("getAll")]
+        public async Task<IActionResult> GetAllArticles()
         {
             var articles = await articleRepository.GetAllAsync();
 
@@ -106,9 +134,31 @@ namespace MindBodySoul.Controllers
             }
             return Ok(response);
         }
+        
+        [HttpGet("byTag/{tagId:Guid}")]
+        public async Task<IActionResult> GetArticlesByTag([FromRoute] Guid tagId)
+        {
+            var articles = await articleRepository.GetAllByTagAsync(tagId);
+
+            var response = new List<ArticleDto>();
+
+            foreach (var article in articles)
+            {
+                response.Add(new ArticleDto
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                   // ArticleTags = article.ArticleTags
+                });
+            }
+            return Ok(response);
+        }
 
         [HttpGet("bySubCategory/{subCategoryId:Guid}")]
-
         public async Task<IActionResult> GetArticlesBySubCategory([FromRoute] Guid subCategoryId)
         {
             var articles = await articleRepository.GetAllBySubategoryAsync(subCategoryId);
@@ -174,5 +224,53 @@ namespace MindBodySoul.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> EditArticle([FromRoute] Guid id, UpdateArticleRequestDto request)
+        {
+            var article = new Article
+            {
+                Id = id,
+                Title = request.Title,
+                Content = request.Content,
+                ImageUrl = request.ImageUrl,
+                SubCategoryId  = request.SubCategoryId,
+                UserId  = request.UserId,
+                UpdatedDate = request.UpdatedDate
+            };
+
+            article = await articleRepository.UpdateAsync(article);
+
+            
+            if (article == null)
+            {
+                return NotFound();
+            }
+            if (request.DeletedTags != null)
+            {
+                foreach (Guid tagId in request.DeletedTags)
+                {
+                    await articleTagsRepository.DeleteAsync(article.Id, tagId);
+                }
+            }
+
+            if (request.TagsIDs != null)
+            {
+                var articleTags = request.TagsIDs.Select(tagId => new ArticleTags
+                {
+                    ArticleId = article.Id,
+                    TagId = tagId
+                }).ToList();
+
+                object value = await articleTagsRepository.AddRangeAsync(articleTags);
+            }
+
+
+            return Ok();
+        }
+
     }
+
 }
+    

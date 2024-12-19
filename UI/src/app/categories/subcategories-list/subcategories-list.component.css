@@ -6,7 +6,6 @@
 
 .list {
   margin-top:5px;
-  min-height: 100vh;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 2rem;

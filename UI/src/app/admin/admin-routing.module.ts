@@ -13,7 +13,7 @@ import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.compo
 
 const adminRoutes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminDashboardComponent,
     children: [
       {

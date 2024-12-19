@@ -37,8 +37,16 @@ namespace MindBodySoul.Repositories.Implementation
             return exestingArticle;
         }
 
-        public async Task<IEnumerable<Article>> GetAllAsync()
+        public async Task<IEnumerable<Article>> GetAllAsync(string? search = null)
         {
+            if (!string.IsNullOrEmpty(search))
+            {
+                return await dbContext.Articles
+                    .Where(a => a.Title.ToLower().Contains(search.ToLower()) ||
+                                 a.Content.ToLower().Contains(search.ToLower())
+                    ).ToListAsync();
+
+            }
             return await dbContext.Articles.ToListAsync();
         }
 
@@ -65,6 +73,17 @@ namespace MindBodySoul.Repositories.Implementation
             return articles;
         }
 
+        public async Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId)
+        {
+            var articles = await dbContext.Articles
+                .Include(a => a.ArticleTags)
+
+                .Where(a => a.ArticleTags != null && a.ArticleTags.Any(at => at.TagId == tagId))
+                .ToListAsync();
+
+            return articles;
+        }
+
         public async Task<Article?> GetById(Guid id)
         {
             return await dbContext.Articles
@@ -75,9 +94,17 @@ namespace MindBodySoul.Repositories.Implementation
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public Task<Article> UpdateAsync(Article article)
+        public async Task<Article> UpdateAsync(Article article)
         {
-            throw new NotImplementedException();
+            var existingArticle = await dbContext.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
+            if (existingArticle != null)
+            {
+                dbContext.Entry(existingArticle).CurrentValues.SetValues(article);
+                await dbContext.SaveChangesAsync();
+                return article;
+            }
+
+            return null;
         }
     }
 }

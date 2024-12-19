@@ -8,12 +8,20 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
 
 const routes: Routes = [
   {
-    path: 'articles',
+    path: '',
     component: ArticlesListComponent,
   },
   {
-    path: 'articles/:id',
+    path: 'search/:search',
+    component: ArticlesListComponent,
+  },
+  {
+    path: 'articles-details/:id',
     component: ArticleDetailsComponent,
+  },
+  {
+    path: 'byTag/:tagId',
+    component: ArticlesListComponent,
   },
   {
     path: 'add-article',

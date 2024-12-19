@@ -32,4 +32,8 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
+
+  onSearch(search: string){
+    this.router.navigateByUrl(`/articles/search/${search}`);
+  }
 }

@@ -1,23 +1,24 @@
-<ng-container *ngIf="!categoryNotFound; else notFound">
-  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
-    <h2>Редактирай категория</h2>
-    <p class="field">
-      <label for="name">Име</label>
-      <input
-        type="text"
-        id="categoryName"
-        name="categoryName"
-        [(ngModel)]="category.name"
-        #inputCategoryName="ngModel"
-        required
-      />
-    </p>
-    <ng-container *ngIf="inputCategoryName.touched"> 
-      <p  *ngIf="inputCategoryName?.errors?.['required']" class="error">
-        Въведете име на категория!
+<div class="form-container">
+  <ng-container *ngIf="!categoryNotFound; else notFound">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+      <h2>Редактирай категория</h2>
+      <p class="field">
+        <label for="name">Име</label>
+        <input
+          type="text"
+          id="categoryName"
+          name="categoryName"
+          [(ngModel)]="category.name"
+          #inputCategoryName="ngModel"
+          required
+        />
       </p>
-    </ng-container> 
-    <!---p class="field">
+      <ng-container *ngIf="inputCategoryName.touched">
+        <p *ngIf="inputCategoryName?.errors?.['required']" class="error">
+          Въведете име на категория!
+        </p>
+      </ng-container>
+      <!---p class="field">
       <label for="url-handle">Url handle</label>
       <input
         type="text"
@@ -26,30 +27,31 @@
         [(ngModel)]="category.urlHandle"
       />
     </p-->
-    <p class="field">
-      <label for="image">Снимка</label>
-      <img name="image" *ngIf="!previewUrl" src="{{ category.image }}" />
-      <img *ngIf="previewUrl" [src]="previewUrl" alt="Category Image" on />
-      <input
-        type="file"
-        id="newImage"
-        name="newimage"
-        (change)="onFileSelected($event)"
-        ngModel
-        #inputImage="ngModel"
-      />
-    </p>
-    <ng-container *ngIf="inputImage.touched">
-      <p class="error" *ngIf="!file">Изберете снимка!</p>
-    </ng-container>
-    <p class="field">
-      <input type="submit" value="Запази" />
-    </p>
-  </form>
-</ng-container>
+      <p class="field">
+        <label for="image">Снимка</label>
+        <img name="image" *ngIf="!previewUrl" src="{{ category.image }}" />
+        <img *ngIf="previewUrl" [src]="previewUrl" alt="Category Image" on />
+        <input
+          type="file"
+          id="newImage"
+          name="newimage"
+          (change)="onFileSelected($event)"
+          ngModel
+          #inputImage="ngModel"
+        />
+      </p>
+      <ng-container *ngIf="inputImage.touched">
+        <p class="error" *ngIf="!file">Изберете снимка!</p>
+      </ng-container>
+      <p class="field">
+        <input type="submit" value="Запази" />
+      </p>
+    </form>
+  </ng-container>
 
-<ng-template #notFound>
-  <div class="container">
-    <div class="not-found">Категорията не е намерана!</div>
-  </div>
-</ng-template>
+  <ng-template #notFound>
+    <div class="container">
+      <div class="not-found">Категорията не е намерана!</div>
+    </div>
+  </ng-template>
+</div>

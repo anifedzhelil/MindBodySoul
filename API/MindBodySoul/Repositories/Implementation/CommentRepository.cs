@@ -24,6 +24,7 @@ namespace MindBodySoul.Repositories.Implementation
         public async Task<IEnumerable<Comment>> GetAllAsync(Guid articleId)
         {
             return await dbContext.Comments.Where(x=> x.ArticleId == articleId)
+                .OrderByDescending(x => x.UpdatedDate ?? x.CreatedDate) 
                 .ToListAsync();
         }
 

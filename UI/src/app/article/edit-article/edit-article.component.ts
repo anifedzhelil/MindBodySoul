@@ -125,7 +125,49 @@ export class EditArticleComponent implements OnInit {
   }
 
   updateArticleSubmit(form: NgForm): void {
-    console.log(this.article)
+    if (form.invalid) {
+      debugger;
+      Object.keys(form.controls).forEach((field) => {
+        const control = form.controls[field];
+        if (control.invalid) {
+          console.log(`Полето "${field}" е невалидно.`);
+          console.log('Грешки:', control.errors);
+        }
+      });
+
+      this.errorMessage = 'Попълнете всички задължитени полета!';
+      return;
+    } else if (this.selectedFile) {
+      this.cloudinaryService
+        .uploadImage(this.selectedFile)
+        .subscribe((response: any) => {
+          if (this.article) {
+            this.article.imageUrl = response.secure_url;
+            this.updateArticle();
+          }
+        });
+    } else {
+      this.updateArticle();
+    }
+  }
+
+  updateArticle(): void {
+    if (this.article && this.id) {
+      this.article.updatedDate = new Date().toISOString();
+      this.article.deletedTags = this.deletedTags;
+      if (this.selectedSubCategoryId)
+        this.article.subCategoryId = this.selectedSubCategoryId;
+      this.articleService.updateArticle(this.id, this.article).subscribe({
+        next: (response) => {
+          this.errorMessage = '';
+          this.router.navigateByUrl('/articles');
+        },
+        error: (err) => {
+          this.errorMessage = 'Невалидни данни, въведете коректни данни!';
+        },
+      });
+    }
+    console.log(this.article);
   }
 
   loadSubCategories(categorId: string): void {
@@ -165,7 +207,10 @@ export class EditArticleComponent implements OnInit {
   }
 
   removeTag(tagId: string) {
-    this.deletedTags.push(tagId);
+    if (!this.deletedTags.includes(tagId)) {
+      this.deletedTags.push(tagId);
+    }
+
     //Logic to remove the tag
     if (this.article)
       this.article.tags = this.article.tags.filter((tag) => tag.id !== tagId);

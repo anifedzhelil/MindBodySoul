@@ -86,6 +86,7 @@ ul > li:last-of-type {
   padding: 2px;
   color: gray;
   font-size: 20px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 800px) {
@@ -145,6 +146,7 @@ ul > li:last-of-type {
     border-bottom: 1px solid #b0b5b5;
     width: 100%;
     display: block;
+    cursor: pointer;
   }
 
   ul li:hover {
@@ -161,6 +163,7 @@ ul > li:last-of-type {
     font-size: 18px;
     text-align: left;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .login {

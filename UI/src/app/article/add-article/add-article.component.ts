@@ -49,6 +49,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    debugger;
     this.loadTags();
     this.loadCategories();
     this.editor = new Editor();

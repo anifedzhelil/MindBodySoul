@@ -10,8 +10,14 @@
   flex: 0 1 1100px;
   gap: 1em;
   padding: 1em;
+  box-shadow: 0 0 1em 0 rgb(0, 0, 0, 0.1);
 }
 
 .article{
   width: 100%;
+}
+
+.search{
+  padding: 2rem;
+  font-size: 16px;
 }

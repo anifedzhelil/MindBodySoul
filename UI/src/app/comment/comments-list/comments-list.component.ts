@@ -54,17 +54,13 @@ export class CommentsListComponent {
 
     this.isPopupHidden = false;
   }
-/*
-  editComment(comment: ArticleComment): void {
-    this.selectedComment = { ...comment }; 
-  }
-*/
+
   onCommentUpdated(updatedComment: ArticleComment): void {
     this.selectedComment = null; 
     const request: UpdateCommentRequest = {
       id: updatedComment.id,
       content: updatedComment.content,
-      updatedDate: new Date(),
+      updatedDate:  new Date(new Date().getTime() + 2 * 60 * 60 * 1000),
     };
 
     this.commentService.updateComment(request).subscribe({

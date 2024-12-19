@@ -17,16 +17,6 @@
   },
   {
     "ContainingType": "MindBodySoul.Controllers.ArticlesController",
-    "Method": "GetAllArticles",
-    "RelativePath": "api/Articles",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
     "Method": "GetArticleById",
     "RelativePath": "api/Articles/{id}",
     "HttpMethod": "GET",
@@ -59,6 +49,27 @@
   },
   {
     "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "EditArticle",
+    "RelativePath": "api/Articles/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MindBodySoul.Models.DTO.UpdateArticleRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
     "Method": "GetArticlesByCategory",
     "RelativePath": "api/Articles/byCategory/{categoryId}",
     "HttpMethod": "GET",
@@ -84,6 +95,48 @@
       {
         "Name": "subCategoryId",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "GetArticlesByTag",
+    "RelativePath": "api/Articles/byTag/{tagId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tagId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "GetAllArticles",
+    "RelativePath": "api/Articles/getAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MindBodySoul.Controllers.ArticlesController",
+    "Method": "GetFilteredArticles",
+    "RelativePath": "api/Articles/getAll/{search}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

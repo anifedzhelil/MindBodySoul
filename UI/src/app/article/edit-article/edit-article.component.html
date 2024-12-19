@@ -60,9 +60,9 @@
       </select>
     </div>
     <div class="field tags">
-      <button class="tag" *ngFor="let tag of article.tags">
+      <button class="tag" *ngFor="let tag of article.tags" type="button" (click)="removeTag(tag.id)">
         {{ tag.name }}
-        <fa-icon [icon]="faXmark" (click)="removeTag(tag.id)"></fa-icon>
+        <fa-icon [icon]="faXmark" ></fa-icon>
       </button>
       
     </div>
@@ -123,14 +123,9 @@
         ngModel
         #fileInput="ngModel"
         (change)="onFileUploadChange($event)"
-        required
       />
     </div>
-    <ng-container *ngIf="fileInput.touched">
-      <p class="error" *ngIf="!selectedFile">Моля, изберете снимка!</p>
-    </ng-container>
-
-    <div class="field">
+        <div class="field">
       <input type="submit" value="Запази" />
     </div>
 

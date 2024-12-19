@@ -33,7 +33,7 @@ export class AddCategoryComponent implements OnDestroy {
     };
   }
   ngOnDestroy(): void {
-    this.addCategorySubscrision?.unsubscribe();
+      this.addCategorySubscrision?.unsubscribe();
   }
 
   onFormSubmit(form: NgForm) {

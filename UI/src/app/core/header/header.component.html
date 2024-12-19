@@ -9,19 +9,37 @@
     <div class="navbar" [class.open]="isMenuOpen">
       <nav>
         <ul>
-          <li><a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a></li>
-          <li><a [routerLink]="'/categories'" (click)="toggleMenu()">Категории</a></li>
-          <li><a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a></li><ng-container *ngIf="user?.userName !== undefined  && user?.roles?.includes('Writer')">
+          <li>
+            <a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a>
+          </li>
+          <li>
+            <a [routerLink]="'/categories'" (click)="toggleMenu()">Категории</a>
+          </li>
+          <li>
+            <a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a>
+          </li>
+          <ng-container
+            *ngIf="
+              user?.userName !== undefined && user?.roles?.includes('Writer')
+            "
+          >
             <li><a [routerLink]="'/admin'" (click)="toggleMenu()">Админ</a></li>
-            <li><a [routerLink]="'/add-article'" (click)="toggleMenu()">Добави статия</a></li>
-          </ng-container> 
-          
+            <li>
+              <a [routerLink]="'/articles/add-article'" (click)="toggleMenu()"
+                >Добави статия</a>
+            </li>
+            <li>
+              <a [routerLink]="'/contacts'" (click)="toggleMenu()">Контакти</a>
+            </li>
+          </ng-container>
         </ul>
       </nav>
     </div>
     <div class="search">
-      <input type="search" placeholder="Търсене..." />
-      <fa-icon [icon]="faSearch"></fa-icon>
+      <form>
+        <input type="search" #searchInput placeholder="Търсене..." />
+        <fa-icon [icon]="faSearch" (click)="onSearch(searchInput.value)"></fa-icon>
+      </form>
     </div>
   </div>
   <div class="login">

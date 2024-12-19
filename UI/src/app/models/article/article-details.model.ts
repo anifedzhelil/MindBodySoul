@@ -1,4 +1,3 @@
-import { Tag } from '../tag/tag.model';
 
 export interface ArticleDetails {
   id: string;

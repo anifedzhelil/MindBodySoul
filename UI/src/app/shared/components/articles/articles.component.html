@@ -5,7 +5,7 @@
     </div>
     <div>
       <div class="title">
-        <a [routerLink]="['/articles', article.id]">{{ article.title }}</a>
+        <a [routerLink]="['/articles/articles-details', article.id]">{{ article.title }}</a>
       </div>
 
       <p [innerHTML]="article.content | slices : 300"></p>

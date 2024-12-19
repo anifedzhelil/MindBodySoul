@@ -29,12 +29,12 @@ export class AddCommentComponent {
         userId: this.user?.userId ? this.user.userId : '',
         articleId: this.articleId,
         content: this.comment,
-        createdDate: new Date
+        createdDate: new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
       };
 
       this.commentService.addComment(request).subscribe({
         next: () => {
-          this.comment = ''; 
+          this.comment = 'Добавете нов коментар...'; 
           this.commentAdded.emit(); 
         },
         error:(err) =>{
