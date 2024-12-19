@@ -13,7 +13,7 @@ The backend is built with ASP.NET Core.
 </ul>
 
 <h3>Some images</h3>
-<img src="![Screenshot (220)](https://github.com/user-attachments/assets/30e66405-96ee-4496-93dd-fbca7392b65c)"/>
+<img src="https://github.com/user-attachments/assets/30e66405-96ee-4496-93dd-fbca7392b65c"/>
 ![Screenshot (222)](https://github.com/user-attachments/assets/dc4846f7-131a-41ff-a1bc-29726eaa1ce0)
 ![Screenshot (226)](https://github.com/user-attachments/assets/2c6d906c-b82a-48c9-b548-876e627ddb13)
 ![Screenshot (225)](https://github.com/user-attachments/assets/4c1709b3-a863-4227-a302-a6b2dcac3b99)
