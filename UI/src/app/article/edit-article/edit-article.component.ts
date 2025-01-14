@@ -25,6 +25,7 @@ export class EditArticleComponent implements OnInit {
   selectedSubCategoryId: string | null = null;
   previewUrl: string | null = null;
   errorMessage: string = '';
+  isFormSubmitted: boolean = false;
 
   article: UpdateArticleRequest | undefined;
 
@@ -126,7 +127,6 @@ export class EditArticleComponent implements OnInit {
 
   updateArticleSubmit(form: NgForm): void {
     if (form.invalid) {
-      debugger;
       Object.keys(form.controls).forEach((field) => {
         const control = form.controls[field];
         if (control.invalid) {
@@ -136,8 +136,10 @@ export class EditArticleComponent implements OnInit {
       });
 
       this.errorMessage = 'Попълнете всички задължитени полета!';
+      this.isFormSubmitted = true;
       return;
-    } else if (this.selectedFile) {
+    }
+     else if (this.selectedFile) {
       this.cloudinaryService
         .uploadImage(this.selectedFile)
         .subscribe((response: any) => {

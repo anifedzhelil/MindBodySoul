@@ -11,7 +11,7 @@
         #inputTitle="ngModel"
         required
       />
-      <ng-container *ngIf="inputTitle.touched">
+      <ng-container *ngIf="inputTitle.touched || isFormSubmitted">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
         </p>
@@ -35,7 +35,7 @@
       </select>
     </div>
 
-    <ng-container *ngIf="categorySelect.touched">
+    <ng-container *ngIf="categorySelect.touched || isFormSubmitted">
       <p class="error" *ngIf="categorySelect.errors?.['required']">
         Изберете категория!
       </p>
@@ -59,6 +59,14 @@
         </option>
       </select>
     </div>
+    
+  
+    <ng-container *ngIf="subCategorySelect.touched || isFormSubmitted">
+      <p class="error" *ngIf="subCategorySelect.errors?.['required']">
+        Изберете подкатегория!
+      </p>
+    </ng-container>
+
     <div class="field tags">
       <button class="tag" *ngFor="let tag of article.tags" type="button" (click)="removeTag(tag.id)">
         {{ tag.name }}
@@ -66,11 +74,6 @@
       </button>
       
     </div>
-    <ng-container *ngIf="subCategorySelect.touched">
-      <p class="error" *ngIf="subCategorySelect.errors?.['required']">
-        Изберете подкатегория!
-      </p>
-    </ng-container>
 
     <div class="field">
       <label for="tags">Тагове</label>
@@ -103,7 +106,7 @@
       ></ngx-editor>
     </div>
     <div class="field">
-      <ng-container *ngIf="contentEditor.touched">
+      <ng-container *ngIf="contentEditor.touched || isFormSubmitted">
         <p class="error" *ngIf="contentEditor.errors?.['required']">
           Полето не може да бъде празно!
         </p>

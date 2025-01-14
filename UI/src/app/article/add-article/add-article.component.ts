@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { fa0 } from '@fortawesome/free-solid-svg-icons';
 import { Select2UpdateEvent } from 'ng-select2-component';
 import { Editor } from 'ngx-editor';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
@@ -21,6 +22,8 @@ import { TagService } from 'src/app/services/tag/tag.service';
 export class AddArticleComponent implements OnInit, OnDestroy {
   previewUrl: string | null = null;
   errorMessage: string = '';
+  isFormSubmited: boolean = false;
+
   article: AddArticleRequest = {
     title: '',
     subCategoryId: '',
@@ -107,6 +110,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   addArticleSubmit(form: NgForm): void {
     if (form.invalid) {
       this.errorMessage = 'Попълнете всички задължитени полета!';
+      this.isFormSubmited = true;
       return;
     } else if (this.selectedFile) {
       this.cloudinaryService

@@ -11,7 +11,7 @@
         #inputTitle="ngModel"
         required
       />
-      <ng-container *ngIf="inputTitle.touched">
+      <ng-container *ngIf="inputTitle.touched || isFormSubmited">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
         </p>
@@ -35,7 +35,7 @@
       </select>
     </div>
 
-    <ng-container *ngIf="categorySelect.touched">
+    <ng-container *ngIf="categorySelect.touched || isFormSubmited">
       <p class="error" *ngIf="categorySelect.errors?.['required']">
         Изберете категория!
       </p>
@@ -60,7 +60,7 @@
       </select>
     </div>
 
-    <ng-container *ngIf="subCategorySelect.touched">
+    <ng-container *ngIf="subCategorySelect.touched || isFormSubmited">
       <p class="error" *ngIf="subCategorySelect.errors?.['required']">
         Изберете подкатегория!
       </p>
@@ -98,7 +98,7 @@
       ></ngx-editor>
     </div>
     <div class="field">
-      <ng-container *ngIf="contentEditor.touched">
+      <ng-container *ngIf="contentEditor.touched || isFormSubmited">
         <p class="error" *ngIf="contentEditor.errors?.['required']">
           Полето не може да бъде празно!
         </p>
@@ -120,7 +120,7 @@
         required
       />
     </div>
-    <ng-container *ngIf="fileInput.touched">
+    <ng-container *ngIf="fileInput.touched || isFormSubmited">
       <p class="error" *ngIf="!selectedFile">Моля, изберете снимка!</p>
     </ng-container>
 
