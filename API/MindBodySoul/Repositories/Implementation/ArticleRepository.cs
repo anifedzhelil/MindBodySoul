@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using MindBodySoul.Data;
 using MindBodySoul.Migrations;
 using MindBodySoul.Models.Domain;
@@ -94,7 +95,7 @@ namespace MindBodySoul.Repositories.Implementation
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<Article> UpdateAsync(Article article)
+        public async Task<Article?> UpdateAsync(Article article)
         {
             var existingArticle = await dbContext.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
             if (existingArticle != null)

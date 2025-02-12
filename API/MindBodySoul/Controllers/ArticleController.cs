@@ -1,9 +1,7 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
-using MindBodySoul.Repositories.Implementation;
 using MindBodySoul.Repositories.Interface;
 
 namespace MindBodySoul.Controllers
@@ -15,11 +13,15 @@ namespace MindBodySoul.Controllers
 
         private readonly IArticleRepository articleRepository;
         private readonly IArticleTagsRepository articleTagsRepository;
+        private readonly IArticleVisitsRepository articleVisitsRepository;
 
-        public ArticlesController(IArticleRepository articleRepository, IArticleTagsRepository articleTagsRepository)
+        public ArticlesController(IArticleRepository articleRepository,
+            IArticleTagsRepository articleTagsRepository,
+            IArticleVisitsRepository articleVisitsRepository)
         {
             this.articleRepository = articleRepository;
             this.articleTagsRepository = articleTagsRepository;
+            this.articleVisitsRepository = articleVisitsRepository;
         }
 
         [HttpPost]
@@ -27,7 +29,7 @@ namespace MindBodySoul.Controllers
         public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequestDto request)
         {
 
-                var article = new Article
+            var article = new Article
             {
                 Title = request.Title,
                 Content = request.Content,
@@ -49,6 +51,41 @@ namespace MindBodySoul.Controllers
 
             return Ok();
         }
+        /*
+                [HttpPut]
+                [Route("registerVisit{id:Guid}")]
+
+                public async Task<IActionResult> RegisterVisit([FromRoute] Guid id,[FromBody] Guid userId)
+                {
+                    var article = await articleRepository.GetById(id);
+
+                    if (article == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var articleVisit = await articleVisitsRepository.GetAsync(id);
+
+                    if (articleVisit == null)
+                    {
+                        articleVisit = new ArticleVisit
+                        {
+                            ArticleId = id,
+                            UserId = userId,
+                            VisitDate = DateTime.Now,
+                        };
+
+                        await articleVisitsRepository.AddAsync(articleVisit);
+
+                        article.UniqueVisitCount++;
+                    }
+
+                    article.TotalVisitCount++;
+
+                    await articleRepository.UpdateAsync(article);
+
+                    return Ok();
+                }*/
 
         [HttpGet]
         [Route("{id:Guid}")]
@@ -86,12 +123,12 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
-       [HttpGet]
-       [Route("getAll/{search}")]
-        public async Task<IActionResult> GetFilteredArticles([FromRoute] string search) 
+        [HttpGet]
+        [Route("getAll/{search}")]
+        public async Task<IActionResult> GetFilteredArticles([FromRoute] string search)
         {
-            
-                var articles = await articleRepository.GetAllAsync(search);
+
+            var articles = await articleRepository.GetAllAsync(search);
 
             var response = new List<ArticleDto>();
 
@@ -134,7 +171,7 @@ namespace MindBodySoul.Controllers
             }
             return Ok(response);
         }
-        
+
         [HttpGet("byTag/{tagId:Guid}")]
         public async Task<IActionResult> GetArticlesByTag([FromRoute] Guid tagId)
         {
@@ -152,7 +189,7 @@ namespace MindBodySoul.Controllers
                     ImageUrl = article.ImageUrl,
                     CreatedDate = article.CreatedDate,
                     UpdatedDate = article.UpdatedDate,
-                   // ArticleTags = article.ArticleTags
+                    // ArticleTags = article.ArticleTags
                 });
             }
             return Ok(response);
@@ -165,23 +202,26 @@ namespace MindBodySoul.Controllers
 
             var response = new List<ArticleDto>();
 
-            foreach (var article in articles)
+            if (articles != null)
             {
-                response.Add(new ArticleDto
+                foreach (var article in articles)
                 {
-                    Id = article.Id,
-                    Title = article.Title,
-                    Content = article.Content,
-                    ImageUrl = article.ImageUrl,
-                    CreatedDate = article.CreatedDate,
-                    UpdatedDate = article.UpdatedDate,
-                    ArticleTags = article.ArticleTags
-                });
+                    response.Add(new ArticleDto
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Content = article.Content,
+                        ImageUrl = article.ImageUrl,
+                        CreatedDate = article.CreatedDate,
+                        UpdatedDate = article.UpdatedDate,
+                        ArticleTags = article.ArticleTags
+                    });
+                }
+                return Ok(response);
             }
-            return Ok(response);
+
+            return BadRequest();
         }
-
-
 
         [HttpGet("byCategory/{categoryId:Guid}")]
 
@@ -190,21 +230,25 @@ namespace MindBodySoul.Controllers
             var articles = await articleRepository.GetAllByCategoryAsync(categoryId);
 
             var response = new List<ArticleDto>();
-
-            foreach (var article in articles)
+            if (articles != null)
             {
-                response.Add(new ArticleDto
+                foreach (var article in articles)
                 {
-                    Id = article.Id,
-                    Title = article.Title,
-                    Content = article.Content,
-                    ImageUrl = article.ImageUrl,
-                    CreatedDate = article.CreatedDate,
-                    UpdatedDate = article.UpdatedDate,
-                    ArticleTags = article.ArticleTags
-                });
+                    response.Add(new ArticleDto
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Content = article.Content,
+                        ImageUrl = article.ImageUrl,
+                        CreatedDate = article.CreatedDate,
+                        UpdatedDate = article.UpdatedDate,
+                        ArticleTags = article.ArticleTags
+                    });
+                }
+                return Ok(response);
             }
-            return Ok(response);
+
+            return BadRequest();
         }
 
         //DELETE: https:/localhost:7108/api/categories{id}
@@ -220,7 +264,7 @@ namespace MindBodySoul.Controllers
             }
 
             await articleTagsRepository.DeleteRangeAsync(id);
-           
+
             return Ok();
         }
 
@@ -235,14 +279,14 @@ namespace MindBodySoul.Controllers
                 Title = request.Title,
                 Content = request.Content,
                 ImageUrl = request.ImageUrl,
-                SubCategoryId  = request.SubCategoryId,
-                UserId  = request.UserId,
+                SubCategoryId = request.SubCategoryId,
+                UserId = request.UserId,
                 UpdatedDate = request.UpdatedDate
             };
 
             article = await articleRepository.UpdateAsync(article);
 
-            
+
             if (article == null)
             {
                 return NotFound();
@@ -273,4 +317,4 @@ namespace MindBodySoul.Controllers
     }
 
 }
-    
+

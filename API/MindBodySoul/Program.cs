@@ -33,6 +33,7 @@ builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IArticleTagsRepository, ArticleTagsRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IArticleVisitsRepository, ArticleVisitsRepository>();
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {
@@ -119,6 +120,11 @@ if (app.Environment.IsDevelopment())
 
     app.UseDeveloperExceptionPage();
 
+}
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
 }
 
 app.UseHttpsRedirection();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MindBodySoul.Data;
 
@@ -11,9 +12,11 @@ using MindBodySoul.Data;
 namespace MindBodySoul.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250117134033_Add ArticleVisits")]
+    partial class AddArticleVisits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +65,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.ArticleTags", b =>
@@ -83,7 +86,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ArticleTags", (string)null);
+                    b.ToTable("ArticleTags");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.ArticleVisits", b =>
@@ -105,7 +108,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("ArticleVisits", (string)null);
+                    b.ToTable("ArticleVisits");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.Category", b =>
@@ -128,7 +131,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.Comment", b =>
@@ -157,7 +160,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.SubCategory", b =>
@@ -185,7 +188,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.Tag", b =>
@@ -200,7 +203,7 @@ namespace MindBodySoul.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.Article", b =>

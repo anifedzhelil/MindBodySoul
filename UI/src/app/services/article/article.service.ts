@@ -66,6 +66,12 @@ export class ArticleService {
     );
   }
 
+  registerVisit(id: string, userId: string): Observable<Article> {
+    return this.http.put<Article>(
+      `${environment.apiBaseUrl}/api/articles/${id}`, userId
+    );
+  }
+
   deleteArticle(id: string): Observable<Article> {
     return this.http.delete<Article>(
       `${environment.apiBaseUrl}/api/articles/${id}?addAuth=true`

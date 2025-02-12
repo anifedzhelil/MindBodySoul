@@ -48,6 +48,16 @@ export class ArticleDetailsComponent implements OnInit {
           this.articleService.getArticleById(this.id).subscribe({
             next: (response) => {
               this.article = response;
+
+              if(this.user == null || !this.user?.roles?.includes('Writer')){
+                var userId = "";
+                if(this.user != null)
+                {
+                  userId = this.user.userId;
+                }
+
+                this.articleService.registerVisit(this.article.id, userId);
+              }
             },
             error: (err) => {
               console.error(err);
