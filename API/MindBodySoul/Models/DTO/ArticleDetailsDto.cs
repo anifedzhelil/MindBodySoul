@@ -13,6 +13,8 @@ namespace MindBodySoul.Models.DTO
         public string? SubCategoryName { get; set; }
         public required string Content { get; set; }
         public required string ImageUrl { get; set; }
+        public int UniqueVisitCount { get; set; }
+        public int TotalVisitCount { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedDate { get; set; }
         public List<TagDto>? Tags { get; set; } 

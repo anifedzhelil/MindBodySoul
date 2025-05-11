@@ -6,6 +6,9 @@ namespace MindBodySoul.Repositories.Interface
     {
         Task<ArticleVisit> AddAsync(ArticleVisit articleVisits);
 
-        Task<ArticleVisit?> GetAsync(Guid articleId);
+        Task<ArticleVisit?> GetAsync(Guid articleId, Guid userId);
+
+        Task<ArticleVisit?> DeleteAsync(Guid articleId);
+
     }
 }

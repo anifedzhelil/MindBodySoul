@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faPenToSquare, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { ArticleDetails } from 'src/app/models/article/article-details.model';
 import { User } from 'src/app/models/user/user.module';
@@ -8,6 +8,7 @@ import { ArticleService } from 'src/app/services/article/article.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { ArticleComment } from 'src/app/models/comment/article-comment';
+import { ArticleVisitsService } from 'src/app/services/article-visits/article-visits.service';
 
 @Component({
   selector: 'app-article-details',
@@ -23,6 +24,7 @@ export class ArticleDetailsComponent implements OnInit {
 
   faPenToSquare = faPenToSquare;
   faTrashCan = faTrashCan;
+  faEye = faEye;
 
   hideDeleteConformation: boolean = false;
 
@@ -31,7 +33,8 @@ export class ArticleDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private articleVisitsService: ArticleVisitsService
   ) {}
 
   ngOnInit(): void {
@@ -49,14 +52,8 @@ export class ArticleDetailsComponent implements OnInit {
             next: (response) => {
               this.article = response;
 
-              if(this.user == null || !this.user?.roles?.includes('Writer')){
-                var userId = "";
-                if(this.user != null)
-                {
-                  userId = this.user.userId;
-                }
-
-                this.articleService.registerVisit(this.article.id, userId);
+              if(!this.user?.roles?.includes('Writer')){
+                this.articleVisitsService.registerVisit(this.article.id).subscribe();
               }
             },
             error: (err) => {

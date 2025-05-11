@@ -13,7 +13,6 @@ namespace MindBodySoul.Controllers
 
         private readonly IArticleRepository articleRepository;
         private readonly IArticleTagsRepository articleTagsRepository;
-        private readonly IArticleVisitsRepository articleVisitsRepository;
 
         public ArticlesController(IArticleRepository articleRepository,
             IArticleTagsRepository articleTagsRepository,
@@ -21,7 +20,6 @@ namespace MindBodySoul.Controllers
         {
             this.articleRepository = articleRepository;
             this.articleTagsRepository = articleTagsRepository;
-            this.articleVisitsRepository = articleVisitsRepository;
         }
 
         [HttpPost]
@@ -51,42 +49,7 @@ namespace MindBodySoul.Controllers
 
             return Ok();
         }
-        /*
-                [HttpPut]
-                [Route("registerVisit{id:Guid}")]
-
-                public async Task<IActionResult> RegisterVisit([FromRoute] Guid id,[FromBody] Guid userId)
-                {
-                    var article = await articleRepository.GetById(id);
-
-                    if (article == null)
-                    {
-                        return NotFound();
-                    }
-
-                    var articleVisit = await articleVisitsRepository.GetAsync(id);
-
-                    if (articleVisit == null)
-                    {
-                        articleVisit = new ArticleVisit
-                        {
-                            ArticleId = id,
-                            UserId = userId,
-                            VisitDate = DateTime.Now,
-                        };
-
-                        await articleVisitsRepository.AddAsync(articleVisit);
-
-                        article.UniqueVisitCount++;
-                    }
-
-                    article.TotalVisitCount++;
-
-                    await articleRepository.UpdateAsync(article);
-
-                    return Ok();
-                }*/
-
+       
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetArticleById([FromRoute] Guid id)
@@ -111,6 +74,8 @@ namespace MindBodySoul.Controllers
                 CategoryId = article.SubCategory?.Category?.Id,
                 SubCategoryId = article.SubCategoryId,
                 SubCategoryName = article.SubCategory?.Name,
+                TotalVisitCount = article.TotalVisitCount,
+                UniqueVisitCount = article.UniqueVisitCount,
                 Tags = article.ArticleTags
                        .Select(at => new TagDto
                        {
@@ -252,10 +217,10 @@ namespace MindBodySoul.Controllers
         }
 
         //DELETE: https:/localhost:7108/api/categories{id}
-        [HttpDelete]
-        [Route("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
+            [HttpDelete]
+            [Route("{id:Guid}")]
+            [Authorize(Roles = "Writer")]
+            public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
         {
             var article = await articleRepository.DeleteAsync(id);
             if (article is null)

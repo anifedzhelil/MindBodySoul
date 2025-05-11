@@ -21,7 +21,14 @@
     <div class="category">
       <p>{{ article.categoryName }} / {{ article.subCategoryName }}</p>
     </div>
-    <div class="date">{{ article.createdDate | formatTime }}</div>
+    <div class="date">
+     <span>{{ article.createdDate | formatTime }}</span>
+     <span>  <fa-icon  [icon]="faEye"></fa-icon>  
+      {{  article.totalVisitCount + 1}} </span>
+      <span 
+      *ngIf="user?.userName !== undefined && user?.roles?.includes('Writer')"      
+      > / {{article.uniqueVisitCount}}</span>
+    </div>
     <div class="imageContent">
       <img [src]="article.imageUrl" alt="Article Image" />
     </div>

@@ -223,6 +223,41 @@
         }
       }
     },
+    "/api/articlevisits/test": {
+      "get": {
+        "tags": [
+          "ArticleVisits"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/articlevisits/register/{articleId}": {
+      "put": {
+        "tags": [
+          "ArticleVisits"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [

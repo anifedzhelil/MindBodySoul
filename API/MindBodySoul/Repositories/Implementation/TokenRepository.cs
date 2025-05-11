@@ -20,7 +20,9 @@ namespace MindBodySoul.Repositories.Implementation
             //Create Claims
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id), 
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id) 
             };
 
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));

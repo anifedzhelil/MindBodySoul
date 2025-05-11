@@ -22,10 +22,28 @@ namespace MindBodySoul.Repositories.Implementation
             return articleVisits;
         }
 
-        public async Task<ArticleVisit?> GetAsync(Guid articleId)
+        public async Task<ArticleVisit?> DeleteAsync(Guid articleId)
+        {
+            var articlVisit = await dbContext.ArticleVisits
+              .Where(at => at.ArticleId == articleId)
+              .FirstOrDefaultAsync();
+
+            if(articlVisit is null)
+            {
+                return null;
+            }
+
+            dbContext.ArticleVisits.Remove(articlVisit);
+
+            await dbContext.SaveChangesAsync();
+
+            return articlVisit;
+        }
+
+        public async Task<ArticleVisit?> GetAsync(Guid articleId, Guid userId)
         {
             var exestingArticleVisit = await dbContext.ArticleVisits
-               .FirstOrDefaultAsync(x => x.ArticleId == articleId);
+               .FirstOrDefaultAsync(x => x.ArticleId == articleId && x.UserId == userId);
 
             if(exestingArticleVisit is null)
             {
@@ -34,5 +52,6 @@ namespace MindBodySoul.Repositories.Implementation
 
             return exestingArticleVisit;
         }
+
     }
 }

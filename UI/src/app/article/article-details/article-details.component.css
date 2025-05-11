@@ -37,7 +37,8 @@ img {
   font-size: medium;
 }
 .date {
-  color: #253f50;
+  color: #3d759a;
+  gap: 8px; display: flex;
 }
 
 .tags {
@@ -77,4 +78,8 @@ img {
 
 .comments-list{
   width: 100%;
+}
+
+.eyeIcon{
+  color: #397194;
 }
