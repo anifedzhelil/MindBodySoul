@@ -3,14 +3,15 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorF
 import { appPasswordValidator } from './password-validator';
 
 @Directive({
-  selector: '[appPasswordValidator]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: PasswordValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appPasswordValidator]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: PasswordValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class PasswordValidatorDirective implements Validator {
   private validator = appPasswordValidator();

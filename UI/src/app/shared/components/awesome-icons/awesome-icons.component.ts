@@ -24,9 +24,10 @@ import { faPagelines } from '@fortawesome/free-brands-svg-icons';
 import { IconsService } from 'src/app/services/icons/icon-service.service';
 
 @Component({
-  selector: 'app-awesome-icons',
-  templateUrl: './awesome-icons.component.html',
-  styleUrls: ['./awesome-icons.component.css'],
+    selector: 'app-awesome-icons',
+    templateUrl: './awesome-icons.component.html',
+    styleUrls: ['./awesome-icons.component.css'],
+    standalone: false
 })
 export class AwesomeIconsComponent {
   @Input() selectedIcon: string = 'faXmark';

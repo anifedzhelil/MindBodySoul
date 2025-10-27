@@ -6,9 +6,10 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 import { UpdateCommentRequest } from 'src/app/models/comment/update-comment-request';
 
 @Component({
-  selector: 'app-comments-list',
-  templateUrl: './comments-list.component.html',
-  styleUrls: ['./comments-list.component.css'],
+    selector: 'app-comments-list',
+    templateUrl: './comments-list.component.html',
+    styleUrls: ['./comments-list.component.css'],
+    standalone: false
 })
 export class CommentsListComponent {
   @Input() allComments: ArticleComment[] | null = null;

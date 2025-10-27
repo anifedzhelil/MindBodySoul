@@ -6,9 +6,10 @@ import { ArticleService } from 'src/app/services/article/article.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 
 @Component({
-  selector: 'app-articles-list',
-  templateUrl: './articles-list.component.html',
-  styleUrls: ['./articles-list.component.css'],
+    selector: 'app-articles-list',
+    templateUrl: './articles-list.component.html',
+    styleUrls: ['./articles-list.component.css'],
+    standalone: false
 })
 export class ArticlesListComponent implements OnInit {
   articles$: Observable<ArticleList[]> = new Observable<ArticleList[]>();

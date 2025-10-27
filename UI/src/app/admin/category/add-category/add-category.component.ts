@@ -7,9 +7,10 @@ import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
-  selector: 'app-add-category',
-  templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.css'],
+    selector: 'app-add-category',
+    templateUrl: './add-category.component.html',
+    styleUrls: ['./add-category.component.css'],
+    standalone: false
 })
 export class AddCategoryComponent implements OnDestroy {
   model: AddCategoryRequest;

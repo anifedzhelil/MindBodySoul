@@ -7,9 +7,10 @@ import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
-  selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.css'],
+    selector: 'app-edit-category',
+    templateUrl: './edit-category.component.html',
+    styleUrls: ['./edit-category.component.css'],
+    standalone: false
 })
 export class EditCategoryComponent implements OnInit {
   category: Category = {

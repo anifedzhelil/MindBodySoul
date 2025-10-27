@@ -5,9 +5,10 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 import { User } from 'src/app/models/user/user.module';
 
 @Component({
-  selector: 'app-add-comment',
-  templateUrl: './add-comment.component.html',
-  styleUrls: ['./add-comment.component.css'],
+    selector: 'app-add-comment',
+    templateUrl: './add-comment.component.html',
+    styleUrls: ['./add-comment.component.css'],
+    standalone: false
 })
 export class AddCommentComponent {
   comment: string = '';

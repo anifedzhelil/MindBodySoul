@@ -8,9 +8,10 @@ import { Observable } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
-  selector: 'app-admin-subcategories-list',
-  templateUrl: './admin-subcategories-list.component.html',
-  styleUrls: ['./admin-subcategories-list.component.css'],
+    selector: 'app-admin-subcategories-list',
+    templateUrl: './admin-subcategories-list.component.html',
+    styleUrls: ['./admin-subcategories-list.component.css'],
+    standalone: false
 })
 export class AdminSubCategoriesListComponent {
   subCategories: SubCategory[] = [];

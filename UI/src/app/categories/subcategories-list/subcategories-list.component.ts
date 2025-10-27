@@ -8,9 +8,10 @@ import { ArticleService } from 'src/app/services/article/article.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
-  selector: 'app-subcategories-list',
-  templateUrl: './subcategories-list.component.html',
-  styleUrls: ['./subcategories-list.component.css'],
+    selector: 'app-subcategories-list',
+    templateUrl: './subcategories-list.component.html',
+    styleUrls: ['./subcategories-list.component.css'],
+    standalone: false
 })
 export class SubCategoriesListComponent {
   subCategories: SubCategory[] | undefined;

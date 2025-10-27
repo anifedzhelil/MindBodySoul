@@ -4,7 +4,8 @@ import 'moment/locale/bg';
 
 
 @Pipe({
-  name: 'elapsedTime'
+    name: 'elapsedTime',
+    standalone: false
 })
 export class ElapsedTimePipe implements PipeTransform {
 

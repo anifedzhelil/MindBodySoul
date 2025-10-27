@@ -8,9 +8,10 @@ import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
-  selector: 'app-admin-categories-list',
-  templateUrl: './admin-categories-list.component.html',
-  styleUrls: ['./admin-categories-list.component.css'],
+    selector: 'app-admin-categories-list',
+    templateUrl: './admin-categories-list.component.html',
+    styleUrls: ['./admin-categories-list.component.css'],
+    standalone: false
 })
 export class AdminCategoriesListComponent {
   categories: Category[] = [];

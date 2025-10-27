@@ -12,9 +12,10 @@ import { Tag } from 'src/app/models/tag/tag.model';
 import { TagService } from 'src/app/services/tag/tag.service';
 
 @Component({
-  selector: 'app-edit-tag',
-  templateUrl: './edit-tag.component.html',
-  styleUrls: ['./edit-tag.component.css'],
+    selector: 'app-edit-tag',
+    templateUrl: './edit-tag.component.html',
+    styleUrls: ['./edit-tag.component.css'],
+    standalone: false
 })
 export class EditTagComponent implements OnChanges {
   errorMessage: string = '';

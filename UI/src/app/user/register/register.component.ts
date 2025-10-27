@@ -7,9 +7,10 @@ import { matchPasswordsValidator } from 'src/app/shared/validators/password/matc
 import { appPasswordValidator } from 'src/app/shared/validators/password/password-validator';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    standalone: false
 })
 export class RegisterComponent {
   form = this.fb.group({

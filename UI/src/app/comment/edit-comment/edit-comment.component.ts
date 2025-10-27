@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ArticleComment } from 'src/app/models/comment/article-comment';
 
 @Component({
-  selector: 'app-edit-comment',
-  templateUrl: './edit-comment.component.html',
-  styleUrls: ['./edit-comment.component.css'],
+    selector: 'app-edit-comment',
+    templateUrl: './edit-comment.component.html',
+    styleUrls: ['./edit-comment.component.css'],
+    standalone: false
 })
 export class EditCommentComponent {
   // @Input() currentComment:  | undefined;

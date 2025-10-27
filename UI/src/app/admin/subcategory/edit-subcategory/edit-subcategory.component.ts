@@ -10,9 +10,10 @@ import { IconsService } from 'src/app/services/icons/icon-service.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
-  selector: 'app-edit-subcategory',
-  templateUrl: './edit-subcategory.component.html',
-  styleUrls: ['./edit-subcategory.component.css'],
+    selector: 'app-edit-subcategory',
+    templateUrl: './edit-subcategory.component.html',
+    styleUrls: ['./edit-subcategory.component.css'],
+    standalone: false
 })
 export class EditSubCategoryComponent implements OnInit {
   subCategory?: SubCategory;

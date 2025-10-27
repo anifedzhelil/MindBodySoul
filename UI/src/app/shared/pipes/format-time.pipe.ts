@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from 'moment';
 @Pipe({
-  name: 'formatTime',
+    name: 'formatTime',
+    standalone: false
 })
 export class FormatTimePipe implements PipeTransform {
   transform(dateString: string, ...args: unknown[]): unknown {

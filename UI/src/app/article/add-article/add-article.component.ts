@@ -15,9 +15,10 @@ import { SubCategoryService } from 'src/app/services/subcategories/subcategory.s
 import { TagService } from 'src/app/services/tag/tag.service';
 
 @Component({
-  selector: 'app-add-article',
-  templateUrl: './add-article.component.html',
-  styleUrls: ['./add-article.component.css'],
+    selector: 'app-add-article',
+    templateUrl: './add-article.component.html',
+    styleUrls: ['./add-article.component.css'],
+    standalone: false
 })
 export class AddArticleComponent implements OnInit, OnDestroy {
   previewUrl: string | null = null;

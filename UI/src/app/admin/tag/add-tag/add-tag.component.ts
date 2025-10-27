@@ -5,9 +5,10 @@ import { Tag } from 'src/app/models/tag/tag.model';
 import { TagService } from 'src/app/services/tag/tag.service';
 
 @Component({
-  selector: 'app-add-tag',
-  templateUrl: './add-tag.component.html',
-  styleUrls: ['./add-tag.component.css'],
+    selector: 'app-add-tag',
+    templateUrl: './add-tag.component.html',
+    styleUrls: ['./add-tag.component.css'],
+    standalone: false
 })
 export class AddTagComponent {
   errorMessage: string = '';

@@ -9,9 +9,10 @@ import { IconsService } from 'src/app/services/icons/icon-service.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
-  selector: 'app-add-subcategory',
-  templateUrl: './add-subcategory.component.html',
-  styleUrls: ['./add-subcategory.component.css'],
+    selector: 'app-add-subcategory',
+    templateUrl: './add-subcategory.component.html',
+    styleUrls: ['./add-subcategory.component.css'],
+    standalone: false
 })
 export class AddSubCategoryComponent implements OnInit {
   categories$?: Observable<Category[]>;

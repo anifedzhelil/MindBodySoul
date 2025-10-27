@@ -7,9 +7,10 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-admin-tag-list',
-  templateUrl: './admin-tag-list.component.html',
-  styleUrls: ['./admin-tag-list.component.css'],
+    selector: 'app-admin-tag-list',
+    templateUrl: './admin-tag-list.component.html',
+    styleUrls: ['./admin-tag-list.component.css'],
+    standalone: false
 })
 export class AdminTagListComponent {
   tags: Tag[] = [];

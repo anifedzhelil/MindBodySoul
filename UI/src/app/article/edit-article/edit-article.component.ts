@@ -15,9 +15,10 @@ import { TagService } from 'src/app/services/tag/tag.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-edit-article',
-  templateUrl: './edit-article.component.html',
-  styleUrls: ['./edit-article.component.css'],
+    selector: 'app-edit-article',
+    templateUrl: './edit-article.component.html',
+    styleUrls: ['./edit-article.component.css'],
+    standalone: false
 })
 export class EditArticleComponent implements OnInit {
   id: string | null = null;

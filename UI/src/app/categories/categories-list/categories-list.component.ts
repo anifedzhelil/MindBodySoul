@@ -4,9 +4,10 @@ import { CategoryService } from 'src/app/services/categories/category.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
-  selector: 'app-categories-list',
-  templateUrl: './categories-list.component.html',
-  styleUrls: ['./categories-list.component.css']
+    selector: 'app-categories-list',
+    templateUrl: './categories-list.component.html',
+    styleUrls: ['./categories-list.component.css'],
+    standalone: false
 })
 export class CategoriesListComponent implements OnInit {
   categories: Category[] = [];
