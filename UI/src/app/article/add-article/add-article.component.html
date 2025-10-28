@@ -120,15 +120,15 @@
         required
       />
     </div>
-    <ng-container *ngIf="fileInput.touched || isFormSubmited">
-      <p class="error" *ngIf="!selectedFile">Моля, изберете снимка!</p>
+    <ng-container *ngIf=" fileInput.touched || isFormSubmited">
+      <p class="error" *ngIf="!selectedFile ">Моля, изберете снимка!</p>
     </ng-container>
 
     <div class="field">
       <input type="submit" value="Запази" />
     </div>
 
-    <ng-container *ngIf="errorMessage !== ''">
+    <ng-container *ngIf="form.invalid && errorMessage!== ''">
       <p class="error">
         {{ errorMessage }}
       </p>

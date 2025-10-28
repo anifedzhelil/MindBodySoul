@@ -53,7 +53,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.loadTags();
     this.loadCategories();
     this.editor = new Editor();
@@ -96,24 +95,36 @@ export class AddArticleComponent implements OnInit, OnDestroy {
 
   onFileUploadChange(event: Event): void {
     const input = event.target as HTMLInputElement;
+
+     if (this.previewUrl) {
+      URL.revokeObjectURL(this.previewUrl);
+    }
+
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       this.previewUrl = URL.createObjectURL(this.selectedFile);
     } else {
       this.selectedFile = null;
+      this.previewUrl = null; 
     }
   }
 
   ngOnDestroy(): void {
     this.editor.destroy();
+      if (this.previewUrl) {
+      URL.revokeObjectURL(this.previewUrl);
+    }
   }
 
   addArticleSubmit(form: NgForm): void {
+    this.isFormSubmited = true;
+
     if (form.invalid) {
       this.errorMessage = 'Попълнете всички задължитени полета!';
-      this.isFormSubmited = true;
       return;
     } else if (this.selectedFile) {
+      this.errorMessage = '';
+
       this.cloudinaryService
         .uploadImage(this.selectedFile)
         .subscribe((response: any) => {
@@ -138,8 +149,9 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   }
 
   onTagsUpdate(event: Select2UpdateEvent): void {
-    if(this.article)
-    this.article.tagsIDs = [];
+    if(this.article){
+      this.article.tagsIDs = [];
+    }
     event.options.map((option) => {
       this.article.tagsIDs?.push(String(option.value));
     });

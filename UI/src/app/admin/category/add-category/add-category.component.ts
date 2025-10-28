@@ -38,7 +38,8 @@ export class AddCategoryComponent implements OnDestroy {
   }
 
   onFormSubmit(form: NgForm) {
-    if (form.invalid) {
+    
+  if (form.invalid && this.file) {
       this.invalid = true;
       return;
     }
