@@ -20,5 +20,18 @@ The backend is built with ASP.NET Core.
 <img src="https://github.com/user-attachments/assets/55286f27-4803-4a8d-8822-fc2921c0753c"/>
 <img src="https://github.com/user-attachments/assets/f111330f-4aba-4ddc-8497-e7e23acd367b"/>
 
+## Security Notes
 
+Current status: 15 known vulnerabilities (11 moderate, 4 low)
+
+Main issues:
+- `@cloudinary/angular` uses Angular 10 internally (indirect dependency)
+- `@fortawesome/angular-fontawesome` requires Angular 18 (we use 19)
+- Build tool dependencies with moderate issues
+
+These are acceptable for a portfolio project and will be resolved when:
+- Library maintainers update their packages
+- Angular releases compatibility patches
+
+To check current security status: `npm audit`
 
