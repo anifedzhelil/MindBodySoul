@@ -18,12 +18,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MindBodySoulConnectionString"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MindBodySoulConnectionString"));
 });
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MindBodySoulConnectionString"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MindBodySoulConnectionString"));
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

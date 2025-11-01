@@ -36,7 +36,7 @@ namespace MindBodySoul.Data
 
             builder.Entity<IdentityRole>().HasData(roles);
 
-            var adminUserId = "3dc46fa1-5bc2-4a2a-8c10-35f29637c9f4";
+           /* var adminUserId = "3dc46fa1-5bc2-4a2a-8c10-35f29637c9f4";
 
             var admin = new IdentityUser()
             {
@@ -65,7 +65,7 @@ namespace MindBodySoul.Data
                 }
             };
 
-            builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);
+            builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);*/
         }
     }
 }

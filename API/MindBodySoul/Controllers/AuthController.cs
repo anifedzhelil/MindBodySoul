@@ -111,5 +111,49 @@ namespace MindBodySoul.Controllers
 
             return ValidationProblem(ModelState);
         }
+
+        // POST: /api/auth/setup-admin
+        [HttpPost]
+        [Route("setup-admin")]
+        public async Task<IActionResult> SetupAdmin([FromBody] SetupAdminRequestDto request)
+        {
+            // 1. Проверка на Setup Key (за security)
+            var setupKey = HttpContext.Request.Headers["X-Setup-Key"].FirstOrDefault();
+            var validSetupKey = "MBS_SETUP_2025"; // Временен key, после ще го сложим в environment variable
+
+            if (setupKey != validSetupKey)
+            {
+                return Unauthorized(new { message = "Невалиден setup key" });
+            }
+
+            // 2. Проверка дали user съществува
+            var existingUser = await userManager.FindByEmailAsync(request.Email);
+            if (existingUser != null)
+            {
+                return BadRequest(new { message = "Потребителят съществува!" });
+            }
+
+            // 3. Създаване на admin user
+            var adminUser = new IdentityUser
+            {
+                UserName = request.UserName,
+                Email = request.Email
+            };
+
+            var result = await userManager.CreateAsync(adminUser, request.Password);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { errors = result.Errors });
+            }
+
+            // 4. Добавяне на Reader и Writer roles
+            await userManager.AddToRoleAsync(adminUser, "Reader");
+            await userManager.AddToRoleAsync(adminUser, "Writer");
+
+            return Ok(new { message = "Admin потребителят е добавен успешно.", userId = adminUser.Id });
+        }
     }
+
+
 }

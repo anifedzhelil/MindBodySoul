@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using MindBodySoul.Data;
-using MindBodySoul.Migrations;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Repositories.Interface;
 
