@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Dockerfile" />
+    <ApplicationDefinition Include="Dockerfile" />
   </ItemGroup>
 
   <ItemGroup>
