@@ -15,6 +15,7 @@
 .vscode/
 
 # ASP.NET
+appsettings.json
 appsettings.Development.json
 appsettings.Production.json
 appsettings.Local.json
