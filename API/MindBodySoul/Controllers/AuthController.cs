@@ -11,11 +11,13 @@ namespace MindBodySoul.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly ITokenRepository tokenRepository;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.tokenRepository = tokenRepository;
+            _configuration = configuration;
         }
 
         //Post: {apibaseurl/api/auth/login}
@@ -119,7 +121,8 @@ namespace MindBodySoul.Controllers
         {
             // 1. Проверка на Setup Key (за security)
             var setupKey = HttpContext.Request.Headers["X-Setup-Key"].FirstOrDefault();
-            var validSetupKey = "MBS_SETUP_2025"; // Временен key, после ще го сложим в environment variable
+            var validSetupKey = _configuration["SetupAdmin:SecretKey"];
+
 
             if (setupKey != validSetupKey)
             {
