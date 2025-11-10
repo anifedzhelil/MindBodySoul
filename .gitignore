@@ -2,3 +2,5 @@
 /API/MindBodySoul/appsettings.json
 /UI/src/environments/environment.development.ts
 /UI/src/environments/environment.production.ts
+/UI/src/environments/environmen.ts
+/UI/src/environments/environment.ts
