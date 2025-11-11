@@ -6,7 +6,7 @@ import { ArticleDetails } from 'src/app/models/article/article-details.model';
 import { ArticleList } from 'src/app/models/article/article-list-response.model';
 import { Article } from 'src/app/models/article/article.model';
 import { UpdateArticleRequest } from 'src/app/models/article/update-article-request.model';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubCategory } from '../../models/subcategory/subcategory.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { AddSubCategoryRequest } from '../../models/subcategory/add-subcategory-request.model';
 import { UpdateSubCategoryRequest } from '../../models/subcategory/update-subcategory-request.model';
 

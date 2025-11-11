@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AddCommentRequest } from 'src/app/models/comment/add-comment-request.model';
 import { ArticleComment } from 'src/app/models/comment/article-comment';
 import { UpdateCommentRequest } from 'src/app/models/comment/update-comment-request';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

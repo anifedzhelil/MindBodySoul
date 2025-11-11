@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { mode } from '@cloudinary/url-gen/actions/rotate';
 import { Observable } from 'rxjs';
 import { Tag } from 'src/app/models/tag/tag.model';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

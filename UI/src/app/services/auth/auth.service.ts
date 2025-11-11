@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginRequest } from 'src/app/models/user/login-request.model';
 import { RegisterRequest } from 'src/app/models/user/register-request.model';
 import { User } from 'src/app/models/user/user.module';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

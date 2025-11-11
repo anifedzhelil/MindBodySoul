@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AddCategoryRequest } from 'src/app/models/category/add-category-request.model';
 import { Category } from 'src/app/models/category/category.model';
 
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { UpdateCategoryRequest } from 'src/app/models/category/update-category-request.model';
 
