@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-home',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class HomeComponent {
-  backgroundImageUrl = '/assets/images/home6.jpg';
-
+ get backgroundStyle() {
+    return {
+      'background-image': `url(${environment.production ? '/MindBodySoul' : ''}/assets/images/home6.jpg)`
+    };
+  }
 }
