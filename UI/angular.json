@@ -28,7 +28,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref": "/MindBodySoul/", 
+            "deployUrl": "/MindBodySoul/"   
           },
           "configurations": {
             "production": {
