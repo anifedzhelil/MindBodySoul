@@ -12,6 +12,7 @@ import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
 import { RouterModule } from '@angular/router';
 import {ArticlesComponent} from './components/articles/articles.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { LatestArticlesComponent } from './components/latest-articles/latest-articles.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     FormatTimePipe,
     ElapsedTimePipe,
     ArticlesComponent,
-    LoaderComponent
+    LoaderComponent,
+    LatestArticlesComponent,
   ],
   imports: [CommonModule, FontAwesomeModule, RouterModule],
   exports: [
@@ -37,7 +39,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     FormatTimePipe,
     ElapsedTimePipe,
     ArticlesComponent,
-    LoaderComponent
+    LoaderComponent,
+    LatestArticlesComponent,
   ],
 })
 export class SharedModule {}
