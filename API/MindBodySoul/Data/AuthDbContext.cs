@@ -35,37 +35,7 @@ namespace MindBodySoul.Data
             };
 
             builder.Entity<IdentityRole>().HasData(roles);
-
-           /* var adminUserId = "3dc46fa1-5bc2-4a2a-8c10-35f29637c9f4";
-
-            var admin = new IdentityUser()
-            {
-                Id = adminUserId,
-                UserName = "anifecelil",
-                Email = "anifecelil@gmail.com",
-                NormalizedUserName = "anifecelil".ToUpper(),
-                NormalizedEmail = "anifecelil@gmail.com".ToUpper()
-            };
-
-            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "mbsAdmin_33");
-
-            builder.Entity<IdentityUser>().HasData(admin);
-
-            var adminRoles = new List<IdentityUserRole<string>>()
-            {
-                new()
-                {
-                    UserId= adminUserId,
-                    RoleId = readerRoleId
-                },
-                new()
-                {
-                    UserId= adminUserId,
-                    RoleId = writerRoleId
-                }
-            };
-
-            builder.Entity<IdentityUserRole<string>>().HasData(adminRoles);*/
+          
         }
     }
 }

@@ -279,6 +279,29 @@ namespace MindBodySoul.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("getLatestArticles/{limit}")]
+        public async Task<IActionResult> GetLatestArticlesAsync([FromRoute] int limit = 8)
+        {
+                var articles = await articleRepository.GetLatestArticlesAsync(limit);
+    
+                var response = new List<LatestArticleDto>();
+    
+                foreach (var article in articles)
+                {
+                    response.Add(new LatestArticleDto
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Excerpt = article.Content.Length > 30
+                                    ? article.Content.Substring(0, 50) + "..."
+                                    : article.Content,
+                        ImageUrl = article.ImageUrl
+                    });
+                }
+                return Ok(response);
+        }
+
     }
 
 }

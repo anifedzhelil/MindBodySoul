@@ -5,6 +5,7 @@ import { AddArticleRequest } from 'src/app/models/article/add-article-request.mo
 import { ArticleDetails } from 'src/app/models/article/article-details.model';
 import { ArticleList } from 'src/app/models/article/article-list-response.model';
 import { Article } from 'src/app/models/article/article.model';
+import { LatestArticle } from 'src/app/models/article/latest-article.model';
 import { UpdateArticleRequest } from 'src/app/models/article/update-article-request.model';
 import { environment } from 'src/environments/environment';
 
@@ -53,6 +54,12 @@ export class ArticleService {
     );
   }
 
+  
+  getLatestArticles(limit: number): Observable<LatestArticle[]> {
+    return this.http.get<LatestArticle[]>(
+      `${environment.apiBaseUrl}/api/articles/getLatestArticles/${limit}`
+    );
+  }
   getArticleById(id: string): Observable<ArticleDetails> {
     return this.http.get<ArticleDetails>(
       `${environment.apiBaseUrl}/api/articles/${id}`

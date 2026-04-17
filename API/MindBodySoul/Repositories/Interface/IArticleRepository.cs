@@ -12,5 +12,6 @@ namespace MindBodySoul.Repositories.Interface
         Task<IEnumerable<Article>?> GetAllByCategoryAsync(Guid categoryId);
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
         Task<Article?> GetById(Guid id);
+        Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit);
     }
 }

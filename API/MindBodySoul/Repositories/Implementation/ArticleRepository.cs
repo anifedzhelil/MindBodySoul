@@ -94,6 +94,16 @@ namespace MindBodySoul.Repositories.Implementation
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
+        public async Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit)
+        {
+            var articles = await dbContext.Articles
+                .OrderByDescending(a => a.CreatedDate)
+                .Take(limit)
+                .ToListAsync();
+
+            return articles;
+        }
+
         public async Task<Article?> UpdateAsync(Article article)
         {
             var existingArticle = await dbContext.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
