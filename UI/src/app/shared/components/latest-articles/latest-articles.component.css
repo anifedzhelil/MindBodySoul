@@ -83,12 +83,25 @@
 }
 
 @media (max-width: 480px) {
-  .card {
-    flex: 0 0 100%;
-  }
+
   
   .wrapper button {
     display: none;
   }
+
+  .wrapper{
+    padding: 0px;
+  }
+
+  .card {
+    box-shadow: none;
+    border-radius: 0;
+    flex: 0 0 100%;
+    padding: 0;
+  }
+
+  .container {
+  gap: 0px;
+}
 }
 
