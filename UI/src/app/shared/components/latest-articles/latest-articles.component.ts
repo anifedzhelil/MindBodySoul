@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { LatestArticle } from 'src/app/models/article/latest-article.model';
+import { HostListener } from '@angular/core';
+
 
 @Component({
   selector: 'app-latest-articles',
@@ -20,10 +22,19 @@ export class LatestArticlesComponent {
   constructor(private articleService: ArticleService) {}
 
   ngOnInit(): void {
+    this.loadArticles();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.loadArticles()
+  }
+
+  loadArticles(): void {
     this.articleService.getLatestArticles(8).subscribe({
       next: (data) => {
         this.articles = data;
-        this.getArticles(this.currentIndex);
+        window.innerWidth < 480 ? this.visibleArticles = this.articles :   this.getArticles(this.currentIndex);
       },
       error: (err) => {
         console.error(err);
@@ -36,3 +47,5 @@ export class LatestArticlesComponent {
     this.visibleArticles = this.articles.slice(index, index + 4);
   }
 }
+
+

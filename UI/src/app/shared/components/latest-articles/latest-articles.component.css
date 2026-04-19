@@ -88,7 +88,7 @@
   }
   
   .wrapper button {
-    padding: 8px 12px;
+    display: none;
   }
 }
 
