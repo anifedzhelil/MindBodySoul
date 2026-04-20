@@ -83,10 +83,12 @@
 }
 
 @media (max-width: 480px) {
-
-  
   .wrapper button {
     display: none;
+  }
+
+  .card img{
+    height: 150px;
   }
 
   .wrapper{
@@ -101,7 +103,7 @@
   }
 
   .container {
-  gap: 0px;
-}
+    gap: 0px;
+  }
 }
 
