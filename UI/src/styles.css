@@ -5,11 +5,10 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   html {
     font: 14px/1.5 Lato, sans-serif;
   }
-  
   
   a {
     text-decoration: none;
@@ -20,7 +19,6 @@
   a:visited {
     color: #1E5375;
   }
-
   
   input[type="submit"],
   input[type="button"] {
@@ -72,3 +70,8 @@
     padding-top: 1em;
   }
   
+  :root {
+  --mobile-padding: 0em;
+  --mobile-gap: 1em;
+  --card-padding: 20px;
+}

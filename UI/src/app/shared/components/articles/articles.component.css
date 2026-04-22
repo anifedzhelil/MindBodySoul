@@ -1,4 +1,4 @@
-.artcileList {
+.articleList {
   display: flex;
   flex-direction: column;
   gap: 5em;
@@ -9,30 +9,31 @@
 article {
   display: flex;
   flex-direction: row;
-  gap: 2em;
+  gap: 1em;
   background: #fff;
   border-radius: 0.1em;
   border-bottom: 1px solid #ccc;
-  padding: 20px;
+  padding: 10px;
 }
 
 h3 {
   padding-bottom: 20px;
 }
 .imageContent {
-  padding: 20px;
+  padding: 10px;
 }
 
-img {
-  width: 250px;
+.imageContent img {
+  width: 280px;
   height: 100%;
 }
+
 .content {
   display: flex;
 }
 
 .title {
-  padding-top: 20px;
+  padding-top: 8px;
   padding-bottom: 20px;
 }
 
@@ -63,10 +64,40 @@ img {
   article {
     padding: 10px;
   }
+}
 
   @media (max-width: 600px) {
     img {
       width: 150px;
     }
   }
-}
+
+
+  @media (max-width: 480px) {
+
+    articleList {
+      gap: var(--mobile-gap);
+  }
+    article {
+      flex-direction: column;
+      padding: var(--mobile-padding);
+      gap: var(--mobile-gap);
+      padding-bottom: 2em;
+    }
+
+    .imageContent img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .imageContent {
+      padding: 0;
+    }
+
+    .title {
+      padding-top: 0px;
+      padding-bottom: 3px;
+    }
+  }
+

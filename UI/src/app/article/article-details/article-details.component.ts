@@ -67,6 +67,10 @@ export class ArticleDetailsComponent implements OnInit {
     });
   }
 
+  get visitCount(): number {
+    return (this.article?.totalVisitCount ?? 0) + 1;
+ }
+
   onDelete(): void {
     this.hideDeleteConformation = true;
   }

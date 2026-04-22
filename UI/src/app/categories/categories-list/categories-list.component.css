@@ -107,3 +107,14 @@ img {
   }
   
 }
+
+@media (max-width: 480px) {
+  .list {
+    padding: var(--mobile-padding);
+    gap: var(--mobile-gap);
+  }
+
+  .list-item {
+    flex: 1 1 100%;
+  }
+}

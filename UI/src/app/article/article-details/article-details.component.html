@@ -16,7 +16,7 @@
       </a>
     </div>
     <div class="title">
-      <p>{{ article.title }}</p>
+      <h2>{{ article.title }}</h2>
     </div>
     <div class="category">
       <p>{{ article.categoryName }} / {{ article.subCategoryName }}</p>
@@ -24,7 +24,7 @@
     <div class="date">
      <span>{{ article.createdDate | formatTime }}</span>
      <span>  <fa-icon  [icon]="faEye"></fa-icon>  
-      {{  article.totalVisitCount + 1}} </span>
+      {{  visitCount }} </span>
       <span 
       *ngIf="user?.userName !== undefined && user?.roles?.includes('Writer')"      
       > / {{article.uniqueVisitCount}}</span>
