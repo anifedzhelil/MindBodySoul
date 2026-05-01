@@ -1,7 +1,7 @@
 <div class="header">
     <div class="toogle-menu" (click)="toggleMenu()">
-              <fa-icon [icon]="faBarChart"></fa-icon>
-            </div>
+        <fa-icon [icon]="faBarChart"></fa-icon>
+    </div>
     <div class="logo">
         <img src="assets/images/logo.png" [routerLink]="'/'" />
     </div>
@@ -16,49 +16,55 @@
 <div class="overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
 
 <div class="drawer" [class.open]="isMenuOpen">
-    <div class="drawer-header">
-        <ng-container *ngIf="user !== undefined">
-            <span class="username">
-                <fa-icon [icon]="faUser"></fa-icon> {{ user?.userName }}
-            </span>
-        </ng-container>
+    <div class="drawer-header" *ngIf="user !== undefined">
+        <span class="username">
+            <fa-icon [icon]="faUser"></fa-icon> {{ user?.userName }}
+        </span>
     </div>
     <nav>
         <ul>
             <li>
-                <fa-icon [icon]="faHome" size="lg"></fa-icon>
-                <a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a>
+                <a [routerLink]="'/'" (click)="toggleMenu()">
+                    <fa-icon [icon]="faHome" size="lg"></fa-icon>
+                    Начална страница</a>
             </li>
             <li>
-                <fa-icon [icon]="faFolder" size="lg"></fa-icon>
-                <a class="size" [routerLink]="'/categories'" (click)="toggleMenu()">Категории</a>
+                <a class="size" [routerLink]="'/categories'" (click)="toggleMenu()">
+                    <fa-icon [icon]="faFolder" size="lg"></fa-icon>
+                    Категории</a>
             </li>
             <li>
-                <fa-icon [icon]="faNewspaper" size="lg"></fa-icon>
-                <a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a>
+                <a [routerLink]="'/articles'" (click)="toggleMenu()">
+                    <fa-icon [icon]="faNewspaper" size="lg"></fa-icon>
+                    Статии</a>
             </li>
             <ng-container *ngIf="
               user?.userName !== undefined && user?.roles?.includes('Writer')
             ">
                 <li>
-                    <fa-icon [icon]="faGear" size="lg"></fa-icon>
-                    <a [routerLink]="'/admin'" (click)="toggleMenu()">Админ</a>
+                    <a [routerLink]="'/admin'" (click)="toggleMenu()">
+                        <fa-icon [icon]="faGear" size="lg"></fa-icon>
+                        Админ
+                    </a>
                 </li>
             </ng-container>
             <li>
-                <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
-                <a [routerLink]="'/contacts'" (click)="toggleMenu()">Контакти</a>
+                <a [routerLink]="'/contacts'" (click)="toggleMenu()">
+                    <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
+                    Контакти</a>
             </li>
             <li>
                 <ng-container *ngIf="user === undefined; else showLogout">
-                    <fa-icon [icon]="faSignIn" size="lg"></fa-icon>
                     <a [routerLink]="'/login'" (click)="toggleMenu()">
+                        <fa-icon [icon]="faSignIn" size="lg"></fa-icon>
                         Вход
                     </a>
                 </ng-container>
                 <ng-template #showLogout>
-                    <fa-icon [icon]="faSignOut" size="lg"></fa-icon>
-                    <a (click)="onLogout()">Изход</a>
+                    <a (click)="onLogout()">
+                        <fa-icon [icon]="faSignOut" size="lg"></fa-icon>
+                        Изход
+                    </a>
                 </ng-template>
             </li>
         </ul>

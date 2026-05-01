@@ -38,3 +38,121 @@ input[type="submit"] {
     width: 100%;
   }
 }
+
+/* DESKTOP таблица */
+.desktop-table {
+  display: table;
+  width: 100%;
+}
+
+.mobile-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+   .container {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .desktop-table {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 64px;
+  }
+
+  .card-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1; /* заема цялото свободно място */
+    min-width: 0; /* позволява truncate */
+  }
+
+  .card-left app-awesome-icons {
+    flex-shrink: 0; /* иконата не се свива */
+    font-size: 20px;
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0; /* важно за truncate */
+  }
+
+  .card-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1a1a2e;
+    white-space: nowrap; /* не се пренася */
+    overflow: hidden;
+    text-overflow: ellipsis; /* "..." ако е много дълго */
+  }
+
+  .card-category {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-actions {
+    display: flex;
+    flex-direction: row; /* хоризонтално за компактност */
+    gap: 16px;
+    align-items: center;
+    flex-shrink: 0;
+    padding-left: 12px;
+  }
+
+  .card-actions a {
+    cursor: pointer;
+    font-size: 17px;
+    color: #555;
+  }
+
+  .card-actions a.editIcon {
+    color: #2a7f8f;
+  }
+
+  .card-actions a:last-child {
+    color: #c0392b;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+}
+
+
