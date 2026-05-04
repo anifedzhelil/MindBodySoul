@@ -31,16 +31,12 @@ export class AddSubCategoryComponent implements OnInit {
     private iconsService: IconsService
   ) {}
 
-  iconsKeys = this.iconsService.getIconKeys();
-
-  selectedIconKey: string = '';
-
   ngOnInit(): void {
     this.categories$ = this.categoryService.getAllCategories();
   }
   
   onFormSubmit(form: NgForm): void {
-    if (form.invalid) {
+    if (form.invalid || !this.model.icon) {
       this.invalid = true;
       return;
     }

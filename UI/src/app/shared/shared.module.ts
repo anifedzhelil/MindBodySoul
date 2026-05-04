@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import {ArticlesComponent} from './components/articles/articles.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LatestArticlesComponent } from './components/latest-articles/latest-articles.component';
+import { FormsModule } from '@angular/forms';
+import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,9 @@ import { LatestArticlesComponent } from './components/latest-articles/latest-art
     ArticlesComponent,
     LoaderComponent,
     LatestArticlesComponent,
+    IconPickerComponent,
   ],
-  imports: [CommonModule, FontAwesomeModule, RouterModule],
+  imports: [CommonModule, FontAwesomeModule, RouterModule, FormsModule],
   exports: [
     DeleteConformationComponent,
     ErrorMessageComponent,
@@ -41,6 +44,7 @@ import { LatestArticlesComponent } from './components/latest-articles/latest-art
     ArticlesComponent,
     LoaderComponent,
     LatestArticlesComponent,
+    IconPickerComponent,
   ],
 })
 export class SharedModule {}

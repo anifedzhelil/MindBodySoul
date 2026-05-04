@@ -3,15 +3,8 @@
     <h2>Добави подкатегория</h2>
     <p class="field">
       <label for="name">Име</label>
-      <input
-        type="text"
-        id="subCategoryName"
-        class="form-control"
-        name="subCategoryName"
-        [(ngModel)]="model.name"
-        #inputSubCategoryName="ngModel"
-        required
-      />
+      <input type="text" id="subCategoryName" class="form-control" name="subCategoryName" [(ngModel)]="model.name"
+        #inputSubCategoryName="ngModel" required />
     </p>
     <ng-container *ngIf="inputSubCategoryName.touched">
       <p *ngIf="inputSubCategoryName?.errors?.['required']" class="error">
@@ -21,18 +14,9 @@
 
     <p class="field">
       <label for="category">Категория</label>
-      <select
-        name="category"
-        id="category"
-        [(ngModel)]="model.categoryId"
-        #selectCategory="ngModel"
-        required
-      >
+      <select name="category" id="category" [(ngModel)]="model.categoryId" #selectCategory="ngModel" required>
         <option value="">---Изберете категория---</option>
-        <option
-          *ngFor="let category of categories$ | async"
-          [value]="category.id"
-        >
+        <option *ngFor="let category of categories$ | async" [value]="category.id">
           {{ category.name }}
         </option>
       </select>
@@ -42,30 +26,13 @@
         Изберете подкатегория!
       </p>
     </ng-container>
-
-    <!---p class="field">
-    <label for="url-handle">Url handle</label>
-    <input
-      type="text"
-      id="url-handle"
-      name="url-handle"
-      [(ngModel)]="model.urlHandle"
-    />
-  </p-->
     <p class="field">
       <label for="image">Икона</label>
-      <select name="icons" id="icons" [(ngModel)]="model.icon" #selectIcon="ngModel" required>
-        <option value="">---Изберете икона---</option>
-        <option *ngFor="let key of iconsKeys" [value]="key">
-          {{ key }}
-        </option>
-      </select>
+      <app-icon-picker (iconSelected)="model.icon = $event"></app-icon-picker>
     </p>
-    <ng-container *ngIf="selectIcon.touched">
-      <p class="error" *ngIf="selectIcon.errors?.['required']">
-        Изберете икона!
-      </p>
-    </ng-container>
+    <p class="error" *ngIf="invalid && !model.icon">
+      Изберете икона!
+    </p>
     <p class="field">
       <input type="submit" value="Запази" />
     </p>

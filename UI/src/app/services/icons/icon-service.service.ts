@@ -1,58 +1,47 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import {
-  faHeart,
-  faLeaf,
-  faAppleAlt,
-  faSun,
-  faSeedling,
-  faAtom,
-  faWind,
-  faFeatherPointed,
-  faFire,
-  faMortarPestle,
-  faBrain,
-  faXmark,
-  faFishFins,
-  IconDefinition,
-  faBowlRice,
-  faBottleDroplet,
-  faHandHoldingDroplet,
-  faHotTubPerson,
-  faHandsHoldingCircle,
+  faHeart, faHeartPulse, faBrain, faBone, faEye,
+  faTooth, faLungs, faStethoscope, faDroplet, faFire,
+  faLeaf, faSeedling, faTree, faSun, faSnowflake,
+  faWind, faFeatherPointed, faAppleAlt, faBowlRice,
+  faFishFins, faMugHot, faBottleDroplet, faJar,
+  faWheatAwn, faMortarPestle, faHandHoldingDroplet,
+  faHandsHoldingCircle, faHandSparkles, faSpa,
+  faYinYang, faPersonPraying, faDumbbell, faStar,
+  faCircleInfo, faBookOpen, faFlask, faAtom,
+  faHotTubPerson, IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
-
 import { faPagelines } from '@fortawesome/free-brands-svg-icons';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IconsService {
-  private icons = {
-    faHeart: faHeart,
-    faLeaf: faLeaf,
-    faAppleAlt: faAppleAlt,
-    faSun: faSun,
-    faSeedling: faSeedling,
-    faAtom: faAtom,
-    faWind: faWind,
-    faFeatherPointed: faFeatherPointed,
-    faFire: faFire,
-    faMortarPestle: faMortarPestle,
-    faBrain: faBrain,
-    faPagelines: faPagelines,
-    faFishFins: faFishFins,
-    faBowlRice: faBowlRice,
-    faBottleDroplet: faBottleDroplet,
-    faHandHoldingDroplet: faHandHoldingDroplet,
-    faHotTubPerson: faHotTubPerson,
-    faHandsHoldingCircle: faHandsHoldingCircle,
+  private icons: Record<string, IconDefinition> = {
+    // Health and body
+    faHeart, faHeartPulse, faBrain, faBone, faEye,
+    faTooth, faLungs, faStethoscope, faDroplet, faFire,
+    // Nature and plants
+    faLeaf, faSeedling, faTree, faSun, faSnowflake,
+    faWind, faFeatherPointed, faPagelines,
+    // Food and drinks
+    faAppleAlt, faBowlRice, faFishFins, faMugHot,
+    faBottleDroplet, faJar, faWheatAwn,
+    // Therapies and healing
+    faMortarPestle, faHandHoldingDroplet, faHandsHoldingCircle,
+    faHandSparkles, faSpa, faYinYang, faPersonPraying,
+    faDumbbell, faHotTubPerson,
+    // General
+    faStar, faCircleInfo, faBookOpen, faFlask, faAtom,
   };
 
-  getIcons() {
+  @Input() mode: 'picker' | 'display' = 'picker';
+
+  getIcons(): Record<string, IconDefinition> {
     return this.icons;
   }
 
-  getIconKeys() {
+  getIconKeys(): string[] {
     return Object.keys(this.icons);
   }
 }

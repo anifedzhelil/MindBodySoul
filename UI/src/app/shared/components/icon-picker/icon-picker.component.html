@@ -1,0 +1,21 @@
+<div class="icon-picker">
+  <div class="icon-selected" (click)="toggleDropdown()">
+    <fa-icon *ngIf="selectedIcon" [icon]="getIcon(selectedIcon)"></fa-icon>
+    <span>{{ selectedIcon || '---Изберете икона---' }}</span>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="icon-dropdown" *ngIf="isOpen">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Търси икона..."
+      class="icon-search"
+    />
+    <div class="icon-list">
+      <div *ngFor="let key of filteredKeys" class="icon-option" (click)="selectIcon(key)">
+        <fa-icon [icon]="getIcon(key)"></fa-icon>
+        <span>{{ key }}</span>
+      </div>
+    </div>
+  </div>
+</div>

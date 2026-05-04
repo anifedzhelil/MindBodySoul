@@ -1,0 +1,86 @@
+.icon-picker {
+  position: relative;
+  width: 100%;
+}
+
+.icon-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid rgb(70, 69, 69);
+  border-radius: 5px;
+  cursor: pointer;
+  background: white;
+}
+
+.icon-selected .arrow {
+  margin-left: auto;
+}
+
+.icon-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.icon-search {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.icon-list {
+  max-height: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+}
+
+.icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 90px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.icon-option:hover {
+  background: #e8f4f8;
+}
+
+.icon-option fa-icon {
+  font-size: 20px;
+  color: #22648d;
+}
+
+@media (max-width: 600px) {
+  .icon-dropdown {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 12px 12px 0 0;
+    max-height: 60vh;
+  }
+
+  .icon-list {
+    max-height: calc(60vh - 50px);
+  }
+}
