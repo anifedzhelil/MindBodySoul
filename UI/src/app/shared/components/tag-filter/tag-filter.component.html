@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <h3 class="title" (click)="toggleAccordion()">Тагове <span>▼</span></h3>
+    <div class="content" *ngIf="isOpen">
+        <div class="search">
+            <form>
+                <input type="search" #searchInput placeholder="Търсене..." />
+                <fa-icon [icon]="faSearch" (click)="filterTags(searchInput.value)"></fa-icon>
+            </form>
+        </div>
+        <div class="tags">
+            <div *ngFor="let tag of filteredTags" class="tag" [class.active]="tag.id === activeTagId"
+                (click)="selectNewTag(tag.id)">
+                {{ tag.name }}
+            </div>
+        </div>
+        <div *ngIf="filteredTags.length === 0" class="no-tags">
+            <p>Няма намерени тагове...</p>
+        </div>
+        <div *ngIf="!isAllTagsShown && filteredTags.length>0">
+            <button class="more-tags" (click)="showAllTags()" value="Покажи всички тагове">Покажи всички тагове</button>
+        </div>
+    </div>
+
+</div>

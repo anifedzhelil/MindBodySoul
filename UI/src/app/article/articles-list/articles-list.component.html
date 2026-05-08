@@ -1,5 +1,9 @@
 <div class="main">
   <div class="container">
+     <div class="layout">
+      <div class="sidebar">
+        <app-tag-filter [tags]="allTags" [activeTagId]="activeTagId" (tagSelected)="onTagSelected($event)"></app-tag-filter>
+      </div>
     <div class="articles">
       <div class="search" *ngIf="search">
         <p>Резултати от търсенето за: {{ search }}</p>
@@ -11,5 +15,6 @@
         <app-loader></app-loader>
       </ng-template>
     </div>
+     </div>
   </div>
 </div>

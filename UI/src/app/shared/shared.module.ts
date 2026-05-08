@@ -15,6 +15,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LatestArticlesComponent } from './components/latest-articles/latest-articles.component';
 import { FormsModule } from '@angular/forms';
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
+import { TagFilterComponent } from './components/tag-filter/tag-filter.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { IconPickerComponent } from './components/icon-picker/icon-picker.compon
     LoaderComponent,
     LatestArticlesComponent,
     IconPickerComponent,
+    TagFilterComponent,
   ],
   imports: [CommonModule, FontAwesomeModule, RouterModule, FormsModule],
   exports: [
@@ -45,6 +47,7 @@ import { IconPickerComponent } from './components/icon-picker/icon-picker.compon
     LoaderComponent,
     LatestArticlesComponent,
     IconPickerComponent,
+    TagFilterComponent,
   ],
 })
 export class SharedModule {}

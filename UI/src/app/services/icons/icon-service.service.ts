@@ -1,6 +1,6 @@
 import { Injectable, Input } from '@angular/core';
 import {
-  faHeart, faHeartPulse, faBrain, faBone, faEye,
+  faHeart, faHeartPulse, faBrain, faBone, faEye, faBacteria,
   faTooth, faLungs, faStethoscope, faDroplet, faFire,
   faLeaf, faSeedling, faTree, faSun, faSnowflake,
   faWind, faFeatherPointed, faAppleAlt, faBowlRice,
@@ -19,7 +19,7 @@ import { faPagelines } from '@fortawesome/free-brands-svg-icons';
 export class IconsService {
   private icons: Record<string, IconDefinition> = {
     // Health and body
-    faHeart, faHeartPulse, faBrain, faBone, faEye,
+    faHeart, faHeartPulse, faBrain, faBone, faEye, faBacteria,
     faTooth, faLungs, faStethoscope, faDroplet, faFire,
     // Nature and plants
     faLeaf, faSeedling, faTree, faSun, faSnowflake,

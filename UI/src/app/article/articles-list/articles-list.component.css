@@ -13,6 +13,19 @@
   box-shadow: 0 0 1em 0 rgb(0, 0, 0, 0.1);
 }
 
+.layout {
+  display: flex;
+  gap: 1.5em;
+}
+
+.sidebar {
+  flex: 0 0 200px;
+}
+
+.articles {
+  flex: 1;
+}
+
 .article{
   width: 100%;
 }
@@ -20,4 +33,15 @@
 .search{
   padding: 2rem;
   font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex: none;
+    width: 100%;
+  }
 }
