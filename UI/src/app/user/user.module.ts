@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
-  ]
+    SharedModule,
+    FaIconComponent
+]
 })
 export class UserModule { }

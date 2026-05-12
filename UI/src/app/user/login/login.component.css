@@ -15,3 +15,16 @@
 form{
     padding: 5px;
 }
+
+
+.toggle-password {
+    position: absolute;
+    right: 1em;
+    cursor: pointer;
+    color: #888;
+    bottom: 5px;
+}
+
+.password-container {
+    position: relative;
+}

@@ -3,15 +3,7 @@
     <h2>Вход</h2>
     <div class="field">
       <label for="email">Имейл</label>
-      <input
-        type="text"
-        id="email"
-        name="email"
-        ngModel
-        email
-        required
-        #emailInput="ngModel"
-      />
+      <input type="text" id="email" name="email" ngModel email required #emailInput="ngModel" />
     </div>
 
     <div *ngIf="emailInput.touched">
@@ -23,24 +15,18 @@
       </div>
     </div>
     <div class="field">
-      <label for="password">Парола</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        ngModel
-        #passwordInput="ngModel"
-        required
-        appPasswordValidator
-      />
+      <div class="password-container">
+        <label for="password">Парола</label>
+        <input [type]="passwordIsVisible ? 'text' : 'password'" id="password" name="password" ngModel
+          #passwordInput="ngModel" required appPasswordValidator class="password-field" />
+        <fa-icon [icon]=" passwordIsVisible ? faEyeSlash : faEye" class="toggle-password"
+          (click)="togglePasswordVisibility()"></fa-icon>
+      </div>
       <ng-container *ngIf="passwordInput?.touched">
         <div class="field error" *ngIf="passwordInput?.errors?.['required']">
           Въведете парола!
         </div>
-        <div
-          class="field error"
-          *ngIf="passwordInput?.errors?.['appPasswordValidator']"
-        >
+        <div class="field error" *ngIf="passwordInput?.errors?.['appPasswordValidator']">
           Паролата трябва да е минимум 6 символа, с поне една главна и една
           малка буква!
         </div>

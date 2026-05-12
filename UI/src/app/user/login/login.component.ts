@@ -1,10 +1,9 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -14,6 +13,9 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnDestroy {
   @ViewChild('loginForm') loginForm: NgForm | undefined;
   errorMessage: string| undefined="";
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  passwordIsVisible = false;
   private subscription: Subscription | undefined;
 
   constructor(
@@ -48,4 +50,9 @@ export class LoginComponent implements OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  togglePasswordVisibility(): void {
+    this.passwordIsVisible = !this.passwordIsVisible;
+  }
+    
 }
