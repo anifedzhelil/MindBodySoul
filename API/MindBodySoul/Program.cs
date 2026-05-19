@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using MindBodySoul.Data;
 using MindBodySoul.Repositories.Implementation;
 using MindBodySoul.Repositories.Interface;
+using MindBodySoul.Services.Implementation;
+using MindBodySoul.Services.Interface;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +36,7 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IArticleTagsRepository, ArticleTagsRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IArticleVisitsRepository, ArticleVisitsRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {

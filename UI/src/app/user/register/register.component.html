@@ -3,12 +3,7 @@
     <h2>Регистрация</h2>
     <div class="field">
       <label for="userName">Потребителско име</label>
-      <input
-        type="text"
-        id="userName"
-        name="userName"
-        formControlName="userName"
-      />
+      <input type="text" id="userName" name="userName" formControlName="userName" />
     </div>
     <ng-container *ngIf="userName?.touched">
       <div class="error" *ngIf="userNameErrors?.['required']">
@@ -29,14 +24,11 @@
     </ng-container>
 
     <ng-container formGroupName="passGroup">
-      <div class="field">
+      <div class="field  password-container">
         <label for="password">Парола</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          formControlName="password"
-        />
+        <input  [type]="passwordIsVisible ? 'text' : 'password'" id="password" name="password" formControlName="password" />
+        <fa-icon [icon]="passwordIsVisible ? faEyeSlash : faEye" class="toggle-password"
+          (click)="togglePasswordVisibility()"></fa-icon>
       </div>
       <ng-container *ngIf="password?.touched">
         <div class="error" *ngIf="passwordErrors?.['required']">
@@ -48,20 +40,14 @@
         </div>
       </ng-container>
 
-      <div class="field">
+      <div class="field password-container">
         <label for="repeatPassword">Повтори парола</label>
-        <input
-          type="password"
-          id="repeatPassword"
-          name="repeatPassword"
-          formControlName="repeatPassword"
-        />
+        <input  [type]="repeatPasswordIsVisible ? 'text' : 'password'" id="repeatPassword" name="repeatPassword" formControlName="repeatPassword" />
+        <fa-icon [icon]=" repeatPasswordIsVisible ? faEyeSlash : faEye" class="toggle-password"
+          (click)="toggleRepeatPasswordVisibility()"></fa-icon>
       </div>
       <ng-container *ngIf="repeatPassword?.touched">
-        <div
-          class="error"
-          *ngIf="repeatPasswordErrors?.['matchPasswordsValidator']"
-        >
+        <div class="error" *ngIf="repeatPasswordErrors?.['matchPasswordsValidator']">
           Двете пароли трябва да съвпаднат!
         </div>
       </ng-container>

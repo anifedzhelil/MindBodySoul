@@ -5,6 +5,7 @@ import { RegisterRequest } from 'src/app/models/user/register-request.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { matchPasswordsValidator } from 'src/app/shared/validators/password/match-paswords-validator';
 import { appPasswordValidator } from 'src/app/shared/validators/password/password-validator';
+import  {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-register',
@@ -26,6 +27,10 @@ export class RegisterComponent {
   });
 
   errorMessage: string | null = null;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  repeatPasswordIsVisible = false;  
+  passwordIsVisible = false;
 
   get userName() {
     return this.form.get('userName');
@@ -92,4 +97,13 @@ export class RegisterComponent {
       },
     });
   }
+
+  toggleRepeatPasswordVisibility(): void {
+    this.repeatPasswordIsVisible = !this.repeatPasswordIsVisible;
+  } 
+
+  togglePasswordVisibility(): void {  
+    this.passwordIsVisible = !this.passwordIsVisible;
+  }
 }
+

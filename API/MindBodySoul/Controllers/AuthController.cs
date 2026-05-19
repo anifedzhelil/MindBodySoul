@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.DTO;
 using MindBodySoul.Repositories.Interface;
+using MindBodySoul.Services.Interface;
 
 namespace MindBodySoul.Controllers
 {
@@ -12,12 +13,15 @@ namespace MindBodySoul.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly ITokenRepository tokenRepository;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
 
-        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository, IConfiguration configuration)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository,
+            IConfiguration configuration, IEmailService emailService)
         {
             this.userManager = userManager;
             this.tokenRepository = tokenRepository;
             _configuration = configuration;
+            _emailService = emailService;
         }
 
         //Post: {apibaseurl/api/auth/login}
@@ -55,6 +59,64 @@ namespace MindBodySoul.Controllers
             return ValidationProblem(ModelState);
         }
 
+
+        //Post: {apibaseurl/api/auth/forgot-password}
+        [HttpPost]
+        [Route("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO request)
+        {
+
+            var user = await userManager.FindByEmailAsync(request.Email.Trim());
+
+            if (user == null)
+            {
+                return Ok(); 
+            }
+            else
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var resetLink = $"https://anifedzhelil.github.io/MindBodySoul/reset-password?token={Uri.EscapeDataString(token)}&email={user.Email}";
+                await _emailService.SendEmailAsync(user.Email!, user.UserName!, "Възстановяване на парола",
+                    $"Здравейте {user.UserName},<br><br>Получихте това съобщение, защото поискахте възстановяване на парола.<br><br>Кликнете на линка по-долу за да създадете нова парола:<br><br><a href='{resetLink}'>Възстанови паролата</a><br><br>Ако не сте поискали това, игнорирайте имейла.<br><br>Поздрави,<br>Екипът на MindBodySoul"); 
+                return Ok();
+            }
+
+        }
+
+        //Post: {apibaseurl/api/auth/reset-password}
+        [HttpPost]
+        [Route("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
+        {
+            var user = await userManager.FindByEmailAsync(request.Email.Trim());
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "Не съществува потребител с този имейл.");
+                return ValidationProblem(ModelState);
+            }
+
+            if (request.NewPassword != request.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Паролите не съвпадат.");
+                return ValidationProblem(ModelState);
+            }
+
+            var result = await userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return ValidationProblem(ModelState);
+        }
+
         //Post: {apibaseurl/api/auth/register}
         [HttpPost]
         [Route("register")] 
@@ -89,6 +151,7 @@ namespace MindBodySoul.Controllers
 
                 if (identityResult.Succeeded)
                 {
+                    await _emailService.SendEmailAsync(user.Email, user.UserName, "Добре дошли в MindBodySoul!", $"Здравейте {user.UserName},<br><br>Вашият акаунт беше успешно създаден. Можете да влезете с вашите данни за вход.<br><br>Поздрави,<br>Екипът на MindBodySoul");
                     return Ok();
                 }
 
