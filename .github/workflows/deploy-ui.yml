@@ -32,7 +32,7 @@ jobs:
 
       - name: Build the Angular app
         working-directory: UI 
-        run: ng build --configuration production
+        run: npx ng build --configuration production
 
       - name: Deploy to GitHub Pages
         working-directory: UI
