@@ -43,6 +43,18 @@ jobs:
             };
           EOF
 
+          cat > UI/src/environments/environment.ts << 'EOF'
+          export const environment = {
+          production: false,
+            apiBaseUrl: 'http://localhost:5020',
+            cloudinary: {
+              cloudName: '',
+              apiKey: '',
+              uploadPreset: '',
+              },
+            };
+          EOF
+
       - name: Build the Angular app
         working-directory: UI 
         run: npx ng build --configuration production
