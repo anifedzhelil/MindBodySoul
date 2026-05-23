@@ -29,6 +29,19 @@ jobs:
         working-directory: UI
         run: npm ci --legacy-peer-deps
 
+      - name: Create environemnt file for production
+        run: |
+          cat > UI/src/environments/environment.production.ts << 'EOF'
+          export const environment = {
+            production: true,
+            apiBaseUrl: 'https://mindbodysoul.onrender.com',
+            cloudinary: {
+              cloudName: '${{ secrets.CLOUDINARY_CLOUD_NAME }}',
+              apiKey: '${{ secrets.CLOUDINARY_API_KEY }}',
+              uploadPreset: '${{ secrets.CLOUDINARY_UPLOAD_PRESET }}',
+              },
+            };
+          EOF
 
       - name: Build the Angular app
         working-directory: UI 
