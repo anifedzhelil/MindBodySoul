@@ -7,7 +7,7 @@
                 <fa-icon [icon]="faSearch" (click)="filterTags(searchInput.value)"></fa-icon>
             </form>
         </div>
-        <div class="tags">
+        <div class="tags-list">
             <div *ngFor="let tag of filteredTags" class="tag" [class.active]="tag.id === activeTagId"
                 (click)="selectNewTag(tag.id)">
                 {{ tag.name }}
@@ -17,8 +17,11 @@
             <p>Няма намерени тагове...</p>
         </div>
         <div *ngIf="!isAllTagsShown && filteredTags.length>0">
-            <button class="more-tags" (click)="showAllTags()" value="Покажи всички тагове">Покажи всички тагове</button>
+            <button class="tags-button" (click)="showAllTags()" value="Покажи всички тагове">Покажи всички тагове</button>
         </div>
+        <div *ngIf="isAllTagsShown && filteredTags.length>0">
+            <button class="tags-button less-tags" (click)="showLessTags()" value="Покажи по-малко тагове">Покажи по-малко тагове</button>   
+        </div>  
     </div>
 
 </div>

@@ -60,8 +60,12 @@ onResize() {
     this.filteredTags = [...this.tags];
   }
 
+  showLessTags() {
+    this.isAllTagsShown = false;
+    this.filteredTags = [...this.tags].slice(0, this.visibleTagsCount);
+  }
+
   selectNewTag(tagId: string) {
     this.tagSelected.emit(tagId);
   }
-
 }
