@@ -6,8 +6,8 @@ import {
   SimpleChanges,
   HostListener,
 } from '@angular/core';
-import { Tag } from 'src/app/models/tag/tag.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { TagsWithArticleCount } from 'src/app/models/tag/tags-with-article-count';
 
 @Component({
   selector: 'app-tag-filter',
@@ -16,8 +16,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   standalone: false,
 })
 export class TagFilterComponent {
-  @Input() tags: Tag[] = [];
-  filteredTags: Tag[] = [];
+  @Input() tags: TagsWithArticleCount[] = [];
+  filteredTags: TagsWithArticleCount[] = [];
   faSearch = faSearch;
   @Input() activeTagId: string | null = null;
   @Output() tagSelected = new EventEmitter<string>();

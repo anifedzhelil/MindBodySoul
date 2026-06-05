@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tag } from 'src/app/models/tag/tag.model';
+import { TagsWithArticleCount } from 'src/app/models/tag/tags-with-article-count';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,6 +13,10 @@ export class TagService {
 
   getAllTags(): Observable<Tag[]> {
     return this.http.get<Tag[]>(`${environment.apiBaseUrl}/api/Tags`);
+  }
+
+  getTagsWithArticleCount(): Observable<TagsWithArticleCount[]> {
+    return this.http.get<TagsWithArticleCount[]>(`${environment.apiBaseUrl}/api/Tags/with-count`);
   }
 
   addTag(model: Tag): Observable<void>{

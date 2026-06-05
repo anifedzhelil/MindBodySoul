@@ -62,6 +62,16 @@ namespace MindBodySoul.Repositories.Implementation
             return await dbContext.Tags.ToListAsync();
         }
 
+        public async Task<IEnumerable<Tag>> GetTagsWithArticleCount()
+        {       
+            var tags = await dbContext.Tags
+                .Include(a => a.ArticleTags)
+                .Where(t => t.ArticleTags != null && t.ArticleTags.Any())
+                .ToListAsync();
+
+            return tags;
+        }
+
         public async Task<Tag?> GetById(Guid id)
         {
             return await dbContext.Tags.FirstOrDefaultAsync(t => t.Id == id);

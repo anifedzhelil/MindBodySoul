@@ -1,5 +1,8 @@
 .loader-wrapper{
-    position: absolute;
+    position: fixed;
+    top: 75px;
+    left:   0;
+    z-index: 9999;
     width: 100%;
     height: calc(100% - 200px);
     display: flex;
@@ -8,3 +11,9 @@
     background-color: white;
 }
 
+@media (max-width: 768px) {
+    .loader-wrapper {
+        top: 60px; 
+        height: calc(100% - 60px);
+    }
+}

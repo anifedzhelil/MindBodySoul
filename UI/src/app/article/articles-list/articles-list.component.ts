@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleList } from 'src/app/models/article/article-list-response.model';
-import { Tag } from 'src/app/models/tag/tag.model';
+import { TagsWithArticleCount } from 'src/app/models/tag/tags-with-article-count';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 
@@ -15,7 +15,7 @@ import { TagService } from 'src/app/services/tag/tag.service';
 export class ArticlesListComponent implements OnInit {
   articles$: Observable<ArticleList[]> = new Observable<ArticleList[]>();
   search: string | null = null;
-  allTags: Tag[] = [];
+  allTags: TagsWithArticleCount[] = [];
   activeTagId: string | null = null;
 
   constructor(
@@ -26,7 +26,7 @@ export class ArticlesListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.tagService.getAllTags().subscribe({
+    this.tagService.getTagsWithArticleCount().subscribe({
       next: (tags) => {
         this.allTags = tags;
         console.log('Tags loaded successfully');

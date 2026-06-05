@@ -58,6 +58,27 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet("with-count")]
+        public async Task<IActionResult> GetTagsWithArticleCount ()
+        {
+            var tags = await tagRepository.GetTagsWithArticleCount();
+            var response = new List<TagsWithArticleCountDto>();
+
+            foreach (var tag in tags)
+            {
+                response.Add(new TagsWithArticleCountDto
+                {
+                    Id = tag.Id,
+                    Name = tag.Name,
+                    ArticleCount = tag.ArticleTags?.Count ?? 0
+                });
+            }
+
+            return Ok(response);
+
+        }
+
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetTagById([FromRoute] Guid id)

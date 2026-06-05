@@ -7,8 +7,9 @@ namespace MindBodySoul.Repositories.Interface
         Task<(bool isCreated, Tag Tag)> CreateAsync(Tag tag);
         Task<(bool isUpdated, Tag? Tag)> UpdateAsync(Tag tag);
         Task<Tag> DeleteAsync(Guid id);
-
         Task<IEnumerable<Tag>> GetAllAsync();
+        Task<IEnumerable<Tag>> GetTagsWithArticleCount();
+
 
         Task<Tag?> GetById(Guid id);
 

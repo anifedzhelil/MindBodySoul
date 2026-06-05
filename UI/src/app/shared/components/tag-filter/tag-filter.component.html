@@ -10,7 +10,7 @@
         <div class="tags-list">
             <div *ngFor="let tag of filteredTags" class="tag" [class.active]="tag.id === activeTagId"
                 (click)="selectNewTag(tag.id)">
-                {{ tag.name }}
+                {{ tag.name }} ({{ tag.articleCount }})
             </div>
         </div>
         <div *ngIf="filteredTags.length === 0" class="no-tags">
