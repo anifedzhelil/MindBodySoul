@@ -1,0 +1,99 @@
+<div class="thumbnail-wrapper">
+  <div class="sidebar">
+    <div class="section">
+      <div class="section-header" (click)="onTogglePhotoSection()">
+        <span>Снимка</span>
+        <span>{{ isPhotoOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isPhotoOpen">
+        <label class="image-section" for="image">
+          <fa-icon [icon]="faImage" size="3x"></fa-icon>
+          <span>{{ selectedFileName || 'Качи снимка' }}</span>
+          <input type="file" id="image" hidden accept="image/*" (change)="onFileSelected($event)" />
+        </label>
+        <div class="field">
+          <label for="zoom">Ширина на снимката(%)</label>
+          <div class="section-item">
+            <input type="range" id="zoom" min="1" max="3" step="0.01" [(ngModel)]="zoom" />
+            <span>{{ zoom | number: '1.1-1' }}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="offsetX">Позиция X (ляво ← → дясно)</label>
+          <div class="section-item">
+            <input type="range" id="offset" min="-200" max="200" step="1" [(ngModel)]="offsetX" />
+            <span>{{ offsetX}}</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="offsetY">Позиция Y (горе ↑ ↓ долу)</label>
+          <div class="section-item">
+            <input type="range" id="offsetY" min="-200" max="200" step="1" [(ngModel)]="offsetY" />
+            <span>{{ offsetY }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header"  (click)="onToggleTitleSection()">
+        <span>Заглавие</span>
+        <span>{{ isTitleOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isTitleOpen">
+        <div class="field">
+          <label for="title">Текст</label>
+          <input id="title" [(ngModel)]="title" type="text">
+        </div>
+        <div class="field">
+          <label for="size">Размер</label>
+          <input id="size" type="number" [(ngModel)]="titleFontSize">
+        </div>
+        <div class="field">
+          <label for="titleTop">Вертикално позициониране</label>
+          <input id="titleTop" type="number" [(ngModel)]="titleTop">
+        </div>
+      </div>
+   
+    </div>
+       <div class="section">
+        <div class="section-header" (click)="onToggleCategorySection()">
+          <span>Категория</span>
+          <span>{{ isCategoryOpen ? '▲' : '▼' }}</span>
+        </div>
+        <div class="section-body" *ngIf="isCategoryOpen">
+           <div class="field">
+          <label for="category">Текст</label>
+          <input id="category" [(ngModel)]="category" type="text">
+        </div>
+        </div>
+      </div>
+      <div class="downloand">
+        <button type="button" id="downloand" (click)="downloadThumbnail()">Свали</button>
+      </div>
+  </div>
+
+  <div class="preview">
+    <div class="card">
+      <div class="photo-half">
+        <div  *ngIf="previewUrl"     [style.background-image]="'url(' + previewUrl + ')'"
+            class="photo-bg" 
+          [style.transform]="'scale(' + zoom + ') translate(' + offsetX + 'px,' + offsetY + 'px)'" >
+        </div>
+        <div *ngIf="!previewUrl" class="placeholder">
+          <fa-icon [icon]="faImage" size="3x"></fa-icon>
+          <span>Качи снимка</span>
+        </div>
+      </div>
+      <div class="cat-strip"><span>{{category == '' ? 'Категория' : category}}</span></div>
+      <div class="text-half">
+        <div class="logo-section">
+          <span class="logo-text">MindBodySoul</span>
+        </div>
+        <div class="title" [style.margin-top]="titleTop + 'px'">
+          <span [style.font-size]="titleFontSize + 'px'">{{title == '' ? 'Заглавие' : title}}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>

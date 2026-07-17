@@ -21,6 +21,7 @@ form {
   flex-direction: column;
   flex-shrink: 1;
   padding-top: 1.5em;
+  width: 100%;
 }
 
 input[type="select"],

@@ -10,6 +10,7 @@ import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-su
 import { authGuard } from '../core/guards/auth.guard';
 import { AddTagComponent } from './tag/add-tag/add-tag.component';
 import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.component';
+import { InstagramComponent } from './instagram/instagram/instagram.component';
 
 const adminRoutes: Routes = [
   {
@@ -61,9 +62,14 @@ const adminRoutes: Routes = [
         component: AddTagComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'instagram/instagram',
+        component: InstagramComponent,
+        canActivate: [authGuard],
+      }
     ],
   },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(adminRoutes)],

@@ -17,6 +17,9 @@ import { CoreModule } from '../core/core.module';
 import { AddTagComponent } from './tag/add-tag/add-tag.component';
 import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.component';
 import { EditTagComponent } from './tag/edit-tag/edit-tag.component';
+import { InstagramComponent } from './instagram/instagram/instagram.component';
+import { CarouselComponent } from './instagram/carousel/carousel.component';
+import { ThumbnailComponent } from './instagram/thumbnail/thumbnail.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { EditTagComponent } from './tag/edit-tag/edit-tag.component';
     AddTagComponent,
     AdminTagListComponent,
     EditTagComponent,
+    InstagramComponent,
+    ThumbnailComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,

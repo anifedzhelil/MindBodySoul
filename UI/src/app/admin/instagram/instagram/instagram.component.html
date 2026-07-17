@@ -1,0 +1,18 @@
+<div class="tabs">
+  <button class="tab-button" [class.active]="activeTab === 'carousel'" (click)="activeTab = 'carousel'">
+    Карусел
+  </button>
+  <button class="tab-button" [class.active]="activeTab === 'thumbnail'" (click)="activeTab = 'thumbnail'">
+    Thumbnail
+  </button>
+</div>
+
+<div class="tab-content">
+  <div *ngIf="activeTab === 'carousel'">
+    <app-carousel></app-carousel>
+  </div>
+
+  <div *ngIf="activeTab === 'thumbnail'">
+    <app-thumbnail></app-thumbnail>
+  </div>
+</div>
