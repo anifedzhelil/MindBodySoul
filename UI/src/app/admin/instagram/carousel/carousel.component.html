@@ -1,1 +1,43 @@
-<p>carousel works!</p>
+<div class="carousel-wrapper">
+  <div class="sidebar">
+    <div class="section">
+      <div class="section-header"  (click)="onToggleSizeSection()">
+          <span>Размер</span>
+        <span>{{ isSizeOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isSizeOpen">
+        <div class="field">
+          <label for="paddingSide">Вътрешен отстъп (px)</label>
+          <input id="paddingSide" [(ngModel)]="paddingSide" type="number">
+        </div>
+        <div class="field">
+          <label for="paddingTop">Размер</label>
+          <input id="paddingTop" type="number" [(ngModel)]="paddingTop">
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"  (click)="onToggleTextSection()">
+          <span>Текст</span>
+        <span>{{ isTextOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isTextOpen">
+        <div class="field">
+          <label for="paddingSide">Заглавие</label>
+          <input id="description" [(ngModel)]="description" type="text">
+        </div>
+        <div class="field">
+          <label for="note">Бележка</label>
+          <input id="note" type="text" [(ngModel)]="note">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="preview">
+    <div class="card">
+    </div>
+  </div>
+</div>
