@@ -6,23 +6,22 @@
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   height: 70px;
   align-items: center;
+  padding-left: 35px;
+  align-items: center;
 }
 
 img {
-  width: 120px;
+  height: 45px;
 }
 
 .logo {
-  flex: 1 1 15%;
+  flex: 1 1 20%;
   width: fit-content;
-}
-
-.logo {
   cursor: pointer;
 }
 
 .content {
-  flex: 1 1 85%;
+  flex: 1 1 80%;
   display: flex;
   justify-content: flex-end;
 }

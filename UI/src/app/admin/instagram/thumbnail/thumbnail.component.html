@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="section">
-      <div class="section-header"  (click)="onToggleTitleSection()">
+      <div class="section-header" (click)="onToggleTitleSection()">
         <span>Заглавие</span>
         <span>{{ isTitleOpen ? '▲' : '▼' }}</span>
       </div>
@@ -53,44 +53,64 @@
           <input id="titleTop" type="number" [(ngModel)]="titleTop">
         </div>
       </div>
-   
+
     </div>
-       <div class="section">
-        <div class="section-header" (click)="onToggleCategorySection()">
-          <span>Категория</span>
-          <span>{{ isCategoryOpen ? '▲' : '▼' }}</span>
-        </div>
-        <div class="section-body" *ngIf="isCategoryOpen">
-           <div class="field">
+    <div class="section">
+      <div class="section-header" (click)="onToggleCategorySection()">
+        <span>Категория</span>
+        <span>{{ isCategoryOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isCategoryOpen">
+        <div class="field">
           <label for="category">Текст</label>
           <input id="category" [(ngModel)]="category" type="text">
         </div>
+      </div>
+    </div>
+
+    <div calss="section">
+      <div class="section-body">
+        <div class="field checkbox-field">
+          <label for="showGrid">
+            <input type="checkbox" id="showGrid" [(ngModel)]="showGridOverlay" />
+            Покажи Instagram Grid (квадрат)
+          </label>
         </div>
       </div>
-      <div class="downloand">
-        <button type="button" id="downloand" (click)="downloadThumbnail()">Свали</button>
-      </div>
+    </div>
+    <div class="downloand">
+      <button type="button" id="downloand" (click)="downloadThumbnail()">Свали</button>
+    </div>
   </div>
 
   <div class="preview">
     <div class="card">
+      <div class="grid-overlay" *ngIf="showGridOverlay">
+        <span class="grid-label">Instagram Grid (1:1)</span>
+      </div>
       <div class="photo-half">
-        <div  *ngIf="previewUrl"     [style.background-image]="'url(' + previewUrl + ')'"
-            class="photo-bg" 
-          [style.transform]="'scale(' + zoom + ') translate(' + offsetX + 'px,' + offsetY + 'px)'" >
+        <div *ngIf="previewUrl" [style.background-image]="'url(' + previewUrl + ')'" class="photo-bg"
+          [style.transform]="'scale(' + zoom + ') translate(' + offsetX + 'px,' + offsetY + 'px)'">
         </div>
         <div *ngIf="!previewUrl" class="placeholder">
           <fa-icon [icon]="faImage" size="3x"></fa-icon>
           <span>Качи снимка</span>
         </div>
       </div>
-      <div class="cat-strip"><span>{{category == '' ? 'Категория' : category}}</span></div>
+      <div class="cat-strip">
+        <span>{{category == '' ? 'Категория' : category}}</span>
+      </div>
       <div class="text-half">
         <div class="logo-section">
           <span class="logo-text">MindBodySoul</span>
         </div>
         <div class="title" [style.margin-top]="titleTop + 'px'">
           <span [style.font-size]="titleFontSize + 'px'">{{title == '' ? 'Заглавие' : title}}</span>
+        </div>
+        <div class="carousel-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
       </div>
 

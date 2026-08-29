@@ -57,7 +57,11 @@
   min-width: 500px;
 }
 
-.card{
+/* ==========================================
+   CARD STRUCTURE & LAYOUT
+   ========================================== */
+
+.card {
   position: relative;
   background-color: #f6f2ed;
   width: 540px;
@@ -65,23 +69,45 @@
   overflow: hidden;
 }
 
+.photo-half {
+  position: absolute;
+  top: 68px;
+  left: 0;
+  width: 100%;
+  height: 292px;
+  overflow: hidden;
+}
 
+.photo-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+}
 
+/* Category banner strip */
 .cat-strip {
   position: absolute;
   top: 360px;
-  left: 12.5%;
-  width: 75%;
+  left: 0;
+  width: 100%;
   height: 36px;
   background-color: #1b5061;
   display: flex;
   align-items: center;
-} 
+  justify-content: flex-start;
+  padding-left: 70px;
+  /* Left padding matching the logo alignment */
+  box-sizing: border-box;
+  z-index: 2;
+}
 
 .cat-strip span {
-  margin-left: 1rem;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   color: #fff;
+  font-weight: 600;
 }
 
 .placeholder {
@@ -95,32 +121,70 @@
   flex-direction: column;
 }
 
-.logo-text{
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size:13px;
-  color:#0f3340;
-  opacity:.5;
-  letter-spacing:.05em;
-  position: absolute;
-}
+/* ==========================================
+   TEXT CONTENT ZONE (LOGO & TITLE)
+   ========================================== */
 
 .text-half {
-  top: 410px;
+  top: 396px;
+  height: 200px;
+  /* Positioned directly under the category strip */
   position: absolute;
-  left: 12.5%;
-  right: 12.5%;
-  bottom:0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.title{
+/* Brand logo section fixed near the top of the text container */
+.logo-section {
+  padding-left: 70px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   text-align: center;
-  font-size: 30px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.logo-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f3340;
+  opacity: .6;
+  letter-spacing: .05em;
+  position: static;
+  text-transform: none;
+  display: block;
+}
+
+/* Title container: Cleaned up vertical bounds with generous side paddings */
+.title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #1b5061;
-  font-weight: 500;
+  font-weight: 600;
+  /* Side padding prevents text from touching the edge */
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-bottom: 10px;
+  /* Removed manual top/bottom margins to let Flexbox handle vertical balance */
+  margin: 0;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  line-height: 1.25;
 }
 
-.section-item{
+.section-item {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -128,23 +192,22 @@
 
 }
 
-.section-item input[type="range"]
-{
+.section-item input[type="range"] {
   flex: 1;
   accent-color: #557ba2;
 }
 
-.section-item span{
+.section-item span {
   min-width: 30px;
   text-align: right;
   font-size: small;
 }
 
-.field label{
+.field label {
   font-weight: 500;
 }
 
-.downloand{
+.downloand {
   margin-top: 20px;
   width: 100%;
 }
@@ -152,30 +215,112 @@
 
 .downloand button {
   max-width: 100%;
-   box-sizing: border-box;
-   background-color: #19becf;
-    background: #397194;
-    color: white;
-    border: 1px solid #076974;
-    padding: 10px;
-    border-radius: 3px;
-    white-space: 10px;
-    font-weight: bold;
-    width: 100%;
+  box-sizing: border-box;
+  background-color: #19becf;
+  background: #397194;
+  color: white;
+  border: 1px solid #076974;
+  padding: 10px;
+  border-radius: 3px;
+  white-space: 10px;
+  font-weight: bold;
+  width: 100%;
 }
 
-.photo-half {
+/* ==========================================
+   INSTAGRAM GRID OVERLAY (CROP GUIDELINES)
+   ========================================== */
+
+/* Red dashed line representing the 1:1 square crop in Instagram Grid */
+.grid-overlay {
+  position: absolute;
+  top: 67.5px;
+  /* Crops 67.5px from the top */
+  left: 0;
+  width: 540px;
+  height: 540px;
+  /* Perfect 1:1 square inside the 540x675 card */
+  border: 2px dashed #ff3b30;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: none;
+  /* Allows click events to pass through to elements below */
+}
+
+/* Inner Text Safe Zone Frame (Shows left & right padding boundaries for text) */
+.grid-overlay::after {
+  content: '';
   position: absolute;
   top: 0;
-  left: 12.5%;
-  width: 75%;
-  height: 360px;
-  overflow: hidden;
+  bottom: 0;
+
+  /* Horizontal Padding matching your text margins (e.g. 65px from left and right) */
+  left: 65px;
+  right: 65px;
+
+  /* Side dashed lines to visualize text safe area */
+  border-left: 1px dashed rgba(255, 59, 48, 0.5);
+  border-right: 1px dashed rgba(255, 59, 48, 0.5);
 }
 
-.photo-bg {
+.grid-label {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  background-color: #ff3b30;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+/* Sidebar checkbox styling */
+.checkbox-field {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-field label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.checkbox-field input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #1b5061;
+  margin: 0;
+  /* Resets default browser margins */
+}
+
+
+/* ==========================================
+          3 DOTS
+   ========================================== */
+
+.carousel-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #D6D950;
+  opacity: 0.9;
 }

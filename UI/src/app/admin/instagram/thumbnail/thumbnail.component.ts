@@ -20,10 +20,10 @@ export class ThumbnailComponent {
   offsetY: number = 0;
   title: string = "";
   titleFontSize: number = 28; 
-  titleTop: number = 70;
+  titleTop: number = 20;
   category: string = "";
   selectedFileName: string = '';
-
+  showGridOverlay: boolean = false;
 
   isPhotoOpen: boolean = true;
   isTitleOpen: boolean =  true;
