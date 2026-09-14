@@ -1,8 +1,8 @@
 <div class="carousel-wrapper">
   <div class="sidebar">
     <div class="section">
-      <div class="section-header"  (click)="onToggleSizeSection()">
-          <span>Размер</span>
+      <div class="section-header" (click)="onToggleSizeSection()">
+        <span>Размер</span>
         <span>{{ isSizeOpen ? '▲' : '▼' }}</span>
       </div>
       <div class="section-body" *ngIf="isSizeOpen">
@@ -11,33 +11,94 @@
           <input id="paddingSide" [(ngModel)]="paddingSide" type="number">
         </div>
         <div class="field">
-          <label for="paddingTop">Размер</label>
+          <label for="paddingTop">Отстъп отгоре — съдържание (px)</label>
           <input id="paddingTop" type="number" [(ngModel)]="paddingTop">
+        </div>
+        <div class="field">
+          <label for="descriptionSize">Размер заглавие</label>
+          <input id="descriptionSize" [(ngModel)]="descriptionSize" type="number">
+        </div>
+        <div class="field">
+          <label for="bulletsSize">Размер точки</label>
+          <input id="bulletsSize" type="number" [(ngModel)]="bulletsSize">
+        </div>
+          <div class="field">
+          <label for="notePaddingTop">Отстъп отгоре - бележка</label>
+          <input id="notePaddingTop" type="number" [(ngModel)]="notePaddingTop">
         </div>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-header"  (click)="onToggleTextSection()">
-          <span>Текст</span>
+      <div class="section-header" (click)="onToggleTextSection()">
+        <span>Текст</span>
         <span>{{ isTextOpen ? '▲' : '▼' }}</span>
       </div>
       <div class="section-body" *ngIf="isTextOpen">
         <div class="field">
-          <label for="paddingSide">Заглавие</label>
-          <input id="description" [(ngModel)]="description" type="text">
+          <label for="description">Заглавие</label>
+          <textarea id="description" [(ngModel)]="description" rows="5"></textarea>
         </div>
         <div class="field">
           <label for="note">Бележка</label>
           <input id="note" type="text" [(ngModel)]="note">
         </div>
+        <div class="field">
+          <label for="carouselName">Име на carousel</label>
+          <input id="carouselName" type="text" [(ngModel)]="carouselName">
+        </div>
       </div>
     </div>
 
+    <div class="section">
+      <div class="section-header" (click)="onToggleBulletsSection()">
+        <span>Точки</span>
+        <span>{{ isBulletsOpen ? '▲' : '▼' }}</span>
+      </div>
+      <div class="section-body" *ngIf="isBulletsOpen">
+        <div class="field">
+          <button (click)="addBullet()" class="add-bullet">+ Добави точка</button>
+        </div>
+        <div class="field" *ngFor="let bullet of bullets; let i = index ">
+          <div class="bullet-item">
+            <div class="bullet-header"><span>Точка {{i + 1}}
+              </span>
+              <a>
+                <fa-icon [icon]="faTrashCan" (click)="deleteBullet(bullet.id)"></fa-icon>
+              </a>
+            </div>
+            <div class="bullet-body">
+              <input type="text" value="" [(ngModel)]="bullet.header">
+              <textarea rows="3" [(ngModel)]="bullet.text"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="downloand">
+      <button type="button" id="downloand" (click)="downloadCarousel()">Свали</button>
+    </div>
   </div>
 
   <div class="preview">
-    <div class="card">
+    <div class="card" [style.padding-top]="paddingTop + 'px'" [style.padding-left]="paddingSide + 'px'"
+      [style.padding-right]="paddingSide + 'px'">
+      <div class="description" [style.font-size]="descriptionSize + 'px'">
+        <span>{{description}}</span>
+      </div>
+      <div class="divider" *ngIf="bullets.length  > 0"></div>
+      <div class="bullets">
+        <ul>
+          <li *ngFor="let bullet of bullets" [style.font-size]="bulletsSize + 'px'">
+            <span class="bulletHeader" *ngIf="bullet.header">{{ bullet.header }} - </span>
+            <span>{{ bullet.text }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="note" [style.font-size]="noteSize + 'px'" [style.padding-top]="notePaddingTop + 'px'">
+        <span>{{note}}</span>
+      </div>
     </div>
   </div>
 </div>

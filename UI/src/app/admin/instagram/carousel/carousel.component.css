@@ -24,7 +24,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
   border-bottom: 1px solid #ccc;
   font-weight: 600;
   font-size: 16px;
@@ -42,10 +42,117 @@
   min-width: 500px;
 }
 
-.card{
+.card {
+  border: 1px solid black;
   position: relative;
-  background-color: #f6f2ed;
   width: 540px;
   height: 675px;
   overflow: hidden;
+  background-image: url('/assets/images/instagram_post.png');
+}
+
+.bullet-item {
+  background-color: #f3f3f3;
+  border: 1px solid gray;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bullet-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+.bullet-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.field label {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+
+.add-bullet {
+  border: 1px dashed #e4e4e4;
+  padding: 7px;
+}
+
+
+.downloand {
+  margin-top: 20px;
+  width: 100%;
+}
+
+
+.downloand button {
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: #19becf;
+  background: #397194;
+  color: white;
+  border: 1px solid #076974;
+  padding: 10px;
+  border-radius: 3px;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+}
+
+
+.description {
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: normal;
+  text-align-last: left;
+}
+
+.description span {
+  white-space: pre-line;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.bullets ul {
+  padding-left: 0;
+  list-style-position: inside;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+li::marker {
+  color: #D6D950;
+  font-size: 20px;
+}
+
+
+.bullets li {
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: normal;
+  text-align-last: left;
+}
+
+.bulletHeader {
+  font-weight: bold;
+}
+
+.note {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 10.5px;
+  font-style: italic;
+}
+
+.divider {
+  width: 36px;
+  height: 1px;
+  background: #D6D950;
+  opacity: 0.7;
+  margin-bottom: 10px;
 }
