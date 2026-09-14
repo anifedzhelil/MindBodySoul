@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class InstagramComponent {
-  activeTab: 'carousel' | 'thumbnail' = 'thumbnail';
+  activeTab: 'carousel' | 'thumbnail' = 'carousel';
 
 }
