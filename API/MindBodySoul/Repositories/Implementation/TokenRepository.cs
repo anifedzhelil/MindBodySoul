@@ -35,7 +35,7 @@ namespace MindBodySoul.Repositories.Implementation
                 issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddDays(5),
+                expires: DateTime.UtcNow.AddDays(5),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
