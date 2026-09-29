@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MindBodySoul.Data;
 using MindBodySoul.Repositories.Implementation;
 using MindBodySoul.Repositories.Interface;
@@ -16,7 +17,38 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    // Tells Swagger that the API uses a JWT Bearer token in the Authorization header
+    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    // Applies the definition above to the endpoints
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = JwtBearerDefaults.AuthenticationScheme
+                },
+                Scheme = "Oauth2",
+                Name = JwtBearerDefaults.AuthenticationScheme,
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

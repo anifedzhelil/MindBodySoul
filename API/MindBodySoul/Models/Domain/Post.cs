@@ -8,6 +8,6 @@
         public DateTime? UpdatedDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsPublished { get; set; } = false;
-        public ICollection<Carousel>? CarouselDrafts { get; set; } = new List<Carousel>();
+        public ICollection<Carousel>? Carousel { get; set; } = new List<Carousel>();
     }
 }

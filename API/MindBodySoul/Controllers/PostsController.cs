@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
+using MindBodySoul.Models.DTO;
 using MindBodySoul.Models.DTO.Post;
 using MindBodySoul.Repositories.Interface;
 
@@ -8,10 +9,10 @@ namespace MindBodySoul.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class PostsController : ControllerBase
     {
         private readonly IPostRepository postRepository; 
-        public PostController(IPostRepository postRepository)
+        public PostsController(IPostRepository postRepository)
         { 
             this.postRepository = postRepository;
         }
@@ -23,7 +24,6 @@ namespace MindBodySoul.Controllers
             var post = new Post
             {
                 PostName = request.PostName,
-                CreatedDate = DateTime.Now,
             };
 
             var created = await postRepository.CreateAsync(post);
@@ -41,10 +41,27 @@ namespace MindBodySoul.Controllers
         }
 
         [HttpGet]
+        [Route("getAllPosts")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> GetAllPosts([FromQuery] string? search)
         {
-            var response = await postRepository.GetAllAsync(search);
+            var posts = await postRepository.GetAllAsync(search);
+            var response = new List<PostDto>();
+
+
+            foreach (var post in posts)
+            {
+                response.Add(new PostDto
+                {
+                    Id = post.Id,
+                    PostName = post.PostName,
+                    IsPublished = post.IsPublished,
+                    UpdatedDate = post.UpdatedDate ?? post.CreatedDate,
+                    CarouselCounts = post.Carousel != null ? post.Carousel.Count() : 0,
+                    ThumbnailImage = post.Thumbnail != null ? post.Thumbnail.Image : "",
+                });
+             };
             return Ok(response);
         }
 

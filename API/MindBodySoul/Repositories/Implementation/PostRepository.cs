@@ -41,25 +41,21 @@ namespace MindBodySoul.Repositories.Implementation
         }
 
         
-        public async Task<IEnumerable<PostDto>> GetAllAsync(string? search = null)
+        public async Task<IEnumerable<Post>> GetAllAsync(string? search = null)
         {
-            var query = dbContext.Posts.AsQueryable();
+
+            var query = dbContext.Posts
+                .Include(p => p.Thumbnail)
+                .Include(p => p.Carousel)
+                .AsQueryable();
+
 
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(p => EF.Functions.ILike(p.PostName, $"%{search}%"));
             }
 
-            return await query
-                .Select(p => new PostDto
-                {
-                    Id = p.Id,
-                    PostName = p.PostName,
-                    UpdatedDate = p.UpdatedDate ?? p.CreatedDate,
-                    CarouselCounts = p.CarouselDrafts != null ? p.CarouselDrafts.Count() : 0,
-                    ThumbnailImage = p.Thumbnail != null ? p.Thumbnail.Image : ""
-                })
-                .ToListAsync();
+            return  await query.ToListAsync();
         }
                
     }

@@ -57,7 +57,7 @@ namespace MindBodySoul.Controllers
                     {
                         ArticleId = articleId,
                         UserId = userId,
-                        VisitDate = DateTime.Now,
+                        VisitDate = DateTime.UtcNow,
                     };
 
                     await articleVisitsRepository.AddAsync(articleVisit);

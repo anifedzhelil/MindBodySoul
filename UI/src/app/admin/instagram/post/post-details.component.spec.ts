@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InstagramComponent } from './instagram.component';
+import { InstagramComponent } from './post-details.component';
 
 describe('InstagramComponent', () => {
   let component: InstagramComponent;
@@ -10,7 +10,7 @@ describe('InstagramComponent', () => {
     await TestBed.configureTestingModule({
       imports: [InstagramComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(InstagramComponent);
     component = fixture.componentInstance;

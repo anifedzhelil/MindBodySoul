@@ -10,7 +10,8 @@ import { EditSubCategoryComponent } from './subcategory/edit-subcategory/edit-su
 import { authGuard } from '../core/guards/auth.guard';
 import { AddTagComponent } from './tag/add-tag/add-tag.component';
 import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.component';
-import { InstagramComponent } from './instagram/instagram/instagram.component';
+import { PostDetails } from './instagram/post/post-details.component';
+import { PostsListComponent } from './instagram/posts-list/posts-list.component';
 
 const adminRoutes: Routes = [
   {
@@ -63,8 +64,13 @@ const adminRoutes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: 'instagram/instagram',
-        component: InstagramComponent,
+        path: 'instagram/posts-list',
+        component: PostsListComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'instagram/post',
+        component: PostDetails,
         canActivate: [authGuard],
       }
     ],
@@ -75,4 +81,4 @@ const adminRoutes: Routes = [
   imports: [RouterModule.forChild(adminRoutes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
