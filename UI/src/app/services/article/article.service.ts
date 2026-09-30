@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ArticleService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   addArticle(model: AddArticleRequest): Observable<void> {
     return this.http.post<void>(
@@ -22,15 +22,15 @@ export class ArticleService {
     );
   }
 
-  getAllArticles(): Observable<ArticleList[]> {
-      return this.http.get<ArticleList[]>(
-        `${environment.apiBaseUrl}/api/articles/getAll`
-      );
-  }
+  getAllArticles(search?: string): Observable<ArticleList[]> {
+    let params = new HttpParams();
 
-  getFilteredArticles(search: string): Observable<ArticleList[]> {
+    if (search?.trim() != null) {
+      params = params.set("search", search.trim());
+    }
+
     return this.http.get<ArticleList[]>(
-      `${environment.apiBaseUrl}/api/articles/getAll/${search}`
+      `${environment.apiBaseUrl}/api/articles/getAll`, { params }
     );
   }
 
@@ -54,12 +54,15 @@ export class ArticleService {
     );
   }
 
-  
+
   getLatestArticles(limit: number): Observable<LatestArticle[]> {
+    let params = new HttpParams().set("limit", limit);
+
     return this.http.get<LatestArticle[]>(
-      `${environment.apiBaseUrl}/api/articles/getLatestArticles/${limit}`
+      `${environment.apiBaseUrl}/api/articles/getLatestArticles`, {params}
     );
   }
+  
   getArticleById(id: string): Observable<ArticleDetails> {
     return this.http.get<ArticleDetails>(
       `${environment.apiBaseUrl}/api/articles/${id}`

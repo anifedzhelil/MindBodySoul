@@ -8,8 +8,11 @@ namespace MindBodySoul.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArticlesController : Controller
+    public class ArticlesController : ControllerBase
     {
+        private const int DefaultLimit = 4;
+        private const int MaxLimit = 20;
+        private const int ExcerptLength = 30;
 
         private readonly IArticleRepository articleRepository;
         private readonly IArticleTagsRepository articleTagsRepository;
@@ -50,11 +53,10 @@ namespace MindBodySoul.Controllers
             return Ok();
         }
        
-        [HttpGet]
-        [Route("{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetArticleById([FromRoute] Guid id)
         {
-            var article = await articleRepository.GetById(id);
+            var article = await articleRepository.GetByIdAsync(id);
 
             if (article == null)
             {
@@ -88,9 +90,8 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("getAll/{search}")]
-        public async Task<IActionResult> GetFilteredArticles([FromRoute] string search)
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAllArticles([FromQuery] string? search = null)
         {
 
             var articles = await articleRepository.GetAllAsync(search);
@@ -107,36 +108,12 @@ namespace MindBodySoul.Controllers
                     ImageUrl = article.ImageUrl,
                     CreatedDate = article.CreatedDate,
                     UpdatedDate = article.UpdatedDate,
-                    ArticleTags = article.ArticleTags
                 });
             }
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("getAll")]
-        public async Task<IActionResult> GetAllArticles()
-        {
-            var articles = await articleRepository.GetAllAsync();
-
-            var response = new List<ArticleDto>();
-
-            foreach (var article in articles)
-            {
-                response.Add(new ArticleDto
-                {
-                    Id = article.Id,
-                    Title = article.Title,
-                    Content = article.Content,
-                    ImageUrl = article.ImageUrl,
-                    CreatedDate = article.CreatedDate,
-                    UpdatedDate = article.UpdatedDate,
-                    ArticleTags = article.ArticleTags
-                });
-            }
-            return Ok(response);
-        }
-
+      
         [HttpGet("byTag/{tagId:Guid}")]
         public async Task<IActionResult> GetArticlesByTag([FromRoute] Guid tagId)
         {
@@ -154,7 +131,6 @@ namespace MindBodySoul.Controllers
                     ImageUrl = article.ImageUrl,
                     CreatedDate = article.CreatedDate,
                     UpdatedDate = article.UpdatedDate,
-                    // ArticleTags = article.ArticleTags
                 });
             }
             return Ok(response);
@@ -163,29 +139,22 @@ namespace MindBodySoul.Controllers
         [HttpGet("bySubCategory/{subCategoryId:Guid}")]
         public async Task<IActionResult> GetArticlesBySubCategory([FromRoute] Guid subCategoryId)
         {
-            var articles = await articleRepository.GetAllBySubategoryAsync(subCategoryId);
-
+            var articles = await articleRepository.GetAllBySubCategoryAsync(subCategoryId);
             var response = new List<ArticleDto>();
 
-            if (articles != null)
+            foreach (var article in articles)
             {
-                foreach (var article in articles)
+                response.Add(new ArticleDto
                 {
-                    response.Add(new ArticleDto
-                    {
-                        Id = article.Id,
-                        Title = article.Title,
-                        Content = article.Content,
-                        ImageUrl = article.ImageUrl,
-                        CreatedDate = article.CreatedDate,
-                        UpdatedDate = article.UpdatedDate,
-                        ArticleTags = article.ArticleTags
-                    });
-                }
-                return Ok(response);
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                });
             }
-
-            return BadRequest();
+            return Ok(response);
         }
 
         [HttpGet("byCategory/{categoryId:Guid}")]
@@ -195,32 +164,26 @@ namespace MindBodySoul.Controllers
             var articles = await articleRepository.GetAllByCategoryAsync(categoryId);
 
             var response = new List<ArticleDto>();
-            if (articles != null)
-            {
-                foreach (var article in articles)
-                {
-                    response.Add(new ArticleDto
-                    {
-                        Id = article.Id,
-                        Title = article.Title,
-                        Content = article.Content,
-                        ImageUrl = article.ImageUrl,
-                        CreatedDate = article.CreatedDate,
-                        UpdatedDate = article.UpdatedDate,
-                        ArticleTags = article.ArticleTags
-                    });
-                }
-                return Ok(response);
-            }
 
-            return BadRequest();
+            foreach (var article in articles)
+            {
+                response.Add(new ArticleDto
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Content = article.Content,
+                    ImageUrl = article.ImageUrl,
+                    CreatedDate = article.CreatedDate,
+                    UpdatedDate = article.UpdatedDate,
+                });
+            }
+            return Ok(response);
         }
 
-        //DELETE: https:/localhost:7108/api/categories{id}
-            [HttpDelete]
-            [Route("{id:Guid}")]
-            [Authorize(Roles = "Writer")]
-            public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
+        //DELETE: https:/localhost:7108/api/article{id}
+        [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
         {
             var article = await articleRepository.DeleteAsync(id);
             if (article is null)
@@ -233,8 +196,7 @@ namespace MindBodySoul.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Route("{id:Guid}")]
+        [HttpPut("{id:Guid}")]
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditArticle([FromRoute] Guid id, UpdateArticleRequestDto request)
         {
@@ -275,31 +237,32 @@ namespace MindBodySoul.Controllers
                 object value = await articleTagsRepository.AddRangeAsync(articleTags);
             }
 
-
             return Ok();
         }
 
-        [HttpGet]
-        [Route("getLatestArticles/{limit}")]
-        public async Task<IActionResult> GetLatestArticlesAsync([FromRoute] int limit = 8)
+        [HttpGet("getLatestArticles")]
+        public async Task<IActionResult> GetLatestArticlesAsync([FromQuery] int limit = 8)
         {
-                var articles = await articleRepository.GetLatestArticlesAsync(limit);
-    
-                var response = new List<LatestArticleDto>();
-    
-                foreach (var article in articles)
+
+            limit = Math.Clamp(limit, DefaultLimit, MaxLimit);
+
+            var articles = await articleRepository.GetLatestArticlesAsync(limit);
+
+            var response = new List<LatestArticleDto>();
+
+            foreach (var article in articles)
+            {
+                response.Add(new LatestArticleDto
                 {
-                    response.Add(new LatestArticleDto
-                    {
-                        Id = article.Id,
-                        Title = article.Title,
-                        Excerpt = article.Content.Length > 30
-                                    ? article.Content.Substring(0, 50) + "..."
-                                    : article.Content,
-                        ImageUrl = article.ImageUrl
-                    });
-                }
-                return Ok(response);
+                    Id = article.Id,
+                    Title = article.Title,
+                    Excerpt = article.Content.Length > ExcerptLength
+                                ? article.Content.Substring(0, ExcerptLength) + "..."
+                                : article.Content,
+                    ImageUrl = article.ImageUrl
+                });
+            }
+            return Ok(response);
         }
 
     }

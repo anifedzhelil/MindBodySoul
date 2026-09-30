@@ -38,7 +38,7 @@ namespace MindBodySoul.Controllers
 
         public async Task<IActionResult> RegisterVisit([FromRoute] Guid articleId)
         {
-            var article = await articleRepository.GetById(articleId);
+            var article = await articleRepository.GetByIdAsync(articleId);
             var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             
             

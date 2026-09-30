@@ -9,11 +9,15 @@
         id="title"
         [(ngModel)]="article.title"
         #inputTitle="ngModel"
+        maxlength="150"
         required
       />
       <ng-container *ngIf="inputTitle.touched || isFormSubmited">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
+        </p>
+         <p class="error" *ngIf="inputTitle.errors?.['maxlength']">
+          Въведете най-много 150 символа!
         </p>
       </ng-container>
     </div>

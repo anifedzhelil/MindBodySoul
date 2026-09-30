@@ -8,10 +8,10 @@ namespace MindBodySoul.Repositories.Interface
         Task<Article?> UpdateAsync(Article article);
         Task<Article?> DeleteAsync(Guid id);
         Task<IEnumerable<Article>> GetAllAsync(string? search = null);
-        Task<IEnumerable<Article>?> GetAllBySubategoryAsync(Guid subCategoryId);
-        Task<IEnumerable<Article>?> GetAllByCategoryAsync(Guid categoryId);
+        Task<IEnumerable<Article>> GetAllBySubCategoryAsync(Guid subCategoryId);
+        Task<IEnumerable<Article>> GetAllByCategoryAsync(Guid categoryId);
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
-        Task<Article?> GetById(Guid id);
+        Task<Article?> GetByIdAsync(Guid id);
         Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit);
     }
 }

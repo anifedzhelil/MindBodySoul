@@ -11,6 +11,5 @@ namespace MindBodySoul.Models.DTO
         public required string ImageUrl { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedDate { get; set; }
-        public ICollection<ArticleTags>? ArticleTags { get; set; }
     }
 }

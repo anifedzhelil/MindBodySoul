@@ -50,13 +50,9 @@ export class ArticlesListComponent implements OnInit {
 
           this.articles$ = this.articleService.getAllArticlesByTag(this.activeTagId);
         } else {
-          var search = params.get('search');
-          if (search) {
-            this.search = search;
-            this.articles$ = this.articleService.getFilteredArticles(search);
-          } else {
-            this.articles$ = this.articleService.getAllArticles();
-          }
+          const search = params.get('search') ?? undefined;
+          this.search = search ?? '';
+          this.articles$ = this.articleService.getAllArticles(search);
         }
       },
       error: (err) => {
