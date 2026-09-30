@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
+using MindBodySoul.Models.DTO.Article;
 using MindBodySoul.Repositories.Interface;
 
 namespace MindBodySoul.Controllers

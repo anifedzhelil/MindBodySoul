@@ -1,9 +1,9 @@
 ﻿using MindBodySoul.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace MindBodySoul.Models.DTO
+namespace MindBodySoul.Models.DTO.Article
 {
-    public class UpdateArticleRequestDto
+    public class CreateArticleRequestDto
     {
         [Required]
         [MaxLength(150)]
@@ -22,9 +22,8 @@ namespace MindBodySoul.Models.DTO
         [Required]
         [MaxLength(500)]
         public required string ImageUrl { get; set; }
-        public required DateTime UpdatedDate { get; set; }
-        public List<Guid>? DeletedTags { get; set; }
-        public List<Guid>? TagsIDs { get; set; }
-        public List<TagDto> Tags { get; set; } = new List<TagDto>();
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public List<Guid> TagsIDs { get; set; } = new List<Guid>();
+
     }
 }

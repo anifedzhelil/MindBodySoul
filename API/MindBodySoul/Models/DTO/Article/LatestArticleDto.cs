@@ -1,4 +1,4 @@
-﻿namespace MindBodySoul.Models.DTO
+﻿namespace MindBodySoul.Models.DTO.Article
 {
     public class LatestArticleDto
     {
