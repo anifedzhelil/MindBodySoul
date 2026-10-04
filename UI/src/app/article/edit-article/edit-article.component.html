@@ -10,10 +10,14 @@
         [(ngModel)]="article.title"
         #inputTitle="ngModel"
         required
+        [maxlength]="150"
       />
       <ng-container *ngIf="inputTitle.touched || isFormSubmitted">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
+        </p>
+        <p class="error" *ngIf="inputTitle.errors?.['maxlength']">
+          Въведете най-много 150 символа!
         </p>
       </ng-container>
     </div>
@@ -101,8 +105,8 @@
         [disabled]="false"
         [placeholder]="'Type here...'"
         required
+        [appMinTextLength]="150"
         #contentEditor="ngModel"
-        minlength="150"
       ></ngx-editor>
     </div>
     <div class="field">
@@ -110,7 +114,7 @@
         <p class="error" *ngIf="contentEditor.errors?.['required']">
           Полето не може да бъде празно!
         </p>
-        <p class="error" *ngIf="contentEditor.errors?.['minlength']">
+        <p class="error" *ngIf="contentEditor.errors?.['minTextLength']">
           Въведете най-малко 150 символа!
         </p>
       </ng-container>

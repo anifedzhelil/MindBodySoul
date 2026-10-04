@@ -21,7 +21,7 @@ import { CommentModule } from "../comment/comment.module";
     ArticleDetailsComponent,
     EditArticleComponent
   ],
-  
+
   imports: [
     CommonModule,
     ArticleRoutingModule,
@@ -32,7 +32,7 @@ import { CommentModule } from "../comment/comment.module";
     FontAwesomeModule,
     SharedModule,
     CommonModule,
-    CommentModule
-]
+    CommentModule,
+  ]
 })
 export class ArticleModule { }

@@ -22,9 +22,7 @@ namespace MindBodySoul.Models.DTO.Article
         [Required]
         [MaxLength(500)]
         public required string ImageUrl { get; set; }
-        public required DateTime UpdatedDate { get; set; }
         public List<Guid>? DeletedTags { get; set; }
         public List<Guid>? TagsIDs { get; set; }
-        public List<TagDto> Tags { get; set; } = new List<TagDto>();
     }
 }

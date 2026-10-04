@@ -22,7 +22,6 @@ namespace MindBodySoul.Models.DTO.Article
         [Required]
         [MaxLength(500)]
         public required string ImageUrl { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public List<Guid> TagsIDs { get; set; } = new List<Guid>();
 
     }

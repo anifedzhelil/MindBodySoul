@@ -16,6 +16,7 @@ import { LatestArticlesComponent } from './components/latest-articles/latest-art
 import { FormsModule } from '@angular/forms';
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 import { TagFilterComponent } from './components/tag-filter/tag-filter.component';
+import { MinTextLengthDirective } from './validators/min-text-length/min-text-length.directive';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TagFilterComponent } from './components/tag-filter/tag-filter.component
     LatestArticlesComponent,
     IconPickerComponent,
     TagFilterComponent,
+    MinTextLengthDirective,
   ],
   imports: [CommonModule, FontAwesomeModule, RouterModule, FormsModule],
   exports: [
@@ -48,6 +50,7 @@ import { TagFilterComponent } from './components/tag-filter/tag-filter.component
     LatestArticlesComponent,
     IconPickerComponent,
     TagFilterComponent,
+    MinTextLengthDirective,
   ],
 })
 export class SharedModule {}

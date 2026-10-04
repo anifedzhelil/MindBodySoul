@@ -69,6 +69,7 @@ builder.Services.AddScoped<IArticleTagsRepository, ArticleTagsRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IArticleVisitsRepository, ArticleVisitsRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICarouselRepository, CarouselRepository>();
 builder.Services.AddScoped<ICarouselBulletRepository, CarouselBulletRepository>();

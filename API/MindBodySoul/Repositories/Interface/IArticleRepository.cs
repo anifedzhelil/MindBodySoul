@@ -1,4 +1,5 @@
 ﻿using MindBodySoul.Models.Domain;
+using MindBodySoul.Models.DTO.Article;
 
 namespace MindBodySoul.Repositories.Interface
 {

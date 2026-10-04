@@ -5,6 +5,5 @@ export interface AddArticleRequest{
     subCategoryId: string;
     userId: string;
     imageUrl: string; 
-    createdDate: Date;
     tagsIDs?: string[];
 }

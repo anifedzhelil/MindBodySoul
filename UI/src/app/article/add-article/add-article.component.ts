@@ -31,7 +31,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     content: '',
     userId: '',
     imageUrl: '',
-    createdDate: new Date(),
     tagsIDs: [],
   };
 
@@ -130,7 +129,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
         .subscribe((response: any) => {
           const user = this.authService.getUser();
           this.article.imageUrl = response.secure_url;
-          this.article.createdDate = new Date();
           if (user) {
             this.article.userId = user.userId;
           }

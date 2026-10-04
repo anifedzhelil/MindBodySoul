@@ -156,7 +156,6 @@ export class EditArticleComponent implements OnInit {
 
   updateArticle(): void {
     if (this.article && this.id) {
-      this.article.updatedDate = new Date().toISOString();
       this.article.deletedTags = this.deletedTags;
       if (this.selectedSubCategoryId)
         this.article.subCategoryId = this.selectedSubCategoryId;

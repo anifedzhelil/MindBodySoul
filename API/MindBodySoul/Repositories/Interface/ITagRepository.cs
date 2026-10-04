@@ -9,8 +9,6 @@ namespace MindBodySoul.Repositories.Interface
         Task<Tag> DeleteAsync(Guid id);
         Task<IEnumerable<Tag>> GetAllAsync();
         Task<IEnumerable<Tag>> GetTagsWithArticleCount();
-
-
         Task<Tag?> GetById(Guid id);
 
     }

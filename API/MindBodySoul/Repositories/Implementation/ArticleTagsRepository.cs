@@ -21,17 +21,16 @@ namespace MindBodySoul.Repositories.Implementation
 
             return articleTags;
         }
+         
 
-        public Task<ArticleTags> DeleteAsync(ArticleTags id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ArticleTags> DeleteAsync(Guid articleId, Guid tagId)
+        public async Task<ArticleTags?> DeleteAsync(Guid articleId, Guid tagId)
         {
             var articleTag = await dbContext.ArticleTags
               .Where(at => at.ArticleId == articleId && at.TagId == tagId)
               .FirstOrDefaultAsync();
+
+            if(articleTag== null)
+                return null;
 
             dbContext.ArticleTags.Remove(articleTag);
 
@@ -53,11 +52,15 @@ namespace MindBodySoul.Repositories.Implementation
             return articleTags;
         }
 
-        public Task<IEnumerable<ArticleTags>> GetAllAsync()
+        public async Task<List<Guid>> GetTagIdsAsync(Guid articleId)
         {
-            throw new NotImplementedException();
-        }
+            var tagIds = await dbContext.ArticleTags
+                .Where(at => at.ArticleId == articleId)
+                .AsNoTracking()
+                .Select(at => at.TagId)
+                .ToListAsync();
 
-    
+            return tagIds;
+        }
     }
 }
