@@ -29,7 +29,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     title: '',
     subCategoryId: '',
     content: '',
-    userId: '',
     imageUrl: '',
     tagsIDs: [],
   };
@@ -127,12 +126,8 @@ export class AddArticleComponent implements OnInit, OnDestroy {
       this.cloudinaryService
         .uploadImage(this.selectedFile)
         .subscribe((response: any) => {
-          const user = this.authService.getUser();
           this.article.imageUrl = response.secure_url;
-          if (user) {
-            this.article.userId = user.userId;
-          }
-          //console.log(this.article);
+         
           this.articleService.addArticle(this.article).subscribe({
             next: (response) => {
               this.errorMessage = '';

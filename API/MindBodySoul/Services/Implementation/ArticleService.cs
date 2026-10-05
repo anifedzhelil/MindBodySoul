@@ -1,7 +1,7 @@
-﻿using Azure;
-using MindBodySoul.Models.Domain;
+﻿using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
 using MindBodySoul.Models.DTO.Article;
+using MindBodySoul.Models.Enum;
 using MindBodySoul.Repositories.Interface;
 using MindBodySoul.Services.Interface;
 
@@ -82,7 +82,7 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
-        public async Task CreateArticleAsync(CreateArticleRequestDto articleRequest)
+        public async Task CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId)
         {
             var article = new Article
             {
@@ -90,7 +90,7 @@ namespace MindBodySoul.Services.Implementation
                 Content = articleRequest.Content,
                 SubCategoryId = articleRequest.SubCategoryId,
                 ImageUrl = articleRequest.ImageUrl,
-                UserId = articleRequest.UserId,
+                UserId = userId,
                 CreatedDate = DateTime.UtcNow
             };
 
@@ -105,8 +105,20 @@ namespace MindBodySoul.Services.Implementation
             await articleTagsRepository.AddRangeAsync(articleTags);
         }
 
-        public async Task<bool> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest)
+        public async Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId)
         {
+            var existingArticle = await articleRepository.GetByIdAsync(articleId);
+
+            if (existingArticle == null)
+            {
+                return OperationResult.NotFound;
+            }
+
+            if(existingArticle.UserId != userId)
+            {
+                return OperationResult.Forbidden;
+            }
+
             var article = new Article
             {
                 Id = articleId,
@@ -114,16 +126,12 @@ namespace MindBodySoul.Services.Implementation
                 Content = articleRequest.Content,
                 ImageUrl = articleRequest.ImageUrl,
                 SubCategoryId = articleRequest.SubCategoryId,
-                UserId = articleRequest.UserId,
+                // Required by the model, not copied by UpdateAsync.
+                UserId = userId,
                 UpdatedDate = DateTime.UtcNow,
             };
 
             var response = await articleRepository.UpdateAsync(article);
-
-            if (response == null)
-            {
-                return false;
-            }
 
             if (articleRequest.DeletedTags != null)
             {
@@ -147,7 +155,7 @@ namespace MindBodySoul.Services.Implementation
                 await articleTagsRepository.AddRangeAsync(articleTags);
             }
 
-            return true;
+            return OperationResult.Success;
 
         }
 
@@ -191,7 +199,7 @@ namespace MindBodySoul.Services.Implementation
             {
                 return null;
             }
-
+            
             var response = GetArticleDetails(article);
             return response;
         }
@@ -206,18 +214,24 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
-        public async Task<bool> DeleteArticleAsync(Guid articleId)
-        { 
-            var response = await articleRepository.DeleteAsync(articleId);
+        public async Task<OperationResult> DeleteArticleAsync(Guid articleId, Guid userId)
+        {
+            var existingArticle = await articleRepository.GetByIdAsync(articleId);
 
-            if(response == null)
+            if (existingArticle == null)
             {
-                return false;
+                return OperationResult.NotFound;
             }
+            if (existingArticle.UserId != userId)
+            {
+                return OperationResult.Forbidden;
+            }
+
+            var response = await articleRepository.DeleteAsync(articleId);
 
             await articleTagsRepository.DeleteRangeAsync(articleId);
 
-            return true;
+            return OperationResult.Success;
         }
     }
 }

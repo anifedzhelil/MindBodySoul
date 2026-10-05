@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.DTO.Article;
+using MindBodySoul.Models.Enum;
 using MindBodySoul.Repositories.Interface;
 using MindBodySoul.Services.Interface;
+using System.Security.Claims;
 
 namespace MindBodySoul.Controllers
 {
@@ -10,8 +12,6 @@ namespace MindBodySoul.Controllers
     [ApiController]
     public class ArticlesController : ControllerBase
     {
-        private readonly IArticleRepository articleRepository;
-        private readonly IArticleTagsRepository articleTagsRepository;
         private readonly IArticleService articleService;
 
         public ArticlesController(IArticleRepository articleRepository,
@@ -19,8 +19,6 @@ namespace MindBodySoul.Controllers
             IArticleVisitsRepository articleVisitsRepository,
             IArticleService articleService)
         {
-            this.articleRepository = articleRepository;
-            this.articleTagsRepository = articleTagsRepository;
             this.articleService = articleService;
         }
 
@@ -28,7 +26,13 @@ namespace MindBodySoul.Controllers
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequestDto request)
         {
-            await articleService.CreateArticleAsync(request);           
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            await articleService.CreateArticleAsync(request, userId);
             return Ok();
         }
        
@@ -79,11 +83,21 @@ namespace MindBodySoul.Controllers
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
         {
-            var responce = await articleService.DeleteArticleAsync(id);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
 
-            if (!responce)
+            var responce = await articleService.DeleteArticleAsync(id, userId);
+
+            if (responce == OperationResult.NotFound)
             {
                 return NotFound();
+            }
+            else if(responce == OperationResult.Forbidden)
+            {
+                return Forbid();
             }
 
             return Ok();
@@ -93,10 +107,20 @@ namespace MindBodySoul.Controllers
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditArticle([FromRoute] Guid id, UpdateArticleRequestDto request)
         {
-            var response  = await articleService.UpdateArticleAsync(id, request);
-            if(!response)
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var response  = await articleService.UpdateArticleAsync(id, request, userId);
+            if(response == OperationResult.NotFound)
             {
                 return NotFound();
+            }
+            else if(response == OperationResult.Forbidden)
+            {
+                return Forbid();
             }
 
             return Ok();

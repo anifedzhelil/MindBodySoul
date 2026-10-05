@@ -16,9 +16,6 @@ namespace MindBodySoul.Models.DTO.Article
         [NotEmptyGuid]
         public required Guid SubCategoryId { get; set; }
 
-        [NotEmptyGuid]
-        public required Guid UserId { get; set; }
-
         [Required]
         [MaxLength(500)]
         public required string ImageUrl { get; set; }

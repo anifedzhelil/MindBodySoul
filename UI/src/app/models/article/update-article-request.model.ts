@@ -4,7 +4,6 @@ export interface UpdateArticleRequest{
     content: string;
     subCategoryId: string;
     imageUrl: string; 
-    userId: string;
     deletedTags?: string[];
     tagsIDs?: string[];
     tags: { name: string; id: string }[];
