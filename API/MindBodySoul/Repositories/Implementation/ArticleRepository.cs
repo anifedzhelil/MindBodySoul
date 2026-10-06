@@ -61,7 +61,7 @@ namespace MindBodySoul.Repositories.Implementation
                 .OrderByDescending(a => a.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
-           
+
             return articles;
         }
 
@@ -98,6 +98,13 @@ namespace MindBodySoul.Repositories.Implementation
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
+        public async Task<Article?> GetByIdForUpdateAsync(Guid id)
+        {
+            return await dbContext.Articles
+                .Include(a => a.ArticleTags)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit)
         {
             var articles = await dbContext.Articles
@@ -122,6 +129,34 @@ namespace MindBodySoul.Repositories.Implementation
 
             await dbContext.SaveChangesAsync();
             return existingArticle;
+        }
+
+        // Increase the counters directly in the database, no entity loading needed
+        public async Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit)
+        {
+            var query = dbContext.Articles.Where(a => a.Id == articleId);
+
+            if (isUniqueVisit)
+            {
+                await query.ExecuteUpdateAsync(s => s
+                    .SetProperty(a => a.TotalVisitCount, a => a.TotalVisitCount + 1)
+                    .SetProperty(a => a.UniqueVisitCount, a => a.UniqueVisitCount + 1));
+            }
+            else
+            {
+                await query.ExecuteUpdateAsync(s => s
+                    .SetProperty(a => a.TotalVisitCount, a => a.TotalVisitCount + 1));
+            }
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await dbContext.Articles.Where(a => a.Id == id).AnyAsync();
         }
     }
 }

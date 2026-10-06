@@ -38,14 +38,15 @@ namespace MindBodySoul.Controllers
 
         public async Task<IActionResult> RegisterVisit([FromRoute] Guid articleId)
         {
-            var article = await articleRepository.GetByIdAsync(articleId);
+            var isArticleExists = await articleRepository.ExistsAsync(articleId);   
             var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            
-            
-                if (article == null)
+            var isUniqueVisit = false;
+
+            if (!isArticleExists)
             {
                 return NotFound();
             }
+
 
             if (Guid.TryParse(userIdString, out var userId))
             {
@@ -61,14 +62,11 @@ namespace MindBodySoul.Controllers
                     };
 
                     await articleVisitsRepository.AddAsync(articleVisit);
-
-                    article.UniqueVisitCount++;
+                    isUniqueVisit = true;
                 }
             }
 
-            article.TotalVisitCount++;
-
-            await articleRepository.UpdateAsync(article);
+            await articleRepository.IncrementVisitCountsAsync(articleId, isUniqueVisit);
 
             return Ok();
         }

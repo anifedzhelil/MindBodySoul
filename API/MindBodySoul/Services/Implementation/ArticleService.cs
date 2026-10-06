@@ -91,23 +91,19 @@ namespace MindBodySoul.Services.Implementation
                 SubCategoryId = articleRequest.SubCategoryId,
                 ImageUrl = articleRequest.ImageUrl,
                 UserId = userId,
-                CreatedDate = DateTime.UtcNow
+                CreatedDate = DateTime.UtcNow,
+                ArticleTags = articleRequest.TagsIDs.Select(tagId => new ArticleTags
+                {
+                    TagId = tagId
+                }).ToList()
             };
 
-            var response = await articleRepository.CreateAsync(article);
-
-            var articleTags = articleRequest.TagsIDs.Select(tagId => new ArticleTags
-            {
-                ArticleId = response.Id,
-                TagId = tagId
-            }).ToList();
-
-            await articleTagsRepository.AddRangeAsync(articleTags);
+            await articleRepository.CreateAsync(article);                     
         }
 
         public async Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId)
         {
-            var existingArticle = await articleRepository.GetByIdAsync(articleId);
+            var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
 
             if (existingArticle == null)
             {
@@ -119,41 +115,39 @@ namespace MindBodySoul.Services.Implementation
                 return OperationResult.Forbidden;
             }
 
-            var article = new Article
-            {
-                Id = articleId,
-                Title = articleRequest.Title,
-                Content = articleRequest.Content,
-                ImageUrl = articleRequest.ImageUrl,
-                SubCategoryId = articleRequest.SubCategoryId,
-                // Required by the model, not copied by UpdateAsync.
-                UserId = userId,
-                UpdatedDate = DateTime.UtcNow,
-            };
-
-            var response = await articleRepository.UpdateAsync(article);
+            existingArticle.Title = articleRequest.Title;
+            existingArticle.Content = articleRequest.Content;
+            existingArticle.ImageUrl = articleRequest.ImageUrl;
+            existingArticle.SubCategoryId = articleRequest.SubCategoryId;
+            existingArticle.UpdatedDate = DateTime.UtcNow;
 
             if (articleRequest.DeletedTags != null)
             {
-                foreach (Guid tagId in articleRequest.DeletedTags)
+
+                var tagsToRemove = existingArticle.ArticleTags!
+                    .Where(at => articleRequest.DeletedTags.Contains(at.TagId))
+                    .ToList();
+
+                foreach (var  articleTag in tagsToRemove)
                 {
-                    await articleTagsRepository.DeleteAsync(articleId, tagId);
+                    existingArticle.ArticleTags!.Remove(articleTag);
                 }
             }
             
-            var existingTagIds = await articleTagsRepository.GetTagIdsAsync(articleId);
+            var existingTagIds = existingArticle.ArticleTags!.Select(at => at.TagId).ToList();
+
+            
             var uniqueTagIds = articleRequest.TagsIDs?.Except(existingTagIds);
 
             if (uniqueTagIds != null)
             {
-                var articleTags = uniqueTagIds.Select(tagId => new ArticleTags
+                foreach (var tagId in uniqueTagIds)
                 {
-                    ArticleId = articleId,
-                    TagId = tagId
-                }).ToList();
-
-                await articleTagsRepository.AddRangeAsync(articleTags);
+                    existingArticle.ArticleTags!.Add(new ArticleTags { TagId = tagId });
+                }
             }
+
+            await articleRepository.SaveChangesAsync();
 
             return OperationResult.Success;
 
