@@ -37,14 +37,16 @@ namespace MindBodySoul.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<Guid>("SubCategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<int>("TotalVisitCount")
                         .HasColumnType("integer");
@@ -387,7 +389,7 @@ namespace MindBodySoul.Migrations
             modelBuilder.Entity("MindBodySoul.Models.Domain.Carousel", b =>
                 {
                     b.HasOne("MindBodySoul.Models.Domain.Post", "Post")
-                        .WithMany("CarouselDrafts")
+                        .WithMany("Carousel")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -458,7 +460,7 @@ namespace MindBodySoul.Migrations
 
             modelBuilder.Entity("MindBodySoul.Models.Domain.Post", b =>
                 {
-                    b.Navigation("CarouselDrafts");
+                    b.Navigation("Carousel");
 
                     b.Navigation("Thumbnail");
                 });
