@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ErrorNotificationService } from './services/error-notification/error-notification.service';
 
 @Component({
     selector: 'app-root',
@@ -8,11 +8,26 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
+  hideMessageError: boolean = false;
+  errorMessage: string = '';
 
-  ngOnInit(): void {
-   
-  }
-  title = 'MindBodySoul';
+  constructor(private errorService: ErrorNotificationService) {}
   
+  ngOnInit(): void {
+    this.errorService.message$.subscribe(
+      {
+        next: (message) => {
+          this.hideMessageError = true;
+          this.errorMessage = message;
+        } 
+      }
+    );
+
+  }
+
+  title = 'MindBodySoul';
+
+  handleClose(): void {
+    this.hideMessageError = false;
+  }
 }
