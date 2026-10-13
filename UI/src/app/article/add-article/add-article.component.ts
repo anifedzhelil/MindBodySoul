@@ -1,24 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { fa0 } from '@fortawesome/free-solid-svg-icons';
 import { Select2UpdateEvent } from 'ng-select2-component';
 import { Editor } from 'ngx-editor';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
 import { Category } from 'src/app/models/category/category.model';
 import { SubCategoryList } from 'src/app/models/subcategory/subcategory-list.model';
 import { ArticleService } from 'src/app/services/article/article.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 import { TagService } from 'src/app/services/tag/tag.service';
+import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
 
 @Component({
-    selector: 'app-add-article',
-    templateUrl: './add-article.component.html',
-    styleUrls: ['./add-article.component.css'],
-    standalone: false
+  selector: 'app-add-article',
+  templateUrl: './add-article.component.html',
+  styleUrls: ['./add-article.component.css'],
+  standalone: false
 })
 export class AddArticleComponent implements OnInit, OnDestroy {
   previewUrl: string | null = null;
@@ -46,9 +45,9 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     private subCategoryService: SubCategoryService,
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
-    private authService: AuthService,
+    private errorService: ValidationErrorService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadTags();
@@ -94,7 +93,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   onFileUploadChange(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-     if (this.previewUrl) {
+    if (this.previewUrl) {
       URL.revokeObjectURL(this.previewUrl);
     }
 
@@ -103,13 +102,13 @@ export class AddArticleComponent implements OnInit, OnDestroy {
       this.previewUrl = URL.createObjectURL(this.selectedFile);
     } else {
       this.selectedFile = null;
-      this.previewUrl = null; 
+      this.previewUrl = null;
     }
   }
 
   ngOnDestroy(): void {
     this.editor.destroy();
-      if (this.previewUrl) {
+    if (this.previewUrl) {
       URL.revokeObjectURL(this.previewUrl);
     }
   }
@@ -127,14 +126,13 @@ export class AddArticleComponent implements OnInit, OnDestroy {
         .uploadImage(this.selectedFile)
         .subscribe((response: any) => {
           this.article.imageUrl = response.secure_url;
-         
           this.articleService.addArticle(this.article).subscribe({
             next: (response) => {
               this.errorMessage = '';
               this.router.navigateByUrl('/articles');
             },
             error: (err) => {
-              this.errorMessage = 'Невалидни данни, въведете коректни данни!';
+             this.errorMessage =  this.errorService.getErrorMessage(err.error?.errors);
             },
           });
         });
@@ -142,7 +140,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   }
 
   onTagsUpdate(event: Select2UpdateEvent): void {
-    if(this.article){
+    if (this.article) {
       this.article.tagsIDs = [];
     }
     event.options.map((option) => {

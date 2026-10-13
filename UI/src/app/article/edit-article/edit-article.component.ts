@@ -13,6 +13,7 @@ import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.servic
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
 
 @Component({
     selector: 'app-edit-article',
@@ -47,8 +48,8 @@ export class EditArticleComponent implements OnInit {
     private subCategoryService: SubCategoryService,
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
-    private authService: AuthService,
     private router: Router,
+    private errorService: ValidationErrorService,
     private route: ActivatedRoute
   ) {}
 
@@ -165,7 +166,7 @@ export class EditArticleComponent implements OnInit {
           this.router.navigateByUrl('/articles');
         },
         error: (err) => {
-          this.errorMessage = 'Невалидни данни, въведете коректни данни!';
+          this.errorMessage =  this.errorService.getErrorMessage(err.error?.errors);
         },
       });
     }
