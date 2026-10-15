@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Text.RegularExpressions;
+﻿using MindBodySoul.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace MindBodySoul.Validation
 {
@@ -19,8 +18,7 @@ namespace MindBodySoul.Validation
         {
             if (value is not string html) return false;
 
-            var text = Regex.Replace(html, "<.*?>", string.Empty);
-            text = WebUtility.HtmlDecode(text).Trim();
+            var text = HtmlTextHelper.ToPlainText(html);
 
             return text.Length >= minLength;
         }

@@ -1,4 +1,5 @@
-﻿using MindBodySoul.Models.Domain;
+﻿using MindBodySoul.Helpers;
+using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO;
 using MindBodySoul.Models.DTO.Article;
 using MindBodySoul.Models.Enum;
@@ -65,17 +66,19 @@ namespace MindBodySoul.Services.Implementation
 
         private LatestArticleDto GetLatestArticle(Article article)
         {
+            var content = HtmlTextHelper.ToPlainText(article.Content);
 
-                var response = new LatestArticleDto
-                {
-                    Id = article.Id,
-                    Title = article.Title,
-                    Excerpt = article.Content.Length > ExcerptLength
-                                ? article.Content.Substring(0, ExcerptLength) + "..."
-                                : article.Content,
-                    ImageUrl = article.ImageUrl
-                };
-            
+
+            var response = new LatestArticleDto
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Excerpt = content.Length > ExcerptLength
+                            ? content.Substring(0, ExcerptLength) + "..."
+                            : content,
+                ImageUrl = article.ImageUrl
+            };
+
 
             return response;
         }
