@@ -14,7 +14,6 @@ namespace MindBodySoul.Controllers
         private readonly IArticleRepository articleRepository;
         private readonly IArticleVisitsRepository articleVisitsRepository;
         public ArticleVisitsController(IArticleRepository articleRepository,
-            IArticleTagsRepository articleTagsRepository,
             IArticleVisitsRepository articleVisitsRepository)
         {
             this.articleRepository = articleRepository;

@@ -116,20 +116,6 @@ namespace MindBodySoul.Repositories.Implementation
             return articles;
         }
 
-        public async Task<Article?> UpdateAsync(Article article)
-        {
-            var existingArticle = await dbContext.Articles.FirstOrDefaultAsync(x => x.Id == article.Id);
-            if (existingArticle == null) return null;
-
-            existingArticle.SubCategoryId = article.SubCategoryId;
-            existingArticle.ImageUrl = article.ImageUrl;
-            existingArticle.Title = article.Title;
-            existingArticle.Content = article.Content;
-            existingArticle.UpdatedDate = DateTime.UtcNow;
-
-            await dbContext.SaveChangesAsync();
-            return existingArticle;
-        }
 
         // Increase the counters directly in the database, no entity loading needed
         public async Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit)

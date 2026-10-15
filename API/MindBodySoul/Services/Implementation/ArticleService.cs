@@ -14,11 +14,9 @@ namespace MindBodySoul.Services.Implementation
         private const int ExcerptLength = 30;
 
         private readonly IArticleRepository articleRepository;
-        private readonly IArticleTagsRepository articleTagsRepository;
-        public ArticleService(IArticleRepository articleRepository, IArticleTagsRepository articleTagsRepository)
+        public ArticleService(IArticleRepository articleRepository)
         {
             this.articleRepository = articleRepository;
-            this.articleTagsRepository = articleTagsRepository;
         }
 
         private ArticleDto GetArticle(Article article)
@@ -53,11 +51,11 @@ namespace MindBodySoul.Services.Implementation
                 SubCategoryName = article.SubCategory?.Name,
                 TotalVisitCount = article.TotalVisitCount,
                 UniqueVisitCount = article.UniqueVisitCount,
-                Tags = article.ArticleTags
+                Tags = article.ArticleTags!
                         .Select(at => new TagDto
                         {
-                            Id = at.Tag.Id,
-                            Name = at.Tag.Name
+                            Id = at.Tag!.Id,
+                            Name = at.Tag!.Name
                         })
                     .ToList()
             };
@@ -221,9 +219,7 @@ namespace MindBodySoul.Services.Implementation
                 return OperationResult.Forbidden;
             }
 
-            var response = await articleRepository.DeleteAsync(articleId);
-
-            await articleTagsRepository.DeleteRangeAsync(articleId);
+            await articleRepository.DeleteAsync(articleId);
 
             return OperationResult.Success;
         }

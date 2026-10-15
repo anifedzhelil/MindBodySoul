@@ -14,10 +14,7 @@ namespace MindBodySoul.Controllers
     {
         private readonly IArticleService articleService;
 
-        public ArticlesController(IArticleRepository articleRepository,
-            IArticleTagsRepository articleTagsRepository,
-            IArticleVisitsRepository articleVisitsRepository,
-            IArticleService articleService)
+        public ArticlesController(IArticleService articleService)
         {
             this.articleService = articleService;
         }
