@@ -55,7 +55,7 @@ async downloadThumbnail() {
   });
 
   const link = document.createElement('a');
-  link.download = `${this.slugService.toSlug(this.title)}.png`;
+  link.download = `${this.slugService.toFileName(this.title)}.png`;
   link.href = canvas.toDataURL('image/png');
   link.click();
 }

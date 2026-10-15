@@ -69,7 +69,7 @@ export class CarouselComponent {
     });
 
     const link = document.createElement('a');
-    link.download = `${this.slugService.toSlug(this.carouselName)}.png`;
+    link.download = `${this.slugService.toFileName(this.carouselName)}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   }

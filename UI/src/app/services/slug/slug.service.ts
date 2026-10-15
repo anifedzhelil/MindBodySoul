@@ -20,8 +20,13 @@ export class SlugService {
       .join('');
   }
 
-  toSlug(text: string, fallback: string = 'file'): string {
-    const base = text?.trim() || fallback;
+  toFileName(text: string, fallback: string = 'file'): string
+  {
+    return this.toSlug(text) || fallback;
+  }
+
+  toSlug(text: string): string {
+    const base = text?.trim() || '';
     return this.transliterate(base)
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
