@@ -8,6 +8,10 @@ namespace MindBodySoul.Models.DTO.Article
         [Required]
         [MaxLength(150)]
         public required string Title { get; set; }
+       
+        [Required]
+        [MaxLength(200)]
+        public required string Slug { get; set; }
 
         [Required]
         [MinTextLength(150)]
@@ -15,7 +19,7 @@ namespace MindBodySoul.Models.DTO.Article
 
         [NotEmptyGuid]
         public required Guid SubCategoryId { get; set; }
-
+        public bool IsPublished { get; set; }
         [Required]
         [MaxLength(500)]
         public required string ImageUrl { get; set; }

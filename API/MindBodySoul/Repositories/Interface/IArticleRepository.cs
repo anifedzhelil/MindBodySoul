@@ -17,5 +17,6 @@ namespace MindBodySoul.Repositories.Interface
         Task SaveChangesAsync();
         Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit);
         Task<bool> ExistsAsync(Guid id);
+        Task<bool> SlugExistsAsync(Guid? id, string slug);
     }
 }

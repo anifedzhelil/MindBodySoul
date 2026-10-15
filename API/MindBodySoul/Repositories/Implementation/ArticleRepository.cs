@@ -144,5 +144,11 @@ namespace MindBodySoul.Repositories.Implementation
         {
             return await dbContext.Articles.Where(a => a.Id == id).AnyAsync();
         }
+
+        public async Task<bool> SlugExistsAsync(Guid? id, string slug)
+        {
+            return await dbContext.Articles
+                .AnyAsync(a => a.Slug == slug && (id == null || a.Id != id));
+        }
     }
 }

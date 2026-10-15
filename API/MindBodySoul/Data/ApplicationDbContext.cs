@@ -20,5 +20,10 @@ namespace MindBodySoul.Data
         public DbSet<Carousel> Carousels { get; set; }
         public DbSet<CarouselBullet> CarouselBullets { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Article>().HasIndex(a => a.Slug).IsUnique();
+        }
     }
 }

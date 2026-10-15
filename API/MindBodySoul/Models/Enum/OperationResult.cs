@@ -4,6 +4,7 @@
     {
         Success,
         NotFound,
-        Forbidden
+        Forbidden,
+        Conflict,
     }
 }

@@ -29,7 +29,12 @@ namespace MindBodySoul.Controllers
                 return Unauthorized();
             }
 
-            await articleService.CreateArticleAsync(request, userId);
+            var result = await articleService.CreateArticleAsync(request, userId);
+            if (result == OperationResult.Conflict)
+            {
+                return Conflict();
+            }
+
             return Ok();
         }
        

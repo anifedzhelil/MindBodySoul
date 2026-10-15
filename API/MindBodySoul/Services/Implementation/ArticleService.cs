@@ -83,44 +83,72 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
-        public async Task CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId)
+        public async Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId)
         {
+            var articleExists = await articleRepository.SlugExistsAsync(null, articleRequest.Slug);
+            if (articleExists)
+            {
+                return OperationResult.Conflict;
+            }
+
+            var now = DateTime.UtcNow;
             var article = new Article
             {
                 Title = articleRequest.Title,
                 Content = articleRequest.Content,
+                Slug = articleRequest.Slug,
+                ContentText = HtmlTextHelper.ToPlainText(articleRequest.Content),
                 SubCategoryId = articleRequest.SubCategoryId,
                 ImageUrl = articleRequest.ImageUrl,
+                IsPublished = articleRequest.IsPublished,
+                PublishedDate = articleRequest.IsPublished ? now : null,
                 UserId = userId,
-                CreatedDate = DateTime.UtcNow,
+                CreatedDate = now,
                 ArticleTags = articleRequest.TagsIDs.Select(tagId => new ArticleTags
                 {
                     TagId = tagId
                 }).ToList()
             };
 
-            await articleRepository.CreateAsync(article);                     
+            await articleRepository.CreateAsync(article);      
+            
+            return OperationResult.Success;
         }
 
         public async Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId)
         {
             var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
+            var now = DateTime.UtcNow;
 
             if (existingArticle == null)
             {
                 return OperationResult.NotFound;
             }
 
-            if(existingArticle.UserId != userId)
+            if (existingArticle.UserId != userId)
             {
                 return OperationResult.Forbidden;
             }
 
+            var slugExists = await articleRepository.SlugExistsAsync(articleId, articleRequest.Slug);
+
+            if (slugExists)
+            {
+                return OperationResult.Conflict;
+            }
+
             existingArticle.Title = articleRequest.Title;
             existingArticle.Content = articleRequest.Content;
+            existingArticle.Slug = articleRequest.Slug;
+            existingArticle.ContentText = HtmlTextHelper.ToPlainText(articleRequest.Content);
             existingArticle.ImageUrl = articleRequest.ImageUrl;
             existingArticle.SubCategoryId = articleRequest.SubCategoryId;
-            existingArticle.UpdatedDate = DateTime.UtcNow;
+            existingArticle.UpdatedDate = now;
+            if(existingArticle.PublishedDate == null && articleRequest.IsPublished)
+            {
+                existingArticle.PublishedDate = now;
+            }
+            existingArticle.IsPublished = articleRequest.IsPublished;
 
             if (articleRequest.DeletedTags != null)
             {

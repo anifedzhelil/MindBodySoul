@@ -11,7 +11,7 @@ namespace MindBodySoul.Services.Interface
         Task<IEnumerable<ArticleDto>> GetArticlesByCategoryAsync(Guid categoryId);
         Task<ArticleDetailsDto?> GetArticleByIdAsync(Guid articleId);
         Task<OperationResult> DeleteArticleAsync(Guid articleId, Guid userId);
-        Task CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId);
+        Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId);
         Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId);
         Task<IEnumerable<LatestArticleDto>> GetLatestArticlesByLimit(int limit);
 
