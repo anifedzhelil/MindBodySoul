@@ -110,8 +110,8 @@ namespace MindBodySoul.Services.Implementation
                 }).ToList()
             };
 
-            await articleRepository.CreateAsync(article);      
-            
+            await articleRepository.CreateAsync(article);
+
             return OperationResult.Success;
         }
 
@@ -144,7 +144,7 @@ namespace MindBodySoul.Services.Implementation
             existingArticle.ImageUrl = articleRequest.ImageUrl;
             existingArticle.SubCategoryId = articleRequest.SubCategoryId;
             existingArticle.UpdatedDate = now;
-            if(existingArticle.PublishedDate == null && articleRequest.IsPublished)
+            if (existingArticle.PublishedDate == null && articleRequest.IsPublished)
             {
                 existingArticle.PublishedDate = now;
             }
@@ -157,15 +157,15 @@ namespace MindBodySoul.Services.Implementation
                     .Where(at => articleRequest.DeletedTags.Contains(at.TagId))
                     .ToList();
 
-                foreach (var  articleTag in tagsToRemove)
+                foreach (var articleTag in tagsToRemove)
                 {
                     existingArticle.ArticleTags!.Remove(articleTag);
                 }
             }
-            
+
             var existingTagIds = existingArticle.ArticleTags!.Select(at => at.TagId).ToList();
 
-            
+
             var uniqueTagIds = articleRequest.TagsIDs?.Except(existingTagIds);
 
             if (uniqueTagIds != null)
@@ -216,13 +216,13 @@ namespace MindBodySoul.Services.Implementation
 
         public async Task<ArticleDetailsDto?> GetArticleByIdAsync(Guid articleId)
         {
-            var article = await articleRepository.GetByIdAsync(articleId);
+            var article = await articleRepository.GetPublishedByIdAsync(articleId);
 
             if (article == null)
             {
                 return null;
             }
-            
+
             var response = GetArticleDetails(article);
             return response;
         }
@@ -239,7 +239,7 @@ namespace MindBodySoul.Services.Implementation
 
         public async Task<OperationResult> DeleteArticleAsync(Guid articleId, Guid userId)
         {
-            var existingArticle = await articleRepository.GetByIdAsync(articleId);
+            var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
 
             if (existingArticle == null)
             {
@@ -250,8 +250,26 @@ namespace MindBodySoul.Services.Implementation
                 return OperationResult.Forbidden;
             }
 
-            await articleRepository.DeleteAsync(articleId);
+            await articleRepository.DeleteAsync(existingArticle);
 
+            return OperationResult.Success;
+        }
+
+        public async Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived, Guid userId)
+        {
+            var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
+
+            if (existingArticle == null)
+            {
+                return OperationResult.NotFound;
+            }
+            if (existingArticle.UserId != userId)
+            {
+                return OperationResult.Forbidden;
+            }
+
+            existingArticle.IsArchived = isArchived;
+            await articleRepository.SaveChangesAsync();
             return OperationResult.Success;
         }
     }

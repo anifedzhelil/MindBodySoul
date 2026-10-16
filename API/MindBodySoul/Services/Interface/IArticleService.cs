@@ -14,6 +14,7 @@ namespace MindBodySoul.Services.Interface
         Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId);
         Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId);
         Task<IEnumerable<LatestArticleDto>> GetLatestArticlesByLimit(int limit);
+        Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived, Guid userId);
 
     }
 }

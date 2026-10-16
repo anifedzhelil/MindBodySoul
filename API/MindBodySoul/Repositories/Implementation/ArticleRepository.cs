@@ -13,6 +13,14 @@ namespace MindBodySoul.Repositories.Implementation
         {
             this.dbContext = dbContext;
         }
+
+        private IQueryable<Article> GetPublishedArticlesQuery()
+        {
+            return dbContext.Articles
+                .Where(a => a.IsPublished && !a.IsArchived)
+                .OrderByDescending(a => a.PublishedDate)
+                .AsNoTracking();
+        }
         public async Task<Article> CreateAsync(Article article)
         {
             await dbContext.Articles.AddAsync(article);
@@ -20,46 +28,31 @@ namespace MindBodySoul.Repositories.Implementation
             return article;
         }
 
-        public async Task<Article?> DeleteAsync(Guid id)
+        public async Task DeleteAsync(Article article)
         {
-            var existingArticle = await dbContext.Articles
-              .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existingArticle is null)
-            {
-                return null;
-            }
-
-            dbContext.Articles.Remove(existingArticle);
+            dbContext.Articles.Remove(article);
             await dbContext.SaveChangesAsync();
-
-            return existingArticle;
         }
 
         public async Task<IEnumerable<Article>> GetAllAsync(string? search = null)
         {
             if (!string.IsNullOrEmpty(search))
             {
-                return await dbContext.Articles
-                    .Where(a => a.Title.ToLower().Contains(search.ToLower()) ||
-                                 a.Content.ToLower().Contains(search.ToLower()))
-                    .OrderByDescending(a => a.CreatedDate)
-                    .AsNoTracking()
+                var lowerSearch = search.ToLower();
+                return await GetPublishedArticlesQuery()
+                    .Where(a => a.Title.ToLower().Contains(lowerSearch) ||
+                                 a.ContentText.ToLower().Contains(lowerSearch))
                     .ToListAsync();
 
             }
-            return await dbContext.Articles
-                .OrderByDescending(a => a.CreatedDate)
-                .AsNoTracking()
+            return await GetPublishedArticlesQuery()
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Article>> GetAllByCategoryAsync(Guid categoryId)
         {
-            var articles = await dbContext.Articles
+            var articles = await GetPublishedArticlesQuery()
                 .Where(a => a.SubCategory != null && a.SubCategory.CategoryId == categoryId)
-                .OrderByDescending(a => a.CreatedDate)
-                .AsNoTracking()
                 .ToListAsync();
 
             return articles;
@@ -67,10 +60,8 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<IEnumerable<Article>> GetAllBySubCategoryAsync(Guid subCategoryId)
         {
-            var articles = await dbContext.Articles
+            var articles = await GetPublishedArticlesQuery()
                 .Where(a => a.SubCategoryId == subCategoryId)
-                .OrderByDescending(a => a.CreatedDate)
-                .AsNoTracking()
                 .ToListAsync();
 
             return articles;
@@ -78,16 +69,14 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId)
         {
-            var articles = await dbContext.Articles
+            var articles = await GetPublishedArticlesQuery()
                 .Where(a => a.ArticleTags != null && a.ArticleTags.Any(at => at.TagId == tagId))
-                .OrderByDescending(a => a.CreatedDate)
-                .AsNoTracking()
                 .ToListAsync();
 
             return articles;
         }
 
-        public async Task<Article?> GetByIdAsync(Guid id)
+        public async Task<Article?> GetPublishedByIdAsync(Guid id)
         {
             return await dbContext.Articles
                 .Include(a => a.SubCategory)
@@ -95,7 +84,7 @@ namespace MindBodySoul.Repositories.Implementation
                 .Include(a => a.ArticleTags!)
                             .ThenInclude(at => at.Tag)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id && a.IsPublished && !a.IsArchived);
         }
 
         public async Task<Article?> GetByIdForUpdateAsync(Guid id)
@@ -107,13 +96,9 @@ namespace MindBodySoul.Repositories.Implementation
 
         public async Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit)
         {
-            var articles = await dbContext.Articles
-                .OrderByDescending(a => a.CreatedDate)
+            return await GetPublishedArticlesQuery()
                 .Take(limit)
-                .AsNoTracking()
                 .ToListAsync();
-
-            return articles;
         }
 
 
@@ -132,6 +117,16 @@ namespace MindBodySoul.Repositories.Implementation
             {
                 await query.ExecuteUpdateAsync(s => s
                     .SetProperty(a => a.TotalVisitCount, a => a.TotalVisitCount + 1));
+            }
+        }
+
+        public async Task SetArchiveStatusAsync(Guid articleId, bool isArchived)
+        {
+            var article = await dbContext.Articles.FindAsync(articleId);
+            if (article != null)
+            {
+                article.IsArchived = isArchived;
+                await dbContext.SaveChangesAsync();
             }
         }
 

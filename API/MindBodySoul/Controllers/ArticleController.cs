@@ -91,13 +91,13 @@ namespace MindBodySoul.Controllers
                 return Unauthorized();
             }
 
-            var responce = await articleService.DeleteArticleAsync(id, userId);
+            var response = await articleService.DeleteArticleAsync(id, userId);
 
-            if (responce == OperationResult.NotFound)
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
-            else if(responce == OperationResult.Forbidden)
+            else if (response == OperationResult.Forbidden)
             {
                 return Forbid();
             }
@@ -115,8 +115,8 @@ namespace MindBodySoul.Controllers
                 return Unauthorized();
             }
 
-            var response  = await articleService.UpdateArticleAsync(id, request, userId);
-            if(response == OperationResult.NotFound)
+            var response = await articleService.UpdateArticleAsync(id, request, userId);
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
@@ -134,6 +134,30 @@ namespace MindBodySoul.Controllers
             var response = await articleService.GetLatestArticlesByLimit(limit);
 
             return Ok(response);
+        }
+
+        [HttpPut("archive/{id:Guid}")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> EditArchiveStatusAsync([FromRoute] Guid id, bool isArchived)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var response = await articleService.UpdateArchiveStatusAsync(id, isArchived, userId);
+
+            if (response == OperationResult.NotFound)
+            {
+                return NotFound();
+            }
+            else if (response == OperationResult.Forbidden)
+            {
+                return Forbid();
+            }
+
+            return Ok();
         }
 
     }

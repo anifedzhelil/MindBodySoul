@@ -6,16 +6,17 @@ namespace MindBodySoul.Repositories.Interface
     public interface IArticleRepository
     {
         Task<Article> CreateAsync(Article article);
-        Task<Article?> DeleteAsync(Guid id);
+        Task DeleteAsync(Article article);
         Task<IEnumerable<Article>> GetAllAsync(string? search = null);
         Task<IEnumerable<Article>> GetAllBySubCategoryAsync(Guid subCategoryId);
         Task<IEnumerable<Article>> GetAllByCategoryAsync(Guid categoryId);
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
-        Task<Article?> GetByIdAsync(Guid id);
+        Task<Article?> GetPublishedByIdAsync(Guid id);
         Task<Article?> GetByIdForUpdateAsync(Guid id);
         Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit);
         Task SaveChangesAsync();
         Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit);
+        Task SetArchiveStatusAsync(Guid articleId, bool isArchived);
         Task<bool> ExistsAsync(Guid id);
         Task<bool> SlugExistsAsync(Guid? id, string slug);
     }
