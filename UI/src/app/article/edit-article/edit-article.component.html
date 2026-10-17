@@ -3,15 +3,8 @@
     <h2>Добави статия</h2>
     <div class="field">
       <label for="title">Заглавие *</label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        [(ngModel)]="article.title"
-        #inputTitle="ngModel"
-        required
-        [maxlength]="150"
-      />
+      <input type="text" name="title" id="title" [(ngModel)]="article.title" #inputTitle="ngModel" required
+        [maxlength]="150" />
       <ng-container *ngIf="inputTitle.touched || isFormSubmitted">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
@@ -24,14 +17,8 @@
 
     <div class="field">
       <label for="category">Категория *</label>
-      <select
-        name="category"
-        id="category"
-        [(ngModel)]="selectedCategoryId"
-        #categorySelect="ngModel"
-        required
-        (change)="onCategoryChange($event)"
-      >
+      <select name="category" id="category" [(ngModel)]="selectedCategoryId" #categorySelect="ngModel" required
+        (change)="onCategoryChange($event)">
         <option value="" disabled>Изберете категория</option>
         <option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
@@ -47,24 +34,16 @@
 
     <div class="field">
       <label for="subCategory">Подкатегория *</label>
-      <select
-        id="subCategory"
-        name="subCategory"
-        [(ngModel)]="selectedSubCategoryId"
-        #subCategorySelect="ngModel"
-        required
-      >
+      <select id="subCategory" name="subCategory" [(ngModel)]="selectedSubCategoryId" #subCategorySelect="ngModel"
+        required>
         <option value="" disabled>Изберете подкатегория</option>
-        <option
-          *ngFor="let subCategory of subCategories"
-          [value]="subCategory.id"
-        >
+        <option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
           {{ subCategory.name }}
         </option>
       </select>
     </div>
-    
-  
+
+
     <ng-container *ngIf="subCategorySelect.touched || isFormSubmitted">
       <p class="error" *ngIf="subCategorySelect.errors?.['required']">
         Изберете подкатегория!
@@ -74,21 +53,15 @@
     <div class="field tags">
       <button class="tag" *ngFor="let tag of article.tags" type="button" (click)="removeTag(tag.id)">
         {{ tag.name }}
-        <fa-icon [icon]="faXmark" ></fa-icon>
+        <fa-icon [icon]="faXmark"></fa-icon>
       </button>
-      
+
     </div>
 
     <div class="field">
       <label for="tags">Тагове</label>
-      <select2
-        [data]="tags"
-        id="tags"
-        name="tags"
-        (update)="onTagsUpdate($event)"
-        [multiple]="true"
-        placeholder="Select tags"
-      >
+      <select2 [data]="tags" id="tags" name="tags" (update)="onTagsUpdate($event)" [multiple]="true"
+        placeholder="Select tags">
       </select2>
     </div>
 
@@ -97,17 +70,8 @@
     </div>
     <div class="NgxEditor__Wrapper editor">
       <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-      <ngx-editor
-        name="content"
-        id="content"
-        [editor]="editor"
-        [(ngModel)]="article.content"
-        [disabled]="false"
-        [placeholder]="'Type here...'"
-        required
-        [appMinTextLength]="150"
-        #contentEditor="ngModel"
-      ></ngx-editor>
+      <ngx-editor name="content" id="content" [editor]="editor" [(ngModel)]="article.content" [disabled]="false"
+        [placeholder]="'Type here...'" required [appMinTextLength]="150" #contentEditor="ngModel"></ngx-editor>
     </div>
     <div class="field">
       <ng-container *ngIf="contentEditor.touched || isFormSubmitted">
@@ -124,15 +88,13 @@
       <label for="image">Снимка *</label>
       <img name="image" *ngIf="!previewUrl" src="{{ article.imageUrl }}" />
       <img *ngIf="previewUrl" [src]="previewUrl" alt="Article Image" on />
-      <input
-        type="file"
-        name="image"
-        ngModel
-        #fileInput="ngModel"
-        (change)="onFileUploadChange($event)"
-      />
+      <input type="file" name="image" ngModel #fileInput="ngModel" (change)="onFileUploadChange($event)" />
     </div>
-        <div class="field">
+    <div class="field">
+      <label for="isPublished">Публикуван</label>
+      <input type="checkbox" id="isPublished" name="isPublished" ngModel>
+    </div>
+    <div class="field">
       <input type="submit" value="Запази" />
     </div>
 

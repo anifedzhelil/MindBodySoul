@@ -4,5 +4,6 @@ export interface AddArticleRequest{
     content: string;
     subCategoryId: string;
     imageUrl: string; 
+    isPublished: boolean;
     tagsIDs?: string[];
 }

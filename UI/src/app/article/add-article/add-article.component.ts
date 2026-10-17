@@ -30,6 +30,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     content: '',
     imageUrl: '',
     tagsIDs: [],
+    isPublished: false,
   };
 
   editor: Editor = new Editor();

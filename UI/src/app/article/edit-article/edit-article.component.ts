@@ -7,7 +7,6 @@ import { UpdateArticleRequest } from 'src/app/models/article/update-article-requ
 import { Category } from 'src/app/models/category/category.model';
 import { SubCategoryList } from 'src/app/models/subcategory/subcategory-list.model';
 import { ArticleService } from 'src/app/services/article/article.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';

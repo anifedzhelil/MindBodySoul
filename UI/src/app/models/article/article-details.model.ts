@@ -11,6 +11,7 @@ export interface ArticleDetails {
   imageUrl: string;
   createdDate: string;
   updatedDate: string;
+  isPublished: boolean;
   uniqueVisitCount: number;
   totalVisitCount: number;
   tags: { name: string; id: string }[];

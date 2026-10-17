@@ -127,6 +127,11 @@
     <ng-container *ngIf=" fileInput.touched || isFormSubmited">
       <p class="error" *ngIf="!selectedFile ">Моля, изберете снимка!</p>
     </ng-container>
+   
+    <div class="field">
+      <label for="isPublished">Публикуван</label>
+      <input type="checkbox" id="isPublished" name="isPublished" ngModel>
+    </div>
 
     <div class="field">
       <input type="submit" value="Запази" />
