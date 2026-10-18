@@ -83,6 +83,29 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
+        private ArticleEditDto GetArticleEdit(Article article)
+        {
+            var articleEditDto = new ArticleEditDto
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Slug = article.Slug,
+                Content = article.Content,
+                ImageUrl = article.ImageUrl,
+                IsPublished = article.IsPublished,
+                CategoryId = article.SubCategory?.Category?.Id,
+                SubCategoryId = article.SubCategoryId,
+                Tags = article.ArticleTags!
+                    .Select(at => new TagDto
+                    {
+                        Id = at.Tag!.Id,
+                        Name = at.Tag!.Name
+                    })
+                    .ToList()
+            };
+            return articleEditDto;
+        }
+
         public async Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId)
         {
             var articleExists = await articleRepository.SlugExistsAsync(null, articleRequest.Slug);
@@ -115,7 +138,7 @@ namespace MindBodySoul.Services.Implementation
             return OperationResult.Success;
         }
 
-        public async Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId)
+        public async Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest)
         {
             var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
             var now = DateTime.UtcNow;
@@ -123,11 +146,6 @@ namespace MindBodySoul.Services.Implementation
             if (existingArticle == null)
             {
                 return OperationResult.NotFound;
-            }
-
-            if (existingArticle.UserId != userId)
-            {
-                return OperationResult.Forbidden;
             }
 
             var slugExists = await articleRepository.SlugExistsAsync(articleId, articleRequest.Slug);
@@ -227,6 +245,7 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
+     
         public async Task<IEnumerable<LatestArticleDto>> GetLatestArticlesByLimit(int limit)
         {
             limit = Math.Clamp(limit, DefaultLimit, MaxLimit);
@@ -237,7 +256,7 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
-        public async Task<OperationResult> DeleteArticleAsync(Guid articleId, Guid userId)
+        public async Task<OperationResult> DeleteArticleAsync(Guid articleId)
         {
             var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
 
@@ -245,17 +264,13 @@ namespace MindBodySoul.Services.Implementation
             {
                 return OperationResult.NotFound;
             }
-            if (existingArticle.UserId != userId)
-            {
-                return OperationResult.Forbidden;
-            }
-
+        
             await articleRepository.DeleteAsync(existingArticle);
 
             return OperationResult.Success;
         }
 
-        public async Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived, Guid userId)
+        public async Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived)
         {
             var existingArticle = await articleRepository.GetByIdForUpdateAsync(articleId);
 
@@ -263,14 +278,22 @@ namespace MindBodySoul.Services.Implementation
             {
                 return OperationResult.NotFound;
             }
-            if (existingArticle.UserId != userId)
-            {
-                return OperationResult.Forbidden;
-            }
-
+          
             existingArticle.IsArchived = isArchived;
             await articleRepository.SaveChangesAsync();
             return OperationResult.Success;
+        }
+
+        public async Task<ArticleEditDto?> GetArticleForEditAsync(Guid articleId)
+        {
+            var article = await articleRepository.GetByIdForEditAsync(articleId);
+
+            if (article == null)
+            {
+                return null; 
+            }
+
+            return GetArticleEdit(article);
         }
     }
 }

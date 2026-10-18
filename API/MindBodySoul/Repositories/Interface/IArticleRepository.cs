@@ -13,6 +13,7 @@ namespace MindBodySoul.Repositories.Interface
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
         Task<Article?> GetPublishedByIdAsync(Guid id);
         Task<Article?> GetByIdForUpdateAsync(Guid id);
+        Task<Article?> GetByIdForEditAsync(Guid id);
         Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit);
         Task SaveChangesAsync();
         Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit);

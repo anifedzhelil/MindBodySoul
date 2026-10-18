@@ -19,25 +19,6 @@ namespace MindBodySoul.Controllers
             this.articleService = articleService;
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequestDto request)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!Guid.TryParse(userIdClaim, out var userId))
-            {
-                return Unauthorized();
-            }
-
-            var result = await articleService.CreateArticleAsync(request, userId);
-            if (result == OperationResult.Conflict)
-            {
-                return Conflict();
-            }
-
-            return Ok();
-        }
-       
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetArticleById([FromRoute] Guid id)
         {
@@ -80,54 +61,7 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
-        //DELETE: https:/localhost:7108/api/article{id}
-        [HttpDelete("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> DeleteArticle([FromRoute] Guid id)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!Guid.TryParse(userIdClaim, out var userId))
-            {
-                return Unauthorized();
-            }
-
-            var response = await articleService.DeleteArticleAsync(id, userId);
-
-            if (response == OperationResult.NotFound)
-            {
-                return NotFound();
-            }
-            else if (response == OperationResult.Forbidden)
-            {
-                return Forbid();
-            }
-
-            return Ok();
-        }
-
-        [HttpPut("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> EditArticle([FromRoute] Guid id, UpdateArticleRequestDto request)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!Guid.TryParse(userIdClaim, out var userId))
-            {
-                return Unauthorized();
-            }
-
-            var response = await articleService.UpdateArticleAsync(id, request, userId);
-            if (response == OperationResult.NotFound)
-            {
-                return NotFound();
-            }
-            else if(response == OperationResult.Forbidden)
-            {
-                return Forbid();
-            }
-
-            return Ok();
-        }
-
+        
         [HttpGet("getLatestArticles")]
         public async Task<IActionResult> GetLatestArticlesAsync([FromQuery] int limit = 8)
         {
@@ -136,30 +70,7 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
-        [HttpPut("archive/{id:Guid}")]
-        [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> EditArchiveStatusAsync([FromRoute] Guid id, bool isArchived)
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (!Guid.TryParse(userIdClaim, out var userId))
-            {
-                return Unauthorized();
-            }
-
-            var response = await articleService.UpdateArchiveStatusAsync(id, isArchived, userId);
-
-            if (response == OperationResult.NotFound)
-            {
-                return NotFound();
-            }
-            else if (response == OperationResult.Forbidden)
-            {
-                return Forbid();
-            }
-
-            return Ok();
-        }
-
+       
     }
 
 }

@@ -10,11 +10,12 @@ namespace MindBodySoul.Services.Interface
         Task<IEnumerable<ArticleDto>> GetArticlesBySubCategoryAsync(Guid subCategoryId);
         Task<IEnumerable<ArticleDto>> GetArticlesByCategoryAsync(Guid categoryId);
         Task<ArticleDetailsDto?> GetArticleByIdAsync(Guid articleId);
-        Task<OperationResult> DeleteArticleAsync(Guid articleId, Guid userId);
+        Task<ArticleEditDto?> GetArticleForEditAsync(Guid articleId);
+        Task<OperationResult> DeleteArticleAsync(Guid articleId);
         Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId);
-        Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest, Guid userId);
+        Task<OperationResult> UpdateArticleAsync(Guid articleId, UpdateArticleRequestDto articleRequest);
         Task<IEnumerable<LatestArticleDto>> GetLatestArticlesByLimit(int limit);
-        Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived, Guid userId);
+        Task<OperationResult> UpdateArchiveStatusAsync(Guid articleId, bool isArchived);
 
     }
 }
