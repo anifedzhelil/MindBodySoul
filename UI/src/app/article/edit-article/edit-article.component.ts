@@ -6,19 +6,20 @@ import { Editor } from 'ngx-editor';
 import { UpdateArticleRequest } from 'src/app/models/article/update-article-request.model';
 import { Category } from 'src/app/models/category/category.model';
 import { SubCategoryList } from 'src/app/models/subcategory/subcategory-list.model';
-import { ArticleService } from 'src/app/services/article/article.service';
+import { AdminArticleService } from 'src/app/services/article/admin-article.service';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
+import { SlugService } from 'src/app/services/slug/slug.service';
 
 @Component({
-    selector: 'app-edit-article',
-    templateUrl: './edit-article.component.html',
-    styleUrls: ['./edit-article.component.css'],
-    standalone: false
+  selector: 'app-edit-article',
+  templateUrl: './edit-article.component.html',
+  styleUrls: ['./edit-article.component.css'],
+  standalone: false
 })
 export class EditArticleComponent implements OnInit {
   id: string | null = null;
@@ -38,26 +39,45 @@ export class EditArticleComponent implements OnInit {
   updatedTags: any[] = [];
   categories: Category[] = [];
   subCategories: SubCategoryList[] = [];
+  isSlugChanged: boolean = false;
 
   faXmark = faXmark;
 
   constructor(
-    private articleService: ArticleService,
+    private adminArticleService: AdminArticleService,
     private categoryService: CategoryService,
     private subCategoryService: SubCategoryService,
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
     private router: Router,
     private errorService: ValidationErrorService,
-    private route: ActivatedRoute
-  ) {}
+    private slugService: SlugService,
+    private route: ActivatedRoute,
+  ) { }
+
+  titleOnInput(): void {
+    if (this.article && !this.isSlugChanged)
+      this.article.slug = this.slugService.toSlug(this.article.title);
+  }
+
+  slugOnInput(): void {
+    if (!this.article) {
+      return;
+    }
+
+    if (this.article.slug === '') {
+      this.isSlugChanged = false;
+    }
+    else
+      this.isSlugChanged = true;
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
         this.id = params.get('id');
         if (this.id != null) {
-          this.articleService.getArticleById(this.id).subscribe({
+          this.adminArticleService.getArticleForEdit(this.id).subscribe({
             next: (response) => {
               this.article = response;
 
@@ -127,6 +147,8 @@ export class EditArticleComponent implements OnInit {
   }
 
   updateArticleSubmit(form: NgForm): void {
+    this.isFormSubmitted = true;
+
     if (form.invalid) {
       Object.keys(form.controls).forEach((field) => {
         const control = form.controls[field];
@@ -137,18 +159,23 @@ export class EditArticleComponent implements OnInit {
       });
 
       this.errorMessage = 'Попълнете всички задължитени полета!';
-      this.isFormSubmitted = true;
       return;
     }
-     else if (this.selectedFile) {
+    else if (this.selectedFile) {
       this.cloudinaryService
         .uploadImage(this.selectedFile)
-        .subscribe((response: any) => {
-          if (this.article) {
-            this.article.imageUrl = response.secure_url;
-            this.updateArticle();
+        .subscribe({
+          next: (response: any) => {
+            if (this.article) {
+              this.article.imageUrl = response.secure_url;
+              this.updateArticle();
+            }
+          },
+          error: (err) => {
+            this.errorMessage = "Снимката не беше качена";
           }
-        });
+        }
+        );
     } else {
       this.updateArticle();
     }
@@ -159,17 +186,20 @@ export class EditArticleComponent implements OnInit {
       this.article.deletedTags = this.deletedTags;
       if (this.selectedSubCategoryId)
         this.article.subCategoryId = this.selectedSubCategoryId;
-      this.articleService.updateArticle(this.id, this.article).subscribe({
+      this.adminArticleService.updateArticle(this.id, this.article).subscribe({
         next: (response) => {
           this.errorMessage = '';
           this.router.navigateByUrl('/articles');
         },
         error: (err) => {
-          this.errorMessage =  this.errorService.getErrorMessage(err.error?.errors);
+          if (err.status === 409) {
+            this.errorMessage = 'Този URL адрес вече е зает. Променете го.';
+          }
+          else
+            this.errorMessage = this.errorService.getErrorMessage(err.error?.errors);
         },
       });
     }
-    console.log(this.article);
   }
 
   loadSubCategories(categorId: string): void {

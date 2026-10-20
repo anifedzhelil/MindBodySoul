@@ -6,9 +6,10 @@ import { Editor } from 'ngx-editor';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
 import { Category } from 'src/app/models/category/category.model';
 import { SubCategoryList } from 'src/app/models/subcategory/subcategory-list.model';
-import { ArticleService } from 'src/app/services/article/article.service';
+import { AdminArticleService } from 'src/app/services/article/admin-article.service';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
+import { SlugService } from 'src/app/services/slug/slug.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
@@ -26,6 +27,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
 
   article: AddArticleRequest = {
     title: '',
+    slug: '',
     subCategoryId: '',
     content: '',
     imageUrl: '',
@@ -39,21 +41,35 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   tags: any[] = [];
   categories: Category[] = [];
   subCategories: SubCategoryList[] = [];
+  isSlugChanged: boolean = false;
 
   constructor(
-    private articleService: ArticleService,
+    private adminArticleService: AdminArticleService,
     private categoryService: CategoryService,
     private subCategoryService: SubCategoryService,
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
     private errorService: ValidationErrorService,
+    private slugService: SlugService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.loadTags();
     this.loadCategories();
-    this.editor = new Editor();
+  }
+
+  titleOnblur(): void {
+    if (!this.isSlugChanged)
+      this.article.slug = this.slugService.toSlug(this.article.title);
+  }
+
+  slugOnInput(): void {
+    if (this.article.slug === '') {
+      this.isSlugChanged = false;
+    }
+    else
+      this.isSlugChanged = true;
   }
 
   loadTags(): void {
@@ -125,27 +141,32 @@ export class AddArticleComponent implements OnInit, OnDestroy {
 
       this.cloudinaryService
         .uploadImage(this.selectedFile)
-        .subscribe((response: any) => {
-          this.article.imageUrl = response.secure_url;
-          this.articleService.addArticle(this.article).subscribe({
-            next: (response) => {
-              this.errorMessage = '';
-              this.router.navigateByUrl('/articles');
-            },
-            error: (err) => {
-             this.errorMessage =  this.errorService.getErrorMessage(err.error?.errors);
-            },
-          });
+        .subscribe({
+          next: (response: any) => {
+
+            this.article.imageUrl = response.secure_url;
+            this.adminArticleService.addArticle(this.article).subscribe({
+              next: (response) => {
+                this.errorMessage = '';
+                this.router.navigateByUrl('/articles');
+              },
+              error: (err) => {
+                if (err.status === 409) {
+                  this.errorMessage = 'Този URL адрес вече е зает. Променете го.';
+                }
+                else
+                  this.errorMessage = this.errorService.getErrorMessage(err.error?.errors);
+              },
+            });
+          },
+          error: (err) => {
+            this.errorMessage = "Снимката не беше качена";
+          }
         });
     }
   }
 
   onTagsUpdate(event: Select2UpdateEvent): void {
-    if (this.article) {
-      this.article.tagsIDs = [];
-    }
-    event.options.map((option) => {
-      this.article.tagsIDs?.push(String(option.value));
-    });
+    this.article.tagsIDs = event.options.map((option) => String(option.value));
   }
 }

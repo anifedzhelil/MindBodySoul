@@ -24,10 +24,21 @@ form {
   width: 100%;
 }
 
-input[type="select"],
-select input[type="text"],
-input[type="password"] {
+.field-checkbox{
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+}
+
+input[type="password"]{
   max-width: 100%;
+}
+
+input[type="checkbox"]
+{
+  width: 1.25em;
+  height: 1.25em;
+  accent-color: #1b5061;
 }
 
 .error {

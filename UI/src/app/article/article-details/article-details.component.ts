@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { ArticleComment } from 'src/app/models/comment/article-comment';
 import { ArticleVisitsService } from 'src/app/services/article-visits/article-visits.service';
+import { AdminArticleService } from 'src/app/services/article/admin-article.service';
 
 @Component({
     selector: 'app-article-details',
@@ -31,6 +32,7 @@ export class ArticleDetailsComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
+    private adminArticleService: AdminArticleService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -79,7 +81,7 @@ export class ArticleDetailsComponent implements OnInit {
     this.hideDeleteConformation = false;
 
     if (this.id) {
-      this.articleService.deleteArticle(this.id).subscribe({
+      this.adminArticleService.deleteArticle(this.id).subscribe({
         next: (response) => {
           this.router.navigateByUrl('/articles');
         },

@@ -1,6 +1,7 @@
 
 export interface UpdateArticleRequest{
     title: string;
+    slug: string;
     content: string;
     subCategoryId: string;
     imageUrl: string; 
