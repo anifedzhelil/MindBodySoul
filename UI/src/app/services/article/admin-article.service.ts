@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddArticleRequest } from 'src/app/models/article/add-article-request.mode';
+import { AdminArticleListItem } from 'src/app/models/article/admin-article-list-item.model';
 import { ArticleEdit } from 'src/app/models/article/article-edit.model';
 import { Article } from 'src/app/models/article/article.model';
 import { UpdateArticleRequest } from 'src/app/models/article/update-article-request.model';
@@ -17,6 +18,12 @@ export class AdminArticleService {
   getArticleForEdit(id: string): Observable<ArticleEdit> {
     return this.http.get<ArticleEdit>(
       `${environment.apiBaseUrl}/api/adminarticles/${id}?addAuth=true`
+    );
+  }
+
+   getFilteredForAdmin(id: string): Observable<AdminArticleListItem[]> {
+    return this.http.get<AdminArticleListItem[]>(
+      `${environment.apiBaseUrl}/api/adminarticles/getFilteredForAdmin/${id}?addAuth=true`
     );
   }
 

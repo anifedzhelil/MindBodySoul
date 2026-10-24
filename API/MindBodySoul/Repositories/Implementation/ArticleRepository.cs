@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MindBodySoul.Data;
 using MindBodySoul.Models.Domain;
+using MindBodySoul.Models.Enum;
 using MindBodySoul.Repositories.Interface;
 
 namespace MindBodySoul.Repositories.Implementation
@@ -74,6 +75,52 @@ namespace MindBodySoul.Repositories.Implementation
                 .ToListAsync();
 
             return articles;
+        }
+
+        public async Task<IEnumerable<Article>> GetFilteredForAdminAsync(ArticleStatusFilter statusFilter)
+        {
+            IQueryable<Article> query = dbContext.Articles;
+
+            switch (statusFilter)
+            {
+                case ArticleStatusFilter.All:
+                    // No extra condition, return everything
+                    break;
+                case ArticleStatusFilter.Draft:
+                    query = query.Where(a => !a.IsPublished && !a.IsArchived);
+                    break;
+                case ArticleStatusFilter.Published:
+                    query = query.Where(a => a.IsPublished && !a.IsArchived);
+                    break;
+                case ArticleStatusFilter.Archived:
+                    query = query.Where(a => a.IsArchived);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(statusFilter), statusFilter, null);
+            }
+
+            return await query
+                    .OrderByDescending(a => a.CreatedDate)
+                    .Select(a => new Article
+                    {
+                        Id = a.Id,
+                        Title = a.Title,
+                        Slug = a.Slug,
+                        ImageUrl = a.ImageUrl,
+                        SubCategoryId = a.SubCategoryId,
+                        UserId = a.UserId,
+                        // Heavy fields are not read from the database, they only satisfy 'required'
+                        Content = string.Empty,
+                        ContentText = string.Empty,
+                        IsPublished = a.IsPublished,
+                        IsArchived = a.IsArchived,
+                        CreatedDate = a.CreatedDate,
+                        PublishedDate = a.PublishedDate,
+                        UpdatedDate = a.UpdatedDate,
+                        TotalVisitCount = a.TotalVisitCount,
+                        UniqueVisitCount = a.UniqueVisitCount
+                    })
+                    .ToListAsync();
         }
 
         public async Task<Article?> GetPublishedByIdAsync(Guid id)

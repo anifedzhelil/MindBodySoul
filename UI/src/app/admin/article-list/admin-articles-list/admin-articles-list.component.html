@@ -1,0 +1,76 @@
+<app-loader></app-loader>
+<div class="container">
+    <div class="list">
+        <div class="title">
+            <input type="submit" value="Добави статия" (click)="addArticle()" />
+        </div>
+        <div class="filters">
+            <button *ngFor="let filter of filters" type="button" [class.active]="filter.value === selectedFilter"
+                (click)="onFilterChange(filter.value)">
+                {{ filter.label }}
+            </button>
+        </div>
+        <ng-container *ngIf="articles">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="title-th sortable" (click)="onSort('title')">
+                            Заглавие
+                            <span class="sort-icon" [class.active]="sortColumn === 'title'">
+                                {{ sortColumn === 'title' ? (sortDirection === 'asc' ? '▲' : '▼') : '⇅' }}
+                            </span>
+                        </th>
+                        <th>Снимка</th>
+                        <th>Статус</th>
+                        <th class="sortable" (click)="onSort('createdDate')">
+                            Създадена
+                            <span class="sort-icon" [class.active]="sortColumn === 'createdDate'">
+                                {{ sortColumn === 'createdDate' ? (sortDirection === 'asc' ? '▲' : '▼') : '⇅' }}
+                            </span>
+                        </th>
+                        <th class="sortable" (click)="onSort('publishedDate')">
+                            Публикувана
+                            <span class="sort-icon" [class.active]="sortColumn === 'publishedDate'">
+                                {{ sortColumn === 'publishedDate' ? (sortDirection === 'asc' ? '▲' : '▼') : '⇅' }}
+                            </span>
+                        </th>
+                        <th>Редактирана</th>
+                        <th>Посещения</th>
+                        <th class="sortable" (click)="onSort('uniqueVisitCount')">
+                            Уникални посещения
+                            <span class="sort-icon" [class.active]="sortColumn === 'uniqueVisitCount'">
+                                {{ sortColumn === 'uniqueVisitCount' ? (sortDirection === 'asc' ? '▲' : '▼') : '⇅' }}
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let article of articles">
+                        <th class="text-content title-th">
+                            <a [routerLink]="['/articles/articles-details', article.id]">{{ article.title }}</a>
+                        </th>
+                        <th>
+                            <img [src]="article.imageUrl" alt="" />
+                        </th>
+                        <th class="text-content">{{ getStatusLabel(article) }}</th>
+                        <th class="text-content">
+                            {{ article.createdDate | date: 'dd.MM.yyyy HH:mm' }}
+                        </th>
+                        <th class="text-content">
+                            {{ (article.publishedDate | date: 'dd.MM.yyyy HH:mm') ?? '-' }}
+                        </th>
+                        <th class="text-content">
+                            {{ (article.updatedDate | date: 'dd.MM.yyyy HH:mm') ?? '-' }}
+                        </th>
+                        <th class="text-content">{{ article.totalVisitCount }}</th>
+                        <th class="text-content">{{ article.uniqueVisitCount }}</th>
+
+                    </tr>
+                    <tr *ngIf="articles.length === 0">
+                        <td colspan="7" class="empty-row">Няма статии в тази категория.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+</div>

@@ -9,6 +9,7 @@ namespace MindBodySoul.Services.Interface
         Task<IEnumerable<ArticleDto>> GetArticlesByTagAsync(Guid byTag);
         Task<IEnumerable<ArticleDto>> GetArticlesBySubCategoryAsync(Guid subCategoryId);
         Task<IEnumerable<ArticleDto>> GetArticlesByCategoryAsync(Guid categoryId);
+        Task<IEnumerable<AdminArticleListItemDto>> GetFilteredForAdmin(ArticleStatusFilter statusFilter);
         Task<ArticleDetailsDto?> GetArticleByIdAsync(Guid articleId);
         Task<ArticleEditDto?> GetArticleForEditAsync(Guid articleId);
         Task<OperationResult> DeleteArticleAsync(Guid articleId);

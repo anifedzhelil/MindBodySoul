@@ -39,6 +39,14 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getFilteredForAdmin/{status}")]
+        public async Task<IActionResult> GetFilteredForAdmin([FromRoute] ArticleStatusFilter status)
+        {
+            var response = await articleService.GetFilteredForAdmin(status);
+
+            return Ok(response);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequestDto request)

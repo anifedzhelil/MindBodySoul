@@ -1,0 +1,97 @@
+@import "/src/app/shared/styles/table.css";
+
+.container {
+    width: 1400px;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    justify-content: right;
+    display: flex;
+}
+
+.list {
+    flex: 0 0 80%;
+}
+
+img {
+    width: 120px;
+}
+
+@media screen and (max-width: 1400px) {
+    .container {
+        width: 1000px;
+    }
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filters button {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.filters button:hover {
+    background: #f2f2f2;
+}
+
+/* Marks the currently selected tab */
+.filters button.active {
+    background: #1a6aa5;
+    border-color: #1a6aa5;
+    color: #fff;
+}
+
+/* Keeps dates and status on one line */
+td.nowrap,
+th.nowrap {
+    white-space: nowrap;
+}
+
+.filters {
+    flex-wrap: wrap;
+}
+
+.title-th {
+    width: 35%;
+    min-width: 200px;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 24px;
+  color: #777;
+}
+
+/* Shows that the header is clickable */
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 600px) {
+    .filters button {
+        flex: 1 1 auto;
+        padding: 8px 10px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        max-width: 100%;
+    }
+}

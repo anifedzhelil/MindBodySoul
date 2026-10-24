@@ -21,6 +21,7 @@ import { PostDetails } from './instagram/post/post-details.component';
 import { CarouselComponent } from './instagram/carousel/carousel.component';
 import { ThumbnailComponent } from './instagram/thumbnail/thumbnail.component';
 import { PostsListComponent } from './instagram/posts-list/posts-list.component';
+import { AdminArticlesListComponent } from './article-list/admin-articles-list/admin-articles-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PostsListComponent } from './instagram/posts-list/posts-list.component'
     AdminDashboardComponent,
     AdminCategoriesListComponent,
     AddSubCategoryComponent,
+    AdminArticlesListComponent,
     AdminSubCategoriesListComponent,
     EditSubCategoryComponent,
     AddTagComponent,

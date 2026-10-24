@@ -106,6 +106,26 @@ namespace MindBodySoul.Services.Implementation
             return articleEditDto;
         }
 
+        private AdminArticleListItemDto GetAdminListItem(Article article)
+        {
+            var articleListItem = new AdminArticleListItemDto
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Slug = article.Slug,
+                ImageUrl = article.ImageUrl,
+                IsPublished = article.IsPublished,
+                CreatedDate = article.CreatedDate,
+                UpdatedDate = article.UpdatedDate,
+                PublishedDate = article.PublishedDate,
+                IsArchived = article.IsArchived,
+                TotalVisitCount = article.TotalVisitCount,
+                UniqueVisitCount = article.UniqueVisitCount,
+            };
+            return articleListItem;
+        }
+
+
         public async Task<OperationResult> CreateArticleAsync(CreateArticleRequestDto articleRequest, Guid userId)
         {
             var articleExists = await articleRepository.SlugExistsAsync(null, articleRequest.Slug);
@@ -252,6 +272,14 @@ namespace MindBodySoul.Services.Implementation
 
             var articles = await articleRepository.GetLatestArticlesAsync(limit);
             var response = articles.Select(article => GetLatestArticle(article)).ToList();
+
+            return response;
+        }
+
+        public async Task<IEnumerable<AdminArticleListItemDto>> GetFilteredForAdmin(ArticleStatusFilter statusFilter)
+        {
+            var articles = await articleRepository.GetFilteredForAdminAsync(statusFilter);
+            var response = articles.Select(article => GetAdminListItem(article)).ToList();
 
             return response;
         }

@@ -1,5 +1,6 @@
 ﻿using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO.Article;
+using MindBodySoul.Models.Enum;
 
 namespace MindBodySoul.Repositories.Interface
 {
@@ -11,6 +12,7 @@ namespace MindBodySoul.Repositories.Interface
         Task<IEnumerable<Article>> GetAllBySubCategoryAsync(Guid subCategoryId);
         Task<IEnumerable<Article>> GetAllByCategoryAsync(Guid categoryId);
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
+        Task<IEnumerable<Article>> GetFilteredForAdminAsync(ArticleStatusFilter statusFilter);
         Task<Article?> GetPublishedByIdAsync(Guid id);
         Task<Article?> GetByIdForUpdateAsync(Guid id);
         Task<Article?> GetByIdForEditAsync(Guid id);
