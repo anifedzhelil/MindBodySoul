@@ -6,5 +6,6 @@
         NotFound,
         Forbidden,
         Conflict,
+        ArchivedConflict,
     }
 }

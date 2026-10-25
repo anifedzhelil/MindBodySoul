@@ -47,7 +47,7 @@
                 <tbody>
                     <tr *ngFor="let article of articles">
                         <th class="text-content title-th">
-                            <a [routerLink]="['/articles/articles-details', article.id]">{{ article.title }}</a>
+                            <a [routerLink]="['/admin/articles/preview/', article.id]">{{ article.title }}</a>
                         </th>
                         <th>
                             <img [src]="article.imageUrl" alt="" />

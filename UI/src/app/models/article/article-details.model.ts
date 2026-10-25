@@ -12,6 +12,7 @@ export interface ArticleDetails {
   createdDate: string;
   updatedDate: string;
   isPublished: boolean;
+  isArchived: boolean;
   uniqueVisitCount: number;
   totalVisitCount: number;
   tags: { name: string; id: string }[];

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.DTO.Article;
 using MindBodySoul.Models.Enum;
-using MindBodySoul.Services.Implementation;
 using MindBodySoul.Services.Interface;
 using System.Security.Claims;
 
@@ -38,6 +37,20 @@ namespace MindBodySoul.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("getArticleForPreview/{id:Guid}")]
+        public async Task<IActionResult> GetArticleForPreview([FromRoute] Guid id)
+        {
+
+            var response = await articleService.GetArticleForPreviewAsync(id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
 
         [HttpGet("getFilteredForAdmin/{status}")]
         public async Task<IActionResult> GetFilteredForAdmin([FromRoute] ArticleStatusFilter status)
@@ -89,24 +102,32 @@ namespace MindBodySoul.Controllers
             }
             else if (response == OperationResult.Conflict)
             {
-                return Conflict();
-            }   
-
+                return Conflict("Този URL адрес вече е зает. Променете го.");
+            }
+            else if (response == OperationResult.ArchivedConflict)
+            {
+                return Conflict("Архивирана статия не може да стане чернова.");
+            }
             return Ok();
         }
 
         [HttpPut("archive/{id:Guid}")]
-        public async Task<IActionResult> EditArchiveStatusAsync([FromRoute] Guid id, bool isArchived)
+        public async Task<IActionResult> EditArchiveStatusAsync([FromRoute] Guid id, [FromQuery] bool isArchived)
         {
            
             var response = await articleService.UpdateArchiveStatusAsync(id, isArchived);
+
+            if (response == OperationResult.Conflict)
+            {
+                return Conflict("Невалидна операция при архивиране");
+            }
 
             if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
          
-            return Ok();
+            return Ok(isArchived);
         }
 
     }

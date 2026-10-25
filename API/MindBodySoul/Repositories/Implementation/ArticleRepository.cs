@@ -134,6 +134,18 @@ namespace MindBodySoul.Repositories.Implementation
                 .FirstOrDefaultAsync(a => a.Id == id && a.IsPublished && !a.IsArchived);
         }
 
+        public async Task<Article?> GetByIdForPreviewAsync(Guid id)
+        {
+            // Read-only query for the admin preview: no visibility filter, so drafts and archived articles are returned
+            return await dbContext.Articles
+                .Include(a => a.SubCategory)
+                        .ThenInclude(sc => sc!.Category)
+                .Include(a => a.ArticleTags!)
+                            .ThenInclude(at => at.Tag)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<Article?> GetByIdForEditAsync(Guid id)
         {
             return await dbContext.Articles
@@ -174,16 +186,6 @@ namespace MindBodySoul.Repositories.Implementation
             {
                 await query.ExecuteUpdateAsync(s => s
                     .SetProperty(a => a.TotalVisitCount, a => a.TotalVisitCount + 1));
-            }
-        }
-
-        public async Task SetArchiveStatusAsync(Guid articleId, bool isArchived)
-        {
-            var article = await dbContext.Articles.FindAsync(articleId);
-            if (article != null)
-            {
-                article.IsArchived = isArchived;
-                await dbContext.SaveChangesAsync();
             }
         }
 

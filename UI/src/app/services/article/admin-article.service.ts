@@ -27,6 +27,13 @@ export class AdminArticleService {
     );
   }
 
+  
+ getArticleForPreview(id: string): Observable<AdminArticleListItem[]> {
+    return this.http.get<AdminArticleListItem[]>(
+      `${environment.apiBaseUrl}/api/adminarticles/getArticleForPreview/${id}?addAuth=true`
+    );
+  }
+
   addArticle(model: AddArticleRequest): Observable<void> {
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/adminarticles?addAuth=true`,
@@ -34,13 +41,12 @@ export class AdminArticleService {
     );
   }
 
-  archiveArticle(id: string, isArchived: boolean) {
-    return this.http.put<void>(
-      `${environment.apiBaseUrl}/api/adminarticles/archive/${id}?addAuth=true`,
-      isArchived
-    );
-  }
-
+  updateArchiveStatut(id: string, isArchived: boolean): Observable<boolean> {
+  return this.http.put<boolean>(
+    `${environment.apiBaseUrl}/api/adminarticles/archive/${id}?isArchived=${isArchived}&addAuth=true`,
+    {}
+  );
+}
   updateArticle(id: string, model: UpdateArticleRequest) {
     return this.http.put<void>(
       `${environment.apiBaseUrl}/api/adminarticles/${id}?addAuth=true`,

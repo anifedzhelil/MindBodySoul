@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MindBodySoul.Models.DTO.Article;
-using MindBodySoul.Models.Enum;
-using MindBodySoul.Repositories.Interface;
+﻿using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Services.Interface;
-using System.Security.Claims;
 
 namespace MindBodySoul.Controllers
 {

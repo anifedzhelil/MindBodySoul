@@ -193,7 +193,7 @@ export class EditArticleComponent implements OnInit {
         },
         error: (err) => {
           if (err.status === 409) {
-            this.errorMessage = 'Този URL адрес вече е зает. Променете го.';
+            this.errorMessage =  err.error;
           }
           else
             this.errorMessage = this.errorService.getErrorMessage(err.error?.errors);

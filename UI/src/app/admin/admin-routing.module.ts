@@ -13,6 +13,7 @@ import { AdminTagListComponent } from './tag/admin-tag-list/admin-tag-list.compo
 import { PostDetails } from './instagram/post/post-details.component';
 import { PostsListComponent } from './instagram/posts-list/posts-list.component';
 import { AdminArticlesListComponent } from './article-list/admin-articles-list/admin-articles-list.component';
+import { ArticleDetailsComponent } from '../article/article-details/article-details.component';
 
 const adminRoutes: Routes = [
   {
@@ -54,7 +55,7 @@ const adminRoutes: Routes = [
         component: AdminSubCategoriesListComponent,
         canActivate: [authGuard],
       },
-        {
+      {
         path: 'admin-articles-list',
         component: AdminArticlesListComponent,
         canActivate: [authGuard],
@@ -78,6 +79,11 @@ const adminRoutes: Routes = [
         path: 'instagram/post',
         component: PostDetails,
         canActivate: [authGuard],
+      },
+      {
+        path: 'articles/preview/:id',
+        component: ArticleDetailsComponent,
+        data: { isAdminView: true }
       }
     ],
   },

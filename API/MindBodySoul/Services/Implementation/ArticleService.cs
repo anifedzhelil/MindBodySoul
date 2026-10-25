@@ -52,6 +52,8 @@ namespace MindBodySoul.Services.Implementation
                 SubCategoryName = article.SubCategory?.Name,
                 TotalVisitCount = article.TotalVisitCount,
                 UniqueVisitCount = article.UniqueVisitCount,
+                IsArchived = article.IsArchived,
+                IsPublished = article.IsPublished,
                 Tags = article.ArticleTags!
                         .Select(at => new TagDto
                         {
@@ -175,6 +177,11 @@ namespace MindBodySoul.Services.Implementation
                 return OperationResult.Conflict;
             }
 
+            if (existingArticle.IsArchived && !articleRequest.IsPublished)
+            {
+                return OperationResult.ArchivedConflict;
+            }
+
             existingArticle.Title = articleRequest.Title;
             existingArticle.Content = articleRequest.Content;
             existingArticle.Slug = articleRequest.Slug;
@@ -265,7 +272,21 @@ namespace MindBodySoul.Services.Implementation
             return response;
         }
 
-     
+        
+        public async Task<ArticleDetailsDto?> GetArticleForPreviewAsync(Guid articleId)
+        {
+            var article = await articleRepository.GetByIdForPreviewAsync(articleId);
+
+            if (article == null)
+            {
+                return null;
+            }
+
+            var response = GetArticleDetails(article);
+            return response;
+        }
+
+
         public async Task<IEnumerable<LatestArticleDto>> GetLatestArticlesByLimit(int limit)
         {
             limit = Math.Clamp(limit, DefaultLimit, MaxLimit);
@@ -306,9 +327,22 @@ namespace MindBodySoul.Services.Implementation
             {
                 return OperationResult.NotFound;
             }
-          
+
+            if (isArchived && (!existingArticle.IsPublished || existingArticle.IsArchived))
+            {
+                // Draft or already archived articles cannot be archived
+                return OperationResult.Conflict;
+            }
+
+            if (!isArchived && !existingArticle.IsArchived)
+            {
+                // Only an archived article can be unarchived
+                return OperationResult.Conflict;
+            }
+
             existingArticle.IsArchived = isArchived;
             await articleRepository.SaveChangesAsync();
+
             return OperationResult.Success;
         }
 

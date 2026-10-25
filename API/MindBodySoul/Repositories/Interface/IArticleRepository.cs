@@ -14,12 +14,12 @@ namespace MindBodySoul.Repositories.Interface
         Task<IEnumerable<Article>> GetAllByTagAsync(Guid tagId);
         Task<IEnumerable<Article>> GetFilteredForAdminAsync(ArticleStatusFilter statusFilter);
         Task<Article?> GetPublishedByIdAsync(Guid id);
+        Task<Article?> GetByIdForPreviewAsync(Guid id);
         Task<Article?> GetByIdForUpdateAsync(Guid id);
         Task<Article?> GetByIdForEditAsync(Guid id);
         Task<IEnumerable<Article>> GetLatestArticlesAsync(int limit);
         Task SaveChangesAsync();
         Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit);
-        Task SetArchiveStatusAsync(Guid articleId, bool isArchived);
         Task<bool> ExistsAsync(Guid id);
         Task<bool> SlugExistsAsync(Guid? id, string slug);
     }
