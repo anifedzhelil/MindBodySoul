@@ -30,6 +30,7 @@ namespace MindBodySoul.Repositories.Implementation
         {
             return await dbContext.Categories.FirstOrDefaultAsync(c => c.Id == Id);
         }
+        /*
         public async Task<Category?> UpdateAsync(Category category)
         {
             var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
@@ -42,6 +43,15 @@ namespace MindBodySoul.Repositories.Implementation
 
             return null;
         }
+        */
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
+        // Deletes the category only if it has no subcategories.
+        // Returns null if the category does not exist.
+        // If subcategories exist, returns the category unchanged and does not delete it.
 
         public async Task<Category?> DeleteAsync(Guid id)
         {
@@ -63,6 +73,18 @@ namespace MindBodySoul.Repositories.Implementation
             await dbContext.SaveChangesAsync();
 
             return existingCategory;
+        }
+
+        public async Task<bool> UrlHandleExistsAsync(Guid? id, string url)
+        {
+            return await dbContext.Categories
+                .AnyAsync(a => a.UrlHandle == url && (id == null || a.Id != id));
+        }
+
+        public async Task<bool> NameExistsAsync(Guid? id, string name)
+        {
+            return await dbContext.Categories
+                .AnyAsync(a=>a.Name == name && (id == null || a.Id != id));
         }
     }
 }

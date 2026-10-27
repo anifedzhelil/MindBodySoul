@@ -1,10 +1,10 @@
-﻿namespace MindBodySoul.Models.DTO
+﻿namespace MindBodySoul.Models.DTO.Category
 {
-    public class CategoryDto
+    public class CreateCategoryRequestDto
     {
-        public Guid Id { get; set; }
         public required string Name { get; set; }
         public required string UrlHandle { get; set; }
         public required string Image { get; set; }
+
     }
 }

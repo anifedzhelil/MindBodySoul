@@ -5,7 +5,10 @@
         Success,
         NotFound,
         Forbidden,
+        BadRequest,
         Conflict,
         ArchivedConflict,
+        NameConflict,
+        UrlHandleConflict,
     }
 }

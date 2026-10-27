@@ -1,10 +1,10 @@
-﻿using CodePulse.API.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MindBodySoul.Models.Domain;
-using MindBodySoul.Models.DTO;
+using MindBodySoul.Models.DTO.Category;
+using MindBodySoul.Models.Enum;
 using MindBodySoul.Repositories.Interface;
+using MindBodySoul.Services.Interface;
 
 namespace MindBodySoul.Controllers
 {
@@ -12,84 +12,49 @@ namespace MindBodySoul.Controllers
     [ApiController]
     public class CategoriesController : Controller
     {
-        private readonly ICategoryRepository categoryRepository;
+        private readonly ICategoryService categoryService;
 
-        public CategoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryService categoryService)
         {
-            this.categoryRepository = categoryRepository;
+            this.categoryService= categoryService;
         }
-
 
         [HttpPost]
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto reqest)
         {
-
-            var category = new Category
+          
+            var response = await categoryService.CreateCategoryAsync(reqest);
+            if (response == OperationResult.UrlHandleConflict)
             {
-                Name = reqest.Name,
-                UrlHandle = reqest.UrlHandle,
-                Image = reqest.Image
-            };
+                return Conflict("Този URL адрес вече е зает. Променете го.");
 
-            await categoryRepository.CreateAsync(category);
+            }
+            else if (response == OperationResult.NameConflict) {
+                return Conflict("Името вече е зает. Променете го.");
+            }
 
-            var response = new CategoryDto()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle,
-                Image = category.Image
-            };
-
-
-            return Ok(response);
+            return Ok();           
         }
 
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
         {
-            var category = await categoryRepository.GetById(id);
+            var category = await categoryService.GetCategoryAsync(id);
 
-            //map domain method to Dto
             if (category == null)
             {
                 return NotFound();
             }
 
-            var response = new CategoryDto
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle,
-                Image = category.Image
-
-            };
-
-            return Ok(response);
+            return Ok(category);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await categoryRepository.GetAllAsync();
-
-            //map domain method to Dto
-
-            var response = new List<CategoryDto>();
-            foreach (var category in categories)
-            {
-                response.Add(new CategoryDto
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    UrlHandle = category.UrlHandle,
-                    Image = category.Image
-
-                });
-            }
-
+            var response = await categoryService.GetCategorisAsync();
             return Ok(response);
         }
 
@@ -99,29 +64,25 @@ namespace MindBodySoul.Controllers
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditCategory([FromRoute] Guid id, UpdateCategoryRequestDto request)
         {
-            var category = new Category
-            {
-                Id = id,
-                Name = request.Name,
-                UrlHandle = request.UrlHandle,
-                Image = request.Image
-            };
+            var response  = await categoryService.UpdateCategoryAsync(id, request);
 
-            category = await categoryRepository.UpdateAsync(category);
-
-            if (category == null)
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
-            var response = new CategoryDto()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle,
-                Image = category.Image
-            };
 
-            return Ok(response);
+
+            if (response == OperationResult.UrlHandleConflict)
+            {
+                return Conflict("Този URL адрес вече е зает. Променете го.");
+
+            }
+            else if (response == OperationResult.NameConflict)
+            {
+                return Conflict("Името вече е зает. Променете го.");
+            }
+
+            return Ok();
         }
 
 
@@ -131,27 +92,18 @@ namespace MindBodySoul.Controllers
         [Authorize(Roles = "Writer")]
          public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
-            var category = await categoryRepository.DeleteAsync(id);
-            if (category is null)
+            var response = await categoryService.DeleteCategoryAsync(id);
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
+            else if(response == OperationResult.BadRequest)
 
-            if (category.SubCategories != null && category.SubCategories.Any())
             {
-                //Cannot delete category with existing SubCategories.
                 return BadRequest("Не може да се изтрие категория със съществуващи подкатегории.");
             }
 
-            var response = new CategoryDto()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                UrlHandle = category.UrlHandle,
-                Image = category.Image
-            };
-
-            return Ok(response);
+            return Ok();
         }
 
     }

@@ -225,6 +225,12 @@ namespace MindBodySoul.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("UrlHandle")
+                        .IsUnique();
+
                     b.ToTable("Categories");
                 });
 

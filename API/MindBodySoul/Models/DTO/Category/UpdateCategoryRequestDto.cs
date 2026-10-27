@@ -1,4 +1,4 @@
-﻿namespace CodePulse.API.Models.DTO
+﻿namespace MindBodySoul.Models.DTO.Category
 {
     public class UpdateCategoryRequestDto
     {
