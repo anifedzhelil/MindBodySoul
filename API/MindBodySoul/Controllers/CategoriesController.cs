@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MindBodySoul.Models.Domain;
 using MindBodySoul.Models.DTO.Category;
 using MindBodySoul.Models.Enum;
-using MindBodySoul.Repositories.Interface;
 using MindBodySoul.Services.Interface;
 
 namespace MindBodySoul.Controllers

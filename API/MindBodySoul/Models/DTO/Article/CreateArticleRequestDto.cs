@@ -10,6 +10,7 @@ namespace MindBodySoul.Models.DTO.Article
         public required string Title { get; set; }
        
         [Required]
+        [RegularExpression(@"^[a-z0-9]+(-[a-z0-9]+)*$", ErrorMessage = "Само малки латински букви, цифри и тирета!")]
         [MaxLength(200)]
         public required string Slug { get; set; }
 
