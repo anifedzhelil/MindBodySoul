@@ -13,7 +13,6 @@ import { SubCategoryService } from 'src/app/services/subcategories/subcategory.s
 import { TagService } from 'src/app/services/tag/tag.service';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
-import { SlugService } from 'src/app/services/slug/slug.service';
 
 @Component({
   selector: 'app-edit-article',
@@ -39,7 +38,6 @@ export class EditArticleComponent implements OnInit {
   updatedTags: any[] = [];
   categories: Category[] = [];
   subCategories: SubCategoryList[] = [];
-  isSlugChanged: boolean = false;
 
   faXmark = faXmark;
 
@@ -51,26 +49,8 @@ export class EditArticleComponent implements OnInit {
     private cloudinaryService: CloudinaryService,
     private router: Router,
     private errorService: ValidationErrorService,
-    private slugService: SlugService,
     private route: ActivatedRoute,
   ) { }
-
-  titleOnInput(): void {
-    if (this.article && !this.isSlugChanged)
-      this.article.slug = this.slugService.toSlug(this.article.title);
-  }
-
-  slugOnInput(): void {
-    if (!this.article) {
-      return;
-    }
-
-    if (this.article.slug === '') {
-      this.isSlugChanged = false;
-    }
-    else
-      this.isSlugChanged = true;
-  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({

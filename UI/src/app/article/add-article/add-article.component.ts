@@ -9,7 +9,6 @@ import { SubCategoryList } from 'src/app/models/subcategory/subcategory-list.mod
 import { AdminArticleService } from 'src/app/services/article/admin-article.service';
 import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
-import { SlugService } from 'src/app/services/slug/slug.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 import { TagService } from 'src/app/services/tag/tag.service';
 import { ValidationErrorService } from 'src/app/services/validation-error/validation-error.service';
@@ -41,7 +40,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
   tags: any[] = [];
   categories: Category[] = [];
   subCategories: SubCategoryList[] = [];
-  isSlugChanged: boolean = false;
 
   constructor(
     private adminArticleService: AdminArticleService,
@@ -50,7 +48,6 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     private tagService: TagService,
     private cloudinaryService: CloudinaryService,
     private errorService: ValidationErrorService,
-    private slugService: SlugService,
     private router: Router
   ) { }
 
@@ -58,20 +55,7 @@ export class AddArticleComponent implements OnInit, OnDestroy {
     this.loadTags();
     this.loadCategories();
   }
-
-  titleOnblur(): void {
-    if (!this.isSlugChanged)
-      this.article.slug = this.slugService.toSlug(this.article.title);
-  }
-
-  slugOnInput(): void {
-    if (this.article.slug === '') {
-      this.isSlugChanged = false;
-    }
-    else
-      this.isSlugChanged = true;
-  }
-
+  
   loadTags(): void {
     this.tagService.getAllTags().subscribe({
       next: (response) => {

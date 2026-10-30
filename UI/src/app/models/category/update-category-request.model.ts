@@ -1,5 +1,5 @@
 export interface UpdateCategoryRequest{
     name: string;
-    UrlHandle: string;
+    urlHandle: string;
     image: string;
 }

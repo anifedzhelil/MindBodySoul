@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 import { TagFilterComponent } from './components/tag-filter/tag-filter.component';
 import { MinTextLengthDirective } from './validators/min-text-length/min-text-length.directive';
+import { UrlHandleComponent } from './components/url-handle/url-handle.component';
+import { UrlHandlePatternDirective } from './validators/pattern/url-handle-pattern.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MinTextLengthDirective } from './validators/min-text-length/min-text-le
     IconPickerComponent,
     TagFilterComponent,
     MinTextLengthDirective,
+    UrlHandleComponent,
+    UrlHandlePatternDirective,
   ],
   imports: [CommonModule, FontAwesomeModule, RouterModule, FormsModule],
   exports: [
@@ -51,6 +55,8 @@ import { MinTextLengthDirective } from './validators/min-text-length/min-text-le
     IconPickerComponent,
     TagFilterComponent,
     MinTextLengthDirective,
+    UrlHandleComponent,
+    UrlHandlePatternDirective
   ],
 })
 export class SharedModule {}

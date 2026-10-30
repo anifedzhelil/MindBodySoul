@@ -3,8 +3,7 @@
     <h2>Добави статия</h2>
     <div class="field">
       <label for="title">Заглавие *</label>
-      <input type="text" name="title" id="title" [(ngModel)]="article.title" #inputTitle="ngModel" maxlength="150"
-        (input)="titleOnblur()" required />
+      <input type="text" name="title" id="title" [(ngModel)]="article.title" #inputTitle="ngModel" maxlength="150" required />
       <ng-container *ngIf="inputTitle.touched || isFormSubmited">
         <p class="error" *ngIf="inputTitle.errors?.['required']">
           Въведете заглавие!
@@ -14,17 +13,21 @@
         </p>
       </ng-container>
     </div>
+   
     <div class="field">
-      <label for="slug">URL адрес *</label>
-      <input type="text" name="slug" id="slug" [(ngModel)]="article.slug" #inputSlug="ngModel" (input)="slugOnInput()"
-        required />
+      <label for="url-handle">URL адрес *</label>
+      <app-url-handle appUrlHandlePattern [title]="article.title" [(ngModel)]="article.slug" name="inputSlug" required
+        #inputSlug="ngModel">
+      </app-url-handle>
       <ng-container *ngIf="inputSlug.touched || isFormSubmited">
         <p class="error" *ngIf="inputSlug.errors?.['required']">
           Въведете URL адрес!
         </p>
+        <p class="error" *ngIf="inputSlug.errors?.['pattern']">
+          Само малки латински букви, цифри и тирета!
+        </p>
       </ng-container>
     </div>
-
     <div class="field">
       <label for="category">Категория *</label>
       <select name="category" id="category" ngModel #categorySelect="ngModel" required
@@ -87,7 +90,7 @@
 
     <div class="field">
       <label for="image">Снимка *</label>
-      <img *ngIf="previewUrl" [src]="previewUrl" alt="Article Image"/>
+      <img *ngIf="previewUrl" [src]="previewUrl" alt="Article Image" />
       <input type="file" name="image" ngModel #fileInput="ngModel" (change)="onFileUploadChange($event)" required />
     </div>
     <ng-container *ngIf=" fileInput.touched || isFormSubmited">

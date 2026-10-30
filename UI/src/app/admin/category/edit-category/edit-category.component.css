@@ -1,5 +1,10 @@
 @import url("/src/app/shared/styles/form.css");
 
+.form-container
+{
+  width: 400px;
+}
+
 .container {
   width: 100%;
   display: flex;

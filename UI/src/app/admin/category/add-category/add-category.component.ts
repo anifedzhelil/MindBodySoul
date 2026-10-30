@@ -7,10 +7,10 @@ import { CategoryService } from 'src/app/services/categories/category.service';
 import { CloudinaryService } from 'src/app/services/cloudinary/cloudinary.service';
 
 @Component({
-    selector: 'app-add-category',
-    templateUrl: './add-category.component.html',
-    styleUrls: ['./add-category.component.css'],
-    standalone: false
+  selector: 'app-add-category',
+  templateUrl: './add-category.component.html',
+  styleUrls: ['./add-category.component.css'],
+  standalone: false
 })
 export class AddCategoryComponent implements OnDestroy {
   model: AddCategoryRequest;
@@ -19,8 +19,7 @@ export class AddCategoryComponent implements OnDestroy {
   previewUrl: string | null = null;
   file?: File;
   invalid: boolean = false;
-
-  ngOnInit(): void {}
+  errorMessage = '';
 
   constructor(
     private categoryService: CategoryService,
@@ -34,13 +33,13 @@ export class AddCategoryComponent implements OnDestroy {
     };
   }
   ngOnDestroy(): void {
-      this.addCategorySubscrision?.unsubscribe();
+    this.addCategorySubscrision?.unsubscribe();
   }
 
   onFormSubmit(form: NgForm) {
-    
-  if (form.invalid && this.file) {
+    if (form.invalid || !this.file) {
       this.invalid = true;
+      this.errorMessage = 'Въведете валидни данни!';
       return;
     }
     this.invalid = false;
@@ -48,20 +47,29 @@ export class AddCategoryComponent implements OnDestroy {
     if (this.file) {
       this.cloudinaryService
         .uploadImage(this.file)
-        .subscribe((response: any) => {
-          this.model.image = response.secure_url;
-          this.model.urlHandle = 'urlHandle';
+        .subscribe({
+          next: (response: any) => {
+            this.model.image = response.secure_url;
 
-          this.addCategorySubscrision = this.categoryService
-            .addCategory(this.model)
-            .subscribe({
-              next: (response) => {
-                this.router.navigateByUrl('/admin');
-              },
-              error: (err) => {
-                console.log(err);
-              },
-            });
+            this.addCategorySubscrision = this.categoryService
+              .addCategory(this.model)
+              .subscribe({
+                next: (response) => {
+                  this.router.navigateByUrl('/admin');
+                },
+                error: (err) => {
+                  if (err.status === 409) {
+                    this.errorMessage = err.error;
+                  }
+                  else {
+                    this.errorMessage = 'Въведете валидни данни!';
+                  }
+                },
+              });
+          },
+          error: (err) => {
+            this.errorMessage = "Снимката не беше качена";
+          }
         });
     }
   }
