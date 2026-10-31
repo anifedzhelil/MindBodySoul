@@ -7,6 +7,7 @@ namespace MindBodySoul.Repositories.Interface
         Task<Category> CreateAsync(Category category);
         Task<Category?> DeleteAsync(Guid id);       
         Task<IEnumerable<Category>> GetAllAsync();
+        Task<IEnumerable<Category>> GetAllWithPublishedArticlesAsync();
         Task<Category?> GetById(Guid id);
         Task<bool> UrlHandleExistsAsync(Guid? id, string url);
         Task<bool> NameExistsAsync(Guid? id, string url);

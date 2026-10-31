@@ -8,6 +8,7 @@ namespace MindBodySoul.Services.Interface
         Task<OperationResult> CreateCategoryAsync(CreateCategoryRequestDto reqest);
         Task<CategoryDto?> GetCategoryAsync(Guid id);
         Task<IEnumerable<CategoryDto>> GetCategorisAsync();
+        Task<IEnumerable<CategoryDto>> GetPublishedCategoriesAsync();
         Task<OperationResult> UpdateCategoryAsync(Guid id, UpdateCategoryRequestDto request);
         Task<OperationResult> DeleteCategoryAsync(Guid id);
 

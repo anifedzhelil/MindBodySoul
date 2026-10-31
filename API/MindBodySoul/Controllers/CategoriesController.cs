@@ -49,10 +49,21 @@ namespace MindBodySoul.Controllers
             return Ok(category);
         }
 
+        //Admin endpoint: returns all categories, including those without articles.
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var response = await categoryService.GetCategorisAsync();
+            return Ok(response);
+        }
+
+        // Public endpoint for readers: returns only categories
+        // that have at least one subcategory with a published, non-archived article.
+        [HttpGet("published")]
+        public async Task<IActionResult> GetPublishedCategories()
+        {
+            var response = await categoryService.GetPublishedCategoriesAsync();
+
             return Ok(response);
         }
 

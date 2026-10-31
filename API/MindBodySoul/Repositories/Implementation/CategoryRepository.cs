@@ -26,6 +26,16 @@ namespace MindBodySoul.Repositories.Implementation
             return await dbContext.Categories.ToListAsync();
         }
 
+        public async Task<IEnumerable<Category>> GetAllWithPublishedArticlesAsync()
+        {
+            return await dbContext.Categories
+                .AsNoTracking()
+                .Where(c => c.SubCategories != null
+                            && c.SubCategories.Any(s => s.Articles != null
+                                && s.Articles.Any(a => a.IsPublished && !a.IsArchived)))
+                .ToListAsync();
+        }
+
         public async Task<Category?> GetById(Guid Id)
         {
             return await dbContext.Categories.FirstOrDefaultAsync(c => c.Id == Id);

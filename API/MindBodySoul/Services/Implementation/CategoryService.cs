@@ -16,7 +16,18 @@ namespace MindBodySoul.Services.Implementation
             this.categoryRepository = categoryRepository;
         }
 
-       
+        private CategoryDto GetCategory(Category category)
+        {
+            var categoryDto = new CategoryDto
+            {
+                Id = category.Id,
+                Name = category.Name,
+                UrlHandle = category.UrlHandle,
+                Image = category.Image
+            };
+
+            return categoryDto;
+        }
         public async Task<OperationResult> CreateCategoryAsync(CreateCategoryRequestDto reqest)
         {
             var isCategoryExists = await categoryRepository.UrlHandleExistsAsync(null, reqest.UrlHandle);
@@ -68,20 +79,14 @@ namespace MindBodySoul.Services.Implementation
         {
             var categories = await categoryRepository.GetAllAsync();
 
-            var response = new List<CategoryDto>();
-            foreach (var category in categories)
-            {
-                response.Add(new CategoryDto
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    UrlHandle = category.UrlHandle,
-                    Image = category.Image
+            return categories.Select(GetCategory).ToList();
+        }
 
-                });
-            }
+        public async Task<IEnumerable<CategoryDto>> GetPublishedCategoriesAsync()
+        {
+            var categories = await categoryRepository.GetAllWithPublishedArticlesAsync();
 
-            return response;
+            return categories.Select(GetCategory).ToList();
         }
 
         public async Task<OperationResult> UpdateCategoryAsync(Guid id, UpdateCategoryRequestDto request)
