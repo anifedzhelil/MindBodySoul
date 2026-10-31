@@ -21,12 +21,15 @@ namespace MindBodySoul.Repositories.Implementation
         public async Task<IEnumerable<SubCategory>> GetAllAsync()
         {
             var subCategories = await dbContext.SubCategories.Include(x => x.Category)
+                 .AsNoTracking()
+                 .Include(x => x.Category)
+
                  .Select(s => new SubCategory
                  {
                      Id = s.Id,
                      Name = s.Name,
                      CategoryId = s.CategoryId,
-                     Icon =  s.Icon,
+                     Icon = s.Icon,
                      UrlHandle = s.UrlHandle,
                      Category = s.Category,
                  })
@@ -36,19 +39,28 @@ namespace MindBodySoul.Repositories.Implementation
         }
         public async Task<SubCategory?> GetById(Guid Id)
         {
-            return await dbContext.SubCategories.FirstOrDefaultAsync(c => c.Id == Id);
+            return await dbContext.SubCategories
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(c => c.Id == Id);
         }
-        public async Task<SubCategory?> UpdateAsync(SubCategory category)
+        public async Task<SubCategory?> UpdateAsync(SubCategory subCategory)
         {
-            var existingSubCategory = await dbContext.SubCategories.FirstOrDefaultAsync(x => x.Id == category.Id);
-            if (existingSubCategory != null)
+            var existingSubCategory = await dbContext.SubCategories
+                .FirstOrDefaultAsync(x => x.Id == subCategory.Id);
+
+            if (existingSubCategory is null)
             {
-                dbContext.Entry(existingSubCategory).CurrentValues.SetValues(category);
-                await dbContext.SaveChangesAsync();
-                return category;
+                return null;
             }
 
-            return null;
+            existingSubCategory.Name = subCategory.Name;
+            existingSubCategory.UrlHandle = subCategory.UrlHandle;
+            existingSubCategory.Icon = subCategory.Icon;
+            existingSubCategory.CategoryId = subCategory.CategoryId;
+
+            await dbContext.SaveChangesAsync();
+
+            return existingSubCategory;
         }
         public async Task<SubCategory?> DeleteAsync(Guid id)
         {
@@ -74,10 +86,32 @@ namespace MindBodySoul.Repositories.Implementation
         public async Task<IEnumerable<SubCategory>> GetByCategoryId(Guid categoryId)
         {
             var subCategories = await dbContext.SubCategories
-                .Where(x => x.CategoryId == categoryId)
+                .AsNoTracking()
+                .Where(x => x.CategoryId == categoryId
+                    && x.Articles != null
+                    && x.Articles.Any(a => a.IsPublished && !a.IsArchived))
                 .ToListAsync();
 
             return subCategories;
+        }
+        public async Task<IEnumerable<SubCategory>> GetAllWithPublishedArticlesAsync()
+        {
+            var subCategories = await dbContext.SubCategories
+                .AsNoTracking()
+                .Where(s => s.Articles != null && s.Articles.Any(a => a.IsPublished && !a.IsArchived)).ToListAsync();
+
+            return subCategories;
+        }
+        public async Task<bool> UrlHandleExistsAsync(Guid? id, string url)
+        {
+            return await dbContext.SubCategories
+                .AnyAsync(a => a.UrlHandle == url && (id == null || a.Id != id));
+        }
+
+        public async Task<bool> NameExistsAsync(Guid? id, string name)
+        {
+            return await dbContext.SubCategories
+                .AnyAsync(a => a.Name == name && (id == null || a.Id != id));
         }
     }
 }

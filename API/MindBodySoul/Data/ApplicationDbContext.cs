@@ -26,6 +26,8 @@ namespace MindBodySoul.Data
             builder.Entity<Article>().HasIndex(a => a.Slug).IsUnique();
             builder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
             builder.Entity<Category>().HasIndex(c => c.UrlHandle).IsUnique();
+            builder.Entity<SubCategory>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<SubCategory>().HasIndex(c => c.UrlHandle).IsUnique();
         }
     }
 }

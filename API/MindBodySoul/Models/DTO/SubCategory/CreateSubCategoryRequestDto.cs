@@ -1,10 +1,11 @@
-﻿namespace MindBodySoul.Models.Domain
+﻿namespace MindBodySoul.Models.DTO.SubCategory
 {
-    public class UpdateSubCategoryRequestDto
+    public class CreateSubCategoryRequestDto
     {
-        public required Guid CategoryId { get; set; }
         public required string Name { get; set; }
+        public required Guid CategoryId { get; set; }
         public required string UrlHandle { get; set; }
         public required string Icon { get; set; }
+
     }
 }

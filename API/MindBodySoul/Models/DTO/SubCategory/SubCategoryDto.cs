@@ -1,4 +1,6 @@
-﻿namespace MindBodySoul.Models.Domain
+﻿using DomainCategory = MindBodySoul.Models.Domain.Category;
+
+namespace MindBodySoul.Models.DTO.SubCategory
 {
     public class SubCategoryDto
     {
@@ -7,6 +9,6 @@
         public required string Name { get; set; }
         public string? UrlHandle { get; set; }
         public string? Icon { get; set; }
-        public Category? Category { get; set; }
+        public DomainCategory? Category { get; set; }
     }
 }

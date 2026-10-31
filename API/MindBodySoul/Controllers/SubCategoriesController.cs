@@ -1,10 +1,8 @@
-﻿using CodePulse.API.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MindBodySoul.Models.Domain;
-using MindBodySoul.Models.DTO;
-using MindBodySoul.Repositories.Implementation;
-using MindBodySoul.Repositories.Interface;
+using MindBodySoul.Models.DTO.SubCategory;
+using MindBodySoul.Models.Enum;
+using MindBodySoul.Services.Interface;
 
 namespace MindBodySoul.Controllers
 {
@@ -12,178 +10,118 @@ namespace MindBodySoul.Controllers
     [ApiController]
     public class SubCategoriesController : Controller
     {
-        private readonly ISubCategoryRepository subCategoryRepository;
+        private readonly ISubCategoryService subCategoryService;
 
-        public SubCategoriesController(ISubCategoryRepository subCategoryRepository)
+        public SubCategoriesController(ISubCategoryService subCategoryService)
         {
-            this.subCategoryRepository = subCategoryRepository;
+            this.subCategoryService = subCategoryService;
         }
 
         [HttpPost]
         [Authorize(Roles = "Writer")]
-        public async Task<IActionResult> CreateSubCategory([FromBody] CreateSubCategoryRequestDto reqest)
+        public async Task<IActionResult> CreateSubCategory([FromBody] CreateSubCategoryRequestDto request)
         {
+            var response = await subCategoryService.CreateSubCategoryAsync(request);
 
-            var subCategory = new SubCategory
+            if (response == OperationResult.UrlHandleConflict)
             {
-                Name = reqest.Name,
-                UrlHandle = reqest.UrlHandle,
-                Icon = reqest.Icon,
-                CategoryId = reqest.CategoryId,
-            };
-
-            await subCategoryRepository.CreateAsync(subCategory);
-
-            var response = new SubCategoryDto()
+                return Conflict("Този URL адрес вече е зает. Променете го.");
+            }
+            else if (response == OperationResult.NameConflict)
             {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                CategoryId = subCategory.CategoryId,
-                UrlHandle = subCategory.UrlHandle,
-                Icon = subCategory.Icon
-            };
+                return Conflict("Името вече е зает. Променете го.");
+            }
 
-            return Ok(response);
+            return Ok();
         }
 
 
         [HttpGet("{id:Guid}")]
-
         public async Task<IActionResult> GetSubCategoryById([FromRoute] Guid id)
         {
-            var subCategory = await subCategoryRepository.GetById(id);
+            var subCategory = await subCategoryService.GetSubCategoryAsync(id);
 
-            //map domain method to Dto
             if (subCategory == null)
             {
                 return NotFound();
             }
 
-            var response = new SubCategoryDto
-            {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                UrlHandle = subCategory.UrlHandle,
-                CategoryId = subCategory.CategoryId,
-                Icon = subCategory.Icon
-            };
-
-            return Ok(response);
+            return Ok(subCategory);
         }
 
+        // Admin endpoint: returns all subcategories, including those without articles.
         [HttpGet]
         public async Task<IActionResult> GetAllSubCategories()
         {
-            var subCategories = await subCategoryRepository.GetAllAsync();
-
-            //map domain method to Dto
-
-            var response = new List<SubCategoryDto>();
-            foreach (var subCategory in subCategories)
-            {
-                response.Add(new SubCategoryDto
-                {
-                    Id = subCategory.Id,
-                    Name = subCategory.Name,
-                    Category = subCategory.Category,
-                    UrlHandle = subCategory.UrlHandle,
-                    Icon =  subCategory.Icon,
-                    CategoryId = subCategory.CategoryId
-                    
-                });
-            }
+            var response = await subCategoryService.GetSubCategoriesAsync();
 
             return Ok(response);
         }
 
-      
+        // Public endpoint for readers: returns only subcategories
+        // that have at least one published, non-archived article.
         [HttpGet("Category/{categoryId:Guid}")]
-
         public async Task<IActionResult> GetSubCategoriesByCategoryId([FromRoute] Guid categoryId)
         {
-            var subCategories = await subCategoryRepository.GetByCategoryId(categoryId);
-
-            //map domain method to Dto
-
-            var response = new List<SubCategoryDto>();
-            foreach (var subCategory in subCategories)
-            {
-                response.Add(new SubCategoryDto
-                {
-                    Id = subCategory.Id,
-                    Name = subCategory.Name,
-                    Icon = subCategory.Icon
-                });
-            }
+            var response = await subCategoryService.GetSubCategoriesByCategoryIdAsync(categoryId);
 
             return Ok(response);
         }
 
-        //PUT https:/localhost:7108/api/subCategories{id}
+
+        // Admin endpoint: updates an existing subcategory.
         [HttpPut]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditSubCategory([FromRoute] Guid id, UpdateSubCategoryRequestDto request)
         {
-            var subCategory = new SubCategory
-            {
-                Id = id,
-                Name = request.Name,
-                UrlHandle = request.UrlHandle,
-                Icon = request.Icon,
-                CategoryId = request.CategoryId,
-            };
+            var response = await subCategoryService.UpdateSubCategoryAsync(id, request);
 
-            subCategory = await subCategoryRepository.UpdateAsync(subCategory);
-
-            if (subCategory == null)
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
-            var response = new SubCategoryDto()
+
+            if (response == OperationResult.UrlHandleConflict)
             {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                UrlHandle = subCategory.UrlHandle,
-                CategoryId = subCategory.CategoryId,
-                Icon = subCategory.Icon,
-               // Category = subCategory.Category,
-            };
+                return Conflict("Този URL адрес вече е зает. Променете го.");
+            }
+            else if (response == OperationResult.NameConflict)
+            {
+                return Conflict("Името вече е зает. Променете го.");
+            }
 
-            return Ok(response);
-
+            return Ok();
         }
 
-        //DELETE: https:/localhost:7108/api/subCategories{id}
+        // Admin endpoint: deletes a subcategory only if it has no articles.
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteSubCategory([FromRoute] Guid id)
         {
-            var subCategory = await subCategoryRepository.DeleteAsync(id);
-            if (subCategory is null)
+            var response = await subCategoryService.DeleteSubCategoryAsync(id);
+
+            if (response == OperationResult.NotFound)
             {
                 return NotFound();
             }
-
-            if (subCategory.Articles != null && subCategory.Articles.Any())
+            else if (response == OperationResult.BadRequest)
             {
-                //Cannot delete category with existing Articles.
                 return BadRequest("Не може да се изтрие подкатегории със съществуващи статии.");
             }
 
-            var response = new SubCategoryDto()
-            {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                UrlHandle = subCategory.UrlHandle,
-                CategoryId = subCategory.CategoryId,
-                Icon = subCategory.Icon,
-               // Category = subCategory.Category,
-            };
+            return Ok();
+        }
+
+        // Public endpoint for readers: returns all subcategories
+        // that have at least one published, non-archived article.
+        [HttpGet("published")]
+        public async Task<IActionResult> GetPublishedSubCategories()
+        {
+            var response = await subCategoryService.GetPublishedSubCategoriesAsync();
 
             return Ok(response);
         }
-
     }
 }

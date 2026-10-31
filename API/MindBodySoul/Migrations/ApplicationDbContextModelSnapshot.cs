@@ -312,6 +312,12 @@ namespace MindBodySoul.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("UrlHandle")
+                        .IsUnique();
+
                     b.ToTable("SubCategories");
                 });
 
