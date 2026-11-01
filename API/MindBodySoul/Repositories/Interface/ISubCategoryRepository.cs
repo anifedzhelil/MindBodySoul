@@ -10,7 +10,7 @@ namespace MindBodySoul.Repositories.Interface
         Task<IEnumerable<SubCategory>> GetAllAsync();
         Task<SubCategory?> GetById(Guid id);
         Task<IEnumerable<SubCategory>> GetByCategoryId(Guid categoryId);
-        Task<IEnumerable<SubCategory>> GetAllWithPublishedArticlesAsync();
+        //Task<IEnumerable<SubCategory>> GetAllWithPublishedArticlesAsync();
         Task<bool> UrlHandleExistsAsync(Guid? id, string url);
         Task<bool> NameExistsAsync(Guid? id, string name);
     }

@@ -114,7 +114,7 @@ namespace MindBodySoul.Controllers
             return Ok();
         }
 
-        // Public endpoint for readers: returns all subcategories
+        /*// Public endpoint for readers: returns all subcategories
         // that have at least one published, non-archived article.
         [HttpGet("published")]
         public async Task<IActionResult> GetPublishedSubCategories()
@@ -122,6 +122,6 @@ namespace MindBodySoul.Controllers
             var response = await subCategoryService.GetPublishedSubCategoriesAsync();
 
             return Ok(response);
-        }
+        }*/
     }
 }

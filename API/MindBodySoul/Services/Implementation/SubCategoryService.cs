@@ -108,12 +108,12 @@ namespace MindBodySoul.Services.Implementation
             return subCategories.Select(GetSubCategory).ToList();
         }
 
-        public async Task<IEnumerable<SubCategoryDto>> GetPublishedSubCategoriesAsync()
+       /* public async Task<IEnumerable<SubCategoryDto>> GetPublishedSubCategoriesAsync()
         {
             var subCategories = await subCategoryRepository.GetAllWithPublishedArticlesAsync();
 
             return subCategories.Select(GetSubCategory).ToList();
-        }
+        }*/
         public async Task<IEnumerable<SubCategoryDto>> GetSubCategoriesByCategoryIdAsync(Guid categoryId)
         {
             var subCategories = await subCategoryRepository.GetByCategoryId(categoryId);

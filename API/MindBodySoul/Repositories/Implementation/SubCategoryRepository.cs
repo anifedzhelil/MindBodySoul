@@ -94,14 +94,14 @@ namespace MindBodySoul.Repositories.Implementation
 
             return subCategories;
         }
-        public async Task<IEnumerable<SubCategory>> GetAllWithPublishedArticlesAsync()
+        /*public async Task<IEnumerable<SubCategory>> GetAllWithPublishedArticlesAsync()
         {
             var subCategories = await dbContext.SubCategories
                 .AsNoTracking()
                 .Where(s => s.Articles != null && s.Articles.Any(a => a.IsPublished && !a.IsArchived)).ToListAsync();
 
             return subCategories;
-        }
+        }*/
         public async Task<bool> UrlHandleExistsAsync(Guid? id, string url)
         {
             return await dbContext.SubCategories
