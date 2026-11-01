@@ -16,7 +16,7 @@ export class CategoriesListComponent implements OnInit {
   
   ngOnInit(): void {
     this.loaderService.showLoader();
-    this.categoryService.getAllCategories().subscribe({
+    this.categoryService.getPublishedCategories().subscribe({
       next: (categories) => {
         this.categories = categories;
         this.loaderService.hideLoader();

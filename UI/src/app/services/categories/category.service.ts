@@ -19,6 +19,13 @@ export class CategoryService {
     );
   }
 
+   getPublishedCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(
+      `${environment.apiBaseUrl}/api/Categories/published`
+    );
+  }
+
+
   addCategory(model: AddCategoryRequest): Observable<void> {
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/categories?addAuth=true`,

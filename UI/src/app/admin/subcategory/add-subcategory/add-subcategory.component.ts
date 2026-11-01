@@ -9,18 +9,19 @@ import { IconsService } from 'src/app/services/icons/icon-service.service';
 import { SubCategoryService } from 'src/app/services/subcategories/subcategory.service';
 
 @Component({
-    selector: 'app-add-subcategory',
-    templateUrl: './add-subcategory.component.html',
-    styleUrls: ['./add-subcategory.component.css'],
-    standalone: false
+  selector: 'app-add-subcategory',
+  templateUrl: './add-subcategory.component.html',
+  styleUrls: ['./add-subcategory.component.css'],
+  standalone: false
 })
 export class AddSubCategoryComponent implements OnInit {
   categories$?: Observable<Category[]>;
   invalid: boolean = false;
+  errorMessage = '';
   model: AddSubCategoryRequest = {
     name: '',
     categoryId: '',
-    urlHandle: 'urlHandle',
+    urlHandle: '',
     icon: '',
   };
 
@@ -28,13 +29,12 @@ export class AddSubCategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private subCategoryService: SubCategoryService,
     private router: Router,
-    private iconsService: IconsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getAllCategories();
   }
-  
+
   onFormSubmit(form: NgForm): void {
     if (form.invalid || !this.model.icon) {
       this.invalid = true;
@@ -47,7 +47,13 @@ export class AddSubCategoryComponent implements OnInit {
         this.router.navigateByUrl('/admin/subcategories');
       },
       error: (err) => {
-        console.log(err);
+        if (err.status === 404) {
+          this.errorMessage = 'Подкатегорията не е намерена!';
+        } else if (err.status === 409) {
+          this.errorMessage = err.error;
+        } else {
+          this.errorMessage = 'Възникна грешка. Опитайте отново.';
+        }
       },
     });
   }

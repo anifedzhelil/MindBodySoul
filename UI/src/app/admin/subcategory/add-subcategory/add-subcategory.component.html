@@ -11,6 +11,20 @@
         Въведете име на подкатегория!
       </p>
     </ng-container>
+    <p class="field">
+      <label for="url-handle">URL адрес *</label>
+      <app-url-handle appUrlHandlePattern [title]="model.name" [(ngModel)]="model.urlHandle" name="urlHandle" required
+        #urlHandle="ngModel">
+      </app-url-handle>
+    </p>
+    <ng-container *ngIf="urlHandle.touched">
+      <p class="error" *ngIf="urlHandle.errors?.['required']">
+        Въведете URL адрес!
+      </p>
+      <p class="error" *ngIf="urlHandle.errors?.['pattern']">
+        Само малки латински букви, цифри и тирета!
+      </p>
+    </ng-container>
 
     <p class="field">
       <label for="category">Категория</label>
@@ -39,5 +53,7 @@
     <p class="field error" *ngIf="invalid">
       <span>Въведете валидни данни!</span>
     </p>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
   </form>
 </div>

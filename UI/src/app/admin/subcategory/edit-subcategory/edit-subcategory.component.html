@@ -1,5 +1,6 @@
 <div class="form-container">
-  <ng-container *ngIf="subCategory; else notFound">
+  <p *ngIf="isLoading">Зарежда се...</p>
+  <ng-container *ngIf="subCategory">
     <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
       <h2>Добави подкатегория</h2>
       <p class="field">
@@ -12,7 +13,17 @@
           Въведете име на подкатегория!
         </p>
       </ng-container>
-
+      <p class="field">
+        <label for="urlHandle">Url handle</label>
+        <app-url-handle appUrlHandlePattern [title]="subCategory.name" [(ngModel)]="subCategory.urlHandle"
+          name="urlHandle" #urlHandle="ngModel">
+        </app-url-handle>
+      </p>
+      <ng-container *ngIf="urlHandle.touched">
+        <p class="error" *ngIf="urlHandle.errors?.['pattern']">
+          Само малки латински букви, цифри и тирета!
+        </p>
+      </ng-container>
       <p class="field">
         <label for="category">Категория</label>
         <select name="category" id="category" required [(ngModel)]="subCategory.categoryId" #selectCategory="ngModel">
@@ -38,11 +49,12 @@
       <p class="field error" *ngIf="form.invalid">
         <span>Въведете валидни данни!</span>
       </p>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </form>
   </ng-container>
-  <ng-template #notFound>
+  <ng-container *ngIf="!isLoading && !subCategory">
     <div class="container">
-      <div class="not-found">Подкатегорията не е намерана!</div>
+      <div class="not-found">Подкатегорията не е намерена!</div>
     </div>
-  </ng-template>
+  </ng-container>
 </div>

@@ -42,6 +42,9 @@ export class SubCategoriesListComponent {
                   this.emptyList = false;
                 }
               },
+              error(err) {
+              console.log(err);
+              },
             });
 
         this.loadArticles();
