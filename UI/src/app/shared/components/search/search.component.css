@@ -1,0 +1,40 @@
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search input[type="search"] {
+  padding: 7px 12px;
+  width: 100%;
+  box-sizing:  border-box;
+  border-radius: 0px;
+  border: 1px solid #4a8499;
+  padding-right: 2.5em;
+}
+
+.search form {
+  position: relative; /* the icon is now positioned against the form */
+  width: 100%;
+  margin: 0;
+}
+
+.search fa-icon {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%); /* vertically centers the icon in the input */
+  font-size: 18px;
+  color: #8b9ca2;
+}
+
+.search input[type="search"]:focus {
+  border: 2px solid #1b5061;
+  outline: none;
+}
+
+.search input[type="search"] {
+  padding-right: 1.8em; /* try values between 1.8em and 2.2em */
+}

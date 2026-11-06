@@ -58,7 +58,7 @@ ul li {
 }
 
 ul > li > a {
-  padding: 0.8em 0.8em 0 0.8em;
+  padding: 0.8em 0.8em 0em 0.8em;
   display: block;
   font-weight: bold;
   text-decoration: none;
@@ -66,32 +66,21 @@ ul > li > a {
   white-space: nowrap;
 }
 
+ul > li > a:hover
+{
+  color:#7cb518;
+}
+
 ul > li:last-of-type {
   border-right: none;
 }
-
-.search {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
+ul > li > a.active-link {
+  text-decoration: underline;
+  text-decoration-color: #7cb518;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
 }
 
-.search input[type="search"] {
-  padding: 8px;
-  width: 30ch;
-  border-radius: 5px;
-  border: 1px solid rgb(84, 84, 84);
-}
-
-.search fa-icon {
-  z-index: 1;
-  position: absolute;
-  right: 0px;
-  padding: 2px;
-  color: gray;
-  font-size: 20px;
-  cursor: pointer;
-}
 .navbar li:hover {
   transform: translateY(-2px);
   border-right: 1px solid #b9d5e1;

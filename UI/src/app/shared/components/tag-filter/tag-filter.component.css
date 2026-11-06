@@ -21,32 +21,6 @@
   transition: transform 0.3s ease;
 }
 
-.search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.search input[type="search"] {
-  padding: 8px 12px;
-  width: 100%;
-  box-sizing:  border-box;
-  border-radius: 8px;
-  border: 1px solid #5ea0b6;
-  padding-right: 2.5em;
-}
-
-.search fa-icon {
-  z-index: 1;
-  position: absolute;
-  right: 12px;
-  padding: 2px;
-  color: #5ea0b6;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 .tags-list {
   display: flex;
   flex-wrap: wrap;
@@ -62,7 +36,7 @@
   border-radius: 100px;
   cursor: pointer;
   font-size: 13px;
-  font-weight:  500;
+  font-weight: 500;
   margin: 0;
   background-color: #f1f5f9;
   color: #475569;
@@ -71,15 +45,15 @@
 }
 
 .tag:hover {
-  background-color: #1b5061;
+  background-color: #5d8592;
   color: white;
   transform: translateY(-1px);
 }
 
 .tag.active {
-  background-color: #c9a96e;
+  background-color: #7cb518;
   color: white;
-  border-color: #c9a96e;
+  border-color: #7cb518;
 }
 
 .tags-button {
@@ -102,14 +76,16 @@
 }
 
 .no-tags {
-  margin-top: 1em;
+  margin-top: 0;
+  color: #666;
+  font-size: 0.9em;
 }
-
 @media (max-width: 768px) {
   .wrapper {
     border-right: none;
     border-bottom: 1px solid #5ea0b6;
-    padding: 0.5em 1em;
+    padding: 0px;
+    padding-bottom: 10px;
   }
 
   .search input[type="search"] {
@@ -118,6 +94,13 @@
 
   .title {
     margin-bottom: 0;
+    border-bottom: none;
+    background-color: #f1f5f9;
+    padding: 10px
+  }
+
+  .title span.open {
+    transform: rotate(180deg);
   }
 
   .content {

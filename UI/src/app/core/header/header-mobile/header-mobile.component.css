@@ -30,35 +30,13 @@ img {
   align-items: flex-end;
   line-height: 1;
 }
+
 .logo {
   flex: 1 1 120px;
   width: fit-content;
   cursor: pointer;
   display: flex;
   align-items: flex-end;
-}
-
-.search {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-}
-
-.search input[type="search"] {
-  padding: 8px;
-  width: 24ch;
-  border-radius: 5px;
-  border: 1px solid rgb(70, 69, 69);
-}
-
-.search fa-icon {
-  z-index: 1;
-  position: absolute;
-  right: 1em;
-  padding: 2px;
-  color: gray;
-  font-size: 20px;
-  cursor: pointer;
 }
 
 .drawer {
@@ -69,7 +47,10 @@ img {
   height: 100%;
   transition: left 0.3s ease;
   background-color: white;
+    display: flex;
+  flex-direction: column;
 }
+
 
 .drawer.open {
   left: 0;
@@ -99,13 +80,14 @@ ul li a {
   text-align: center;
   align-items: center;
   gap: 0.5em;
-  color: #22648d;
+  color: rgb(82, 83, 96);
   font-size: 16px;
   text-align: left;
   text-decoration: none;
   cursor: pointer;
   margin: 5px;
   width: 100%;
+  padding: 8px 0;
 }
 
 ul li:hover {
@@ -119,9 +101,10 @@ ul li:hover a {
   color: white;
 }
 
+
 ul li fa-icon,
 .username fa-icon {
-  color: rgba(61, 60, 60, 0.924);
+  color: #7cb518;
 }
 
 .drawer-header {

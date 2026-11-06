@@ -1,19 +1,32 @@
 .list {
   width: 100%;
-  padding: 2rem;
 }
 
 .item {
-  padding: 1rem;
+  background: #f8fafc;
+  padding:1rem 1.25rem;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  border-left: 3px solid #8da5b5;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;
 }
 
+.comment {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .details {
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   display: flex;
+  width: 100%;
+  padding-bottom: 1rem;
 }
 
 fa-icon {
@@ -25,9 +38,25 @@ fa-icon {
   color: rgb(196, 34, 34);
 }
 
+.username
+{
+  flex: 1;
+}
 
-.username{
+
+.username small{
     color: rgb(82, 83, 96);
     font-weight: bolder;
     padding-right: 10px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (max-width: 480px) {
+  form {
+    padding: 15px;
+  }
 }

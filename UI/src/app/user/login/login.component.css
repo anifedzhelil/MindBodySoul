@@ -5,17 +5,13 @@
 }
 
 .center{
+    gap: 12px;
     text-align: center;
 }
 
 .form-container {
     max-width: 450px;
 }
-
-form{
-    padding: 5px;
-}
-
 
 .toggle-password {
     position: absolute;

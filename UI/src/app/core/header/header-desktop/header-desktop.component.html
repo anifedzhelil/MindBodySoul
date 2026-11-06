@@ -7,31 +7,29 @@
             <nav>
                 <ul>
                     <li>
-                        <a [routerLink]="'/'" (click)="toggleMenu()">Начална страница</a>
+                        <a [routerLink]="'/'" (click)="toggleMenu()" routerLinkActive="active-link"
+                            [routerLinkActiveOptions]="{ exact: true }">Начална страница</a>
                     </li>
                     <li>
-                        <a class="size" [routerLink]="'/categories'" (click)="toggleMenu()">Категории</a>
+                        <a class="size" [routerLink]="'/categories'" (click)="toggleMenu()"
+                            routerLinkActive="active-link">Категории</a>
                     </li>
                     <li>
-                        <a [routerLink]="'/articles'" (click)="toggleMenu()">Статии</a>
+                        <a [routerLink]="'/articles'" (click)="toggleMenu()" routerLinkActive="active-link">Статии</a>
                     </li>
                     <ng-container *ngIf="
               user?.userName !== undefined && user?.roles?.includes('Writer')
             ">
-                        <li><a [routerLink]="'/admin'" (click)="toggleMenu()">Админ</a></li>
+                        <li><a [routerLink]="'/admin'" (click)="toggleMenu()" routerLinkActive="active-link">Админ</a>
+                        </li>
                     </ng-container>
                     <li>
-                        <a [routerLink]="'/contacts'" (click)="toggleMenu()">Контакти</a>
+                        <a [routerLink]="'/contacts'" (click)="toggleMenu()" routerLinkActive="active-link">Контакти</a>
                     </li>
                 </ul>
             </nav>
         </div>
-        <div class="search">
-            <form>
-                <input type="search" #searchInput placeholder="Търсене..." />
-                <fa-icon [icon]="faSearch" (click)="onSearch(searchInput.value)"></fa-icon>
-            </form>
-        </div>
+       <app-search (searchSubmitted)="onSearch($event)"></app-search>
         <div class="login">
             <ng-container *ngIf="user === undefined; else showLogout">
                 <a [routerLink]="'/login'">Вход</a>

@@ -53,12 +53,12 @@
       </ng-container>
     </ng-container>
 
-    <div class="field">
+    <div class="field submit">
       <input type="submit" class="submit" value="Регистрирай се" />
     </div>
     <div class="field center">
       <span>Имате ли профил? <a [routerLink]="'/login'">Вход</a></span>
     </div>
-    <div>{{ errorMessage }}</div>
+    <div class="error">{{ errorMessage }}</div>
   </form>
 </div>

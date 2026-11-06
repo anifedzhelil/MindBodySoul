@@ -23,16 +23,17 @@ export class TagFilterComponent {
   @Output() tagSelected = new EventEmitter<string>();
   isOpen = true;
   isAllTagsShown = false;
+  isSearching = false;
   visibleTagsCount = 10;
-  
+
   @HostListener('window:resize')
-onResize() {
-  this.isOpen = window.innerWidth > 768;
-}
+  onResize() {
+    this.isOpen = window.innerWidth > 768;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tags']) {
-      this.filteredTags = [...this.tags, ].slice(0, this.visibleTagsCount);
+      this.filteredTags = [...this.tags,].slice(0, this.visibleTagsCount);
     }
   }
 
@@ -41,17 +42,14 @@ onResize() {
   }
 
   filterTags(tag: string, event?: Event) {
-    if(tag.trim()){
-    this.filteredTags = this.tags.filter((t) => t.name.includes(tag));
-    this.isAllTagsShown = true;
-      alert('Моля, въведете текст за търсене на тагове.');
-
+    if (tag.trim()) {
+      this.filteredTags = this.tags.filter((t) => t.name.includes(tag));
+      this.isSearching = true;
     }
-    else
-    {
-      alert('Моля, въведете текст за търсене на тагове.');
-       this.filteredTags = [...this.tags].slice(0, this.visibleTagsCount);
-       this.isAllTagsShown = false;
+    else {
+      this.filteredTags = [...this.tags].slice(0, this.visibleTagsCount);
+      this.isAllTagsShown = false;
+      this.isSearching = false;
     }
   }
 

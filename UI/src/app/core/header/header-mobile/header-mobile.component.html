@@ -5,12 +5,7 @@
     <div class="logo">
         <img src="assets/images/logo.svg" [routerLink]="'/'" />
     </div>
-    <div class="search">
-        <form>
-            <input type="search" #searchInput placeholder="Търсене..." />
-            <fa-icon [icon]="faSearch" (click)="onSearch(searchInput.value)"></fa-icon>
-        </form>
-    </div>
+    <app-search (searchSubmitted)="onSearch($event)"></app-search>
 </div>
 
 <div class="overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>

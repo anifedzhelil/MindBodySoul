@@ -1,78 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  html {
-    font: 14px/1.5 Lato, sans-serif;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #1E5375;
-    font-weight: bold;
-  }
-  
-  a:visited {
-    color: #1E5375;
-  }
-  
-  input[type="submit"],
-  input[type="button"] {
-    background-color: #19becf;
-    /*background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);*/
-    background: #397194;
-    color: white;
-    border: 1px solid #076974;
-    padding: 10px;
-    border-radius: 3px;
-    white-space: 10px;
-    max-width: 150px;
-    font-weight: bold;
-  }
+html {
+  font: 15px/1.5 Nunito, sans-serif;
+}
 
-  input[type="submit"]:hover,
-  input[type="button"]:hover {
-    background: #4486af;
-    cursor: pointer;
-  }
-  
-  a:hover {
-    color: #027AC4;
-    cursor: pointer;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-  }
-  input,
-  label {
-    width: 100%;
-  }
-  
-  textarea,
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  select,
-  input[type="password"] {
-    padding: 7px;
-    border: 1px solid #ccc;
-  }
-  
-  h2::after {
-    display: block;
-    content: "";
-    border-bottom: 1px solid #aaa;
-    width: 3em;
-    padding-top: 1em;
-  }
-  
-  :root {
+a {
+  text-decoration: none;
+  color: #1E5375;
+  font-weight: bold;
+}
+
+a:visited {
+  color: #1E5375;
+}
+
+input[type="submit"],
+input[type="button"] {
+  background-color: #19becf;
+  /*background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);*/
+  background: #397194;
+  color: white;
+  border: 1px solid #076974;
+  padding: 10px;
+  border-radius: 3px;
+  white-space: 10px;
+  max-width: 150px;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background: #4486af;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #027AC4;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input,
+label {
+  width: 100%;
+}
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+input[type="password"] {
+  padding: 7px;
+  border: 1px solid #4a8499;
+}
+
+select {
+  font: inherit;
+}
+
+
+.form-container h2 {
+  width: fit-content;
+}
+
+.form-container h2::after {
+  display: block;
+  content: "";
+  border-bottom: 2px solid #7cb518;
+  width: 100%;
+  padding-top: 0.4em;
+}
+
+:root {
   --mobile-padding: 0em;
   --mobile-gap: 1em;
   --card-padding: 20px;

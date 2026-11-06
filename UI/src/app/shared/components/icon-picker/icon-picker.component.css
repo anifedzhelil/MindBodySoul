@@ -1,5 +1,6 @@
 .icon-picker {
   position: relative;
+  margin-bottom: 200px;
   width: 100%;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .icon-selected .arrow {
-  margin-left: auto;
+  margin-left: auto;  
 }
 
 .icon-dropdown {

@@ -6,7 +6,6 @@
   padding: 3em;
   max-width: 600px;
   margin-top: 20px;
-
   border-radius: 3px;
 }
 
@@ -24,6 +23,10 @@ form {
   width: 100%;
 }
 
+.field label{
+  margin-bottom: 6px;
+}
+
 .field-checkbox{
   flex-direction: row;
   align-items: center;
@@ -32,6 +35,10 @@ form {
 
 input[type="password"]{
   max-width: 100%;
+}
+
+.submit{
+  margin-top: 0.5em;
 }
 
 input[type="checkbox"]

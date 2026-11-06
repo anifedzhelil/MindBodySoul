@@ -19,6 +19,7 @@ import { TagFilterComponent } from './components/tag-filter/tag-filter.component
 import { MinTextLengthDirective } from './validators/min-text-length/min-text-length.directive';
 import { UrlHandleComponent } from './components/url-handle/url-handle.component';
 import { UrlHandlePatternDirective } from './validators/pattern/url-handle-pattern.directive';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UrlHandlePatternDirective } from './validators/pattern/url-handle-patte
     MinTextLengthDirective,
     UrlHandleComponent,
     UrlHandlePatternDirective,
+    SearchComponent,
   ],
   imports: [CommonModule, FontAwesomeModule, RouterModule, FormsModule],
   exports: [
@@ -56,7 +58,8 @@ import { UrlHandlePatternDirective } from './validators/pattern/url-handle-patte
     TagFilterComponent,
     MinTextLengthDirective,
     UrlHandleComponent,
-    UrlHandlePatternDirective
+    UrlHandlePatternDirective,
+    SearchComponent,
   ],
 })
 export class SharedModule {}
