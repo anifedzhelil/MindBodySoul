@@ -50,7 +50,7 @@
                             <a [routerLink]="['/admin/articles/preview/', article.id]">{{ article.title }}</a>
                         </th>
                         <th>
-                            <img [src]="article.imageUrl" alt="" />
+                            <img [src]="article.imageUrl | cloudinary: 800" alt="" />
                         </th>
                         <th class="text-content">{{ getStatusLabel(article) }}</th>
                         <th class="text-content">

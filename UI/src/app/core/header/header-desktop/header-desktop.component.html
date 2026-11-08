@@ -29,7 +29,7 @@
                 </ul>
             </nav>
         </div>
-       <app-search (searchSubmitted)="onSearch($event)"></app-search>
+       <app-search (searchSubmitted)="onSearch($event)" placeholder="Търси статии..."></app-search>
         <div class="login">
             <ng-container *ngIf="user === undefined; else showLogout">
                 <a [routerLink]="'/login'">Вход</a>

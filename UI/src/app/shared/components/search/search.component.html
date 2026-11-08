@@ -1,6 +1,6 @@
 <div class="search">
     <form (submit)="onSearch(searchInput.value); $event.preventDefault()">
-        <input type="search" #searchInput placeholder="Търсене..." (input)="onInput(searchInput.value)" />
+        <input type="search" #searchInput placeholder="Търсене..." (input)="onInput(searchInput.value)"  [placeholder]="placeholder"/>
         <fa-icon [icon]="faSearch"></fa-icon>
     </form>
 </div>

@@ -5,6 +5,7 @@ import {
   EventEmitter,
   SimpleChanges,
   HostListener,
+  OnInit,
 } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TagsWithArticleCount } from 'src/app/models/tag/tags-with-article-count';
@@ -15,7 +16,7 @@ import { TagsWithArticleCount } from 'src/app/models/tag/tags-with-article-count
   styleUrl: './tag-filter.component.css',
   standalone: false,
 })
-export class TagFilterComponent {
+export class TagFilterComponent implements OnInit {
   @Input() tags: TagsWithArticleCount[] = [];
   filteredTags: TagsWithArticleCount[] = [];
   faSearch = faSearch;
@@ -28,13 +29,22 @@ export class TagFilterComponent {
 
   @HostListener('window:resize')
   onResize() {
-    this.isOpen = window.innerWidth > 768;
+   this.updateIsOpen();
+  }
+
+  ngOnInit(): void{
+    this.updateIsOpen();
+    console.log(window.innerWidth, this.isOpen);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tags']) {
       this.filteredTags = [...this.tags,].slice(0, this.visibleTagsCount);
     }
+  }
+
+  updateIsOpen(){
+    this.isOpen = window.innerWidth > 800;
   }
 
   toggleAccordion() {

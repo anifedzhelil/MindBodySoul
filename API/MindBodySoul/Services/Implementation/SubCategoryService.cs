@@ -120,7 +120,14 @@ namespace MindBodySoul.Services.Implementation
 
             return subCategories.Select(GetSubCategory).ToList();
         }
-     
+
+        public async Task<IEnumerable<SubCategoryDto>> GetPublishedByCategoryIdAsync(Guid categoryId)
+        {
+            var subCategories = await subCategoryRepository.GetPublishedByCategoryId(categoryId);
+
+            return subCategories.Select(GetSubCategory).ToList();
+        }
+
         public async Task<OperationResult> DeleteSubCategoryAsync(Guid id)
         {
             var existingSubCategory = await subCategoryRepository.DeleteAsync(id);

@@ -10,6 +10,7 @@ namespace MindBodySoul.Services.Interface
         Task<OperationResult> CreateSubCategoryAsync(CreateSubCategoryRequestDto request);
         //Task<IEnumerable<SubCategoryDto>> GetPublishedSubCategoriesAsync();
         Task<IEnumerable<SubCategoryDto>> GetSubCategoriesByCategoryIdAsync(Guid categoryId);
+        Task<IEnumerable<SubCategoryDto>> GetPublishedByCategoryIdAsync(Guid categoryId);
         Task<IEnumerable<SubCategoryDto>> GetSubCategoriesAsync();
         Task<SubCategoryDto?> GetSubCategoryAsync(Guid id);
         Task<OperationResult> DeleteSubCategoryAsync(Guid id);

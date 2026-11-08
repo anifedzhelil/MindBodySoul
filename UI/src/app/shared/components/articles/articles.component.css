@@ -1,9 +1,7 @@
 .articleList {
   display: flex;
   flex-direction: column;
-  gap: 5em;
-  background: #fff;
-  border-radius: 0.1em;
+  gap: 1.5em;
 }
 
 article {
@@ -11,21 +9,30 @@ article {
   flex-direction: row;
   gap: 1em;
   background: #fff;
-  border-radius: 0.1em;
-  border-bottom: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 10px;
+}
+
+article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 h3 {
   padding-bottom: 20px;
 }
+
 .imageContent {
   padding: 10px;
+  border-radius: 8px
 }
 
 .imageContent img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
   width: 280px;
-  height: 100%;
 }
 
 .content {
@@ -40,11 +47,19 @@ h3 {
 .title a {
   font-size: 20px;
 }
+
 .message {
   margin-top: 20px;
   text-align: center;
   font-size: 16px;
   color: #555;
+}
+
+.read-more {
+  color: #5a8a12;
+  font-weight: 600;
+  display: inline-block;
+   margin-top: 0.75rem;
 }
 
 @media (max-width: 800px) {
@@ -58,46 +73,41 @@ h3 {
   }
 
   img {
-    width: 200px;
+    width: 150px;
     max-height: 200px;
   }
+
   article {
     padding: 10px;
   }
 }
 
-  @media (max-width: 600px) {
-    img {
-      width: 150px;
-    }
+
+@media (max-width: 700px) {
+
+  .articleList {
+    gap: var(--mobile-gap);
   }
 
-
-  @media (max-width: 480px) {
-
-    articleList {
-      gap: var(--mobile-gap);
-  }
-    article {
-      flex-direction: column;
-      padding: var(--mobile-padding);
-      gap: var(--mobile-gap);
-      padding-bottom: 2em;
-    }
-
-    .imageContent img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .imageContent {
-      padding: 0;
-    }
-
-    .title {
-      padding-top: 0px;
-      padding-bottom: 3px;
-    }
+  article {
+    flex-direction: column;
+    padding: 10px;
+    gap: var(--mobile-gap);
+    padding-bottom: 2em;
   }
 
+  .imageContent img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .imageContent {
+    padding: 0;
+  }
+
+  .title {
+    padding-top: 0px;
+    padding-bottom: 3px;
+  }
+}

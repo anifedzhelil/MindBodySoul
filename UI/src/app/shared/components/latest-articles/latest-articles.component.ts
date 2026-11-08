@@ -27,19 +27,23 @@ export class LatestArticlesComponent {
 
   @HostListener('window:resize')
   onResize() {
-    this.loadArticles()
+    this.updateVisibleArticles();
   }
 
   loadArticles(): void {
     this.articleService.getLatestArticles(8).subscribe({
       next: (data) => {
         this.articles = data;
-        window.innerWidth < 480 ? this.visibleArticles = this.articles :   this.getArticles(this.currentIndex);
+        this.updateVisibleArticles();
       },
       error: (err) => {
         console.error(err);
       }
     });
+  }
+
+  updateVisibleArticles(){
+        window.innerWidth <= 480 ? this.visibleArticles = this.articles :   this.getArticles(this.currentIndex);
   }
 
   getArticles(index: number): void {

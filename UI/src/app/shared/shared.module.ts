@@ -20,6 +20,7 @@ import { MinTextLengthDirective } from './validators/min-text-length/min-text-le
 import { UrlHandleComponent } from './components/url-handle/url-handle.component';
 import { UrlHandlePatternDirective } from './validators/pattern/url-handle-pattern.directive';
 import { SearchComponent } from './components/search/search.component';
+import { CloudinaryPipe } from './pipes/cloudinary.pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SearchComponent } from './components/search/search.component';
     SlicesPipe,
     FormatTimePipe,
     ElapsedTimePipe,
+    CloudinaryPipe,
     ArticlesComponent,
     LoaderComponent,
     LatestArticlesComponent,
@@ -51,6 +53,7 @@ import { SearchComponent } from './components/search/search.component';
     SlicesPipe,
     FormatTimePipe,
     ElapsedTimePipe,
+    CloudinaryPipe,
     ArticlesComponent,
     LoaderComponent,
     LatestArticlesComponent,

@@ -34,7 +34,7 @@ export class SubCategoriesListComponent {
         this.categoryId = params.get('categoryId');
         if (this.categoryId)
           this.subCategoryService
-            .getSubCategoriesByCategoryId(this.categoryId)
+            .getPublishedCategoryId(this.categoryId)
             .subscribe({
               next: (subCategories) => {
                 this.subCategories = subCategories;

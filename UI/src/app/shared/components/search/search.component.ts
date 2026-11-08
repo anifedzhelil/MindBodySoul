@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,6 +9,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearchComponent {
   @Output() searchSubmitted = new EventEmitter<string>();
+  @Input() placeholder = 'Търсене...';
+
   faSearch = faSearch;
 
   onSearch(value: string) {

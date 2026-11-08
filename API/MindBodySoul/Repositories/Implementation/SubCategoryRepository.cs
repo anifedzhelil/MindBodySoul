@@ -87,6 +87,16 @@ namespace MindBodySoul.Repositories.Implementation
         {
             var subCategories = await dbContext.SubCategories
                 .AsNoTracking()
+                .Where(x => x.CategoryId == categoryId)
+                .ToListAsync();
+
+            return subCategories;
+        }
+
+        public async Task<IEnumerable<SubCategory>> GetPublishedByCategoryId(Guid categoryId)
+        {
+            var subCategories = await dbContext.SubCategories
+                .AsNoTracking()
                 .Where(x => x.CategoryId == categoryId
                     && x.Articles != null
                     && x.Articles.Any(a => a.IsPublished && !a.IsArchived))

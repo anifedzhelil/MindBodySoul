@@ -9,7 +9,7 @@
         <thead>
           <tr>
             <th>Име</th>
-            <!---th>URL-handle</th-->
+            <th>URL-handle</th>
             <th>Снимка</th>
             <th></th>
           </tr>
@@ -17,9 +17,9 @@
         <tbody>
           <tr *ngFor="let category of categories">
             <th class="text-content">{{ category.name }}</th>
-            <!--th class="text-content">{{ category.urlHandle }}</th-->
+            <th class="text-content">{{ category.urlHandle }}</th>
             <th>
-              <img [src]="category.image" alt="" />
+              <img [src]="category.image | cloudinary: 800" alt="" />
             </th>
             <th class="text-content">
                 <a

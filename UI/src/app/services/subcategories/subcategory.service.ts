@@ -24,13 +24,21 @@ export class SubCategoryService {
     );
   }
 
+  
+  getPublishedCategoryId(categoryId: string): Observable<SubCategory[]> {
+    return this.http.get<SubCategory[]>(
+      `${environment.apiBaseUrl}/api/subcategories/publishedCategory/${categoryId}`
+    );
+  }
+
+
   getSubCategoryById(id: string): Observable<SubCategory> {
     return this.http.get<SubCategory>(
       `${environment.apiBaseUrl}/api/subcategories/${id}`
     );
   }
 
-  addCategory(model: AddSubCategoryRequest): Observable<void> {
+  addSubCategory(model: AddSubCategoryRequest): Observable<void> {
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/subcategories?addAuth=true`,
       model

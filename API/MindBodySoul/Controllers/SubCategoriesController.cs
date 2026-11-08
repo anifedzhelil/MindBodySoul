@@ -68,6 +68,14 @@ namespace MindBodySoul.Controllers
             return Ok(response);
         }
 
+        [HttpGet("publishedCategory/{categoryId:Guid}")]
+        public async Task<IActionResult> GetPublishedByCategoryId([FromRoute] Guid categoryId)
+        {
+            var response = await subCategoryService.GetPublishedByCategoryIdAsync(categoryId);
+
+            return Ok(response);
+        }
+
 
         // Admin endpoint: updates an existing subcategory.
         [HttpPut]

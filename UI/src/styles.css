@@ -10,6 +10,11 @@ html {
   font: 15px/1.5 Nunito, sans-serif;
 }
 
+
+body {
+  background-color: #F6F2ED;
+}
+
 a {
   text-decoration: none;
   color: #1E5375;

@@ -5,7 +5,7 @@
     <div class="logo">
         <img src="assets/images/logo.svg" [routerLink]="'/'" />
     </div>
-    <app-search (searchSubmitted)="onSearch($event)"></app-search>
+    <app-search (searchSubmitted)="onSearch($event)" placeholder="Търси статии..."></app-search>
 </div>
 
 <div class="overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>

@@ -6,7 +6,7 @@
         <div class="image-wrapper">
           <img
             *ngIf="category.image"
-            [src]="category.image"
+            [src]="category.image | cloudinary: 800"
             loading="lazy"
             class="loaded-image"
           />

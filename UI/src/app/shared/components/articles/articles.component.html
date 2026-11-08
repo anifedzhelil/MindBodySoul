@@ -1,7 +1,7 @@
-<div class="articleList" *ngFor="let article of articles">
-  <article>
+<div class="articleList">
+  <article *ngFor="let article of articles">
     <div class="imageContent">
-      <img [src]="article.imageUrl" alt="Article Image" />
+      <img [src]="article.imageUrl | cloudinary: 800" alt="Article Image" loading="lazy"/>
     </div>
     <div>
       <div class="title">
@@ -9,6 +9,7 @@
       </div>
 
       <p [innerHTML]="article.content | slices : 300"></p>
+      <a class="read-more" [routerLink]="['/articles/articles-details', article.id]">Прочети повече</a>
     </div>
   </article>
 </div>
