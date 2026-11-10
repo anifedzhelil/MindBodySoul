@@ -45,11 +45,11 @@ input[type="checkbox"]
 {
   width: 1.25em;
   height: 1.25em;
-  accent-color: #1b5061;
+  accent-color: var(--primary-dark-color);
 }
 
 .error {
-  color: red;
+  color: var(--error-color);
 }
 
 @media screen and (max-width: 800px) {

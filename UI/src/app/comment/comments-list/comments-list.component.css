@@ -3,11 +3,11 @@
 }
 
 .item {
-  background: #f8fafc;
+  background: var(--background-color);
   padding:1rem 1.25rem;
-  border-radius: 6px;
+  border-radius: var(--radius-field);
   margin-bottom: 12px;
-  border-left: 3px solid #8da5b5;
+  border-left: 3px solid var(--primary-color);
   border-bottom: 1px solid #e5e5e5;
   padding-bottom: 1rem;
   padding-top: 1rem;

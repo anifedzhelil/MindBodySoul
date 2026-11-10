@@ -45,8 +45,8 @@ img {
 
 /* Marks the currently selected tab */
 .filters button.active {
-    background: #1a6aa5;
-    border-color: #1a6aa5;
+    background: var(--primary-dark-color);
+    border-color: var(--primary-dark-color);
     color: #fff;
 }
 

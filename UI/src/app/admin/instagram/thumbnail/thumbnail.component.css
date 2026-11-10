@@ -216,9 +216,9 @@
   max-width: 100%;
   box-sizing: border-box;
   background-color: #19becf;
-  background: #397194;
+  background: var(--primary-color);
   color: white;
-  border: 1px solid #076974;
+  border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 3px;
   font-weight: bold;

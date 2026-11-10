@@ -96,7 +96,7 @@
   max-width: 100%;
   box-sizing: border-box;
   background-color: #19becf;
-  background: #397194;
+  background: var(--primary-color);
   color: white;
   border: 1px solid #076974;
   padding: 10px;

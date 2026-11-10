@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  /* Layout */
+  --mobile-padding: 0em;
+  --mobile-gap: 1em;
+  --radius-card: 12px;
+  --radius-field: 8px;
+
+  /* Base */
+  --background-color: #F9F6F1;
+  --border-color: #4a8499;
+
+  /* Primary (buttons, links) */
+  --primary-color: #397194;
+  --primary-dark-color: #1E5375;
+  --link-hover-color: #027AC4;
+
+  /* Accent (subcategories, highlights) */
+  --green-color: #7cb518;
+  --dark-green-color: #517610;
+
+  /* Feedback */
+  --error-color: red;
+}
 
 * {
   margin: 0;
@@ -12,43 +35,51 @@ html {
 
 
 body {
-  background-color: #F6F2ED;
+  background-color: var(--background-color);
 }
 
 a {
   text-decoration: none;
-  color: #1E5375;
+  color: var(--primary-dark-color);
   font-weight: bold;
 }
 
 a:visited {
-  color: #1E5375;
+  color: var(--primary-dark-color);
 }
 
 input[type="submit"],
 input[type="button"] {
-  background-color: #19becf;
-  /*background: linear-gradient(90deg, #07606a 0%, #397194 35%, #1597a5 100%);*/
-  background: #397194;
+  background: var(--primary-color);
   color: white;
-  border: 1px solid #076974;
+  border: 1px solid var(--primary-color);
   padding: 10px;
   border-radius: 3px;
-  white-space: 10px;
-  max-width: 150px;
+  max-width: 200px;
   font-weight: bold;
 }
 
-input[type="submit"]:hover,
-input[type="button"]:hover {
-  background: #4486af;
-  cursor: pointer;
+@media (hover: hover) {
+
+  input[type="submit"]:hover:not(:disabled),
+  input[type="button"]:hover:not(:disabled) {
+    background: var(--primary-dark-color);
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--link-hover-color);
+    cursor: pointer;
+  }
 }
 
-a:hover {
-  color: #027AC4;
-  cursor: pointer;
+input[type="submit"]:disabled,
+input[type="button"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
+
+
 
 label {
   display: block;
@@ -67,7 +98,7 @@ input[type="number"],
 select,
 input[type="password"] {
   padding: 7px;
-  border: 1px solid #4a8499;
+  border: 1px solid var(--border-color);
 }
 
 select {
@@ -85,10 +116,4 @@ select {
   border-bottom: 2px solid #7cb518;
   width: 100%;
   padding-top: 0.4em;
-}
-
-:root {
-  --mobile-padding: 0em;
-  --mobile-gap: 1em;
-  --card-padding: 20px;
 }

@@ -29,7 +29,8 @@
         {{article.uniqueVisitCount}}</span>
     </div>
     <div class="imageContent">
-      <img [src]="article.imageUrl" alt="Article Image" />
+      <img [src]="article.imageUrl | cloudinary: 400" alt="Article Image"  class="backdrop" alt="" aria-hidden="true"/>
+      <img [src]="article.imageUrl | cloudinary: 1200" alt="Article Image" />
     </div>
     <div [innerHTML]="article.content"></div>
     <div class="tags">

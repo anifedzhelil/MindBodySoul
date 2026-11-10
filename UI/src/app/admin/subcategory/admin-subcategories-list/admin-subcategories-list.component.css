@@ -101,16 +101,16 @@ input[type="submit"] {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    min-width: 0; /* важно за truncate */
+    min-width: 0; 
   }
 
   .card-name {
     font-weight: 600;
     font-size: 15px;
     color: #1a1a2e;
-    white-space: nowrap; /* не се пренася */
+    white-space: nowrap; 
     overflow: hidden;
-    text-overflow: ellipsis; /* "..." ако е много дълго */
+    text-overflow: ellipsis; 
   }
 
   .card-category {
@@ -123,7 +123,7 @@ input[type="submit"] {
 
   .card-actions {
     display: flex;
-    flex-direction: row; /* хоризонтално за компактност */
+    flex-direction: row; 
     gap: 16px;
     align-items: center;
     flex-shrink: 0;

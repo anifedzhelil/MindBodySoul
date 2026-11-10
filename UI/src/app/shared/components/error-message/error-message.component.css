@@ -23,7 +23,7 @@
   }
   
   .icon-delete {
-    color: #e74c3c;
+    color: var(--);
     font-size: 2rem;
   }
   

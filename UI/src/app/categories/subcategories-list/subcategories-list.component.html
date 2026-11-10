@@ -1,13 +1,11 @@
 <div class="container">
   <div class="list">
     <ng-container *ngIf="!selectedSubCategory">
-      <div class="list-item" *ngFor="let subCategory of subCategories">
-        <a class="wrapper" (click)="selectSubCategory(subCategory.id)">
-          <app-awesome-icons
-            [selectedIcon]="subCategory.icon"
-          ></app-awesome-icons>
+      <div class="subcategories">
+        <button *ngFor="let subCategory of subCategories" type="button" (click)="selectSubCategory(subCategory.id)">
+          <app-awesome-icons [selectedIcon]="subCategory.icon"></app-awesome-icons>
           <span class="title">{{ subCategory.name }}</span>
-        </a>
+        </button>
       </div>
       <div *ngIf="emptyList">
         <p>Няма добавени подкатегории...</p>

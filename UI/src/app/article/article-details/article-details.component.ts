@@ -50,10 +50,7 @@ export class ArticleDetailsComponent implements OnInit {
       },
     });
 
-    debugger;
-
     const isAdminView = this.route.snapshot.data['isAdminView'] === true;
-
 
     this.route.paramMap.subscribe({
       next: (params) => {

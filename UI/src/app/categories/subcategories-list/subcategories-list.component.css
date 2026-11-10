@@ -1,88 +1,63 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  width: 1000px;
+  max-width: 1000px;
 }
 
 .list {
-  margin-top:5px;
+  margin-top: 5px;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.1);
   gap: 1em;
 }
 
-.list-item {
-  display: flex;
-  flex: 1 1 33%;
-  position: relative;
-  height: 50px;
-  border-radius: 5px;
-}
-
-.list-item a {
-  position: relative;
-  border: 1px solid #858585;
-  display: block;
+.subcategories {
   width: 100%;
+  display: grid;
+  gap:12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.subcategories button {
+  display: flex;
+  background-color: var(--green-color);
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-field);
+  cursor: pointer;
+  min-height: 50px;
+  border: none;
+  font: inherit;
   color: white;
-  font-size: 1.4rem;
-  text-align: center;
-  background-color: rgba(57, 113, 141, 0.5);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  font-size: clamp(1rem, 0.7rem + 0.4vw, 1.25rem);
 }
 
-.wrapper span{
-    padding-left: 10px;
+
+@media (hover: hover) {
+  .subcategories button:hover {
+    background-color: var(--dark-green-color);
+  }
 }
 
-.list-item:nth-last-child(1):nth-child(odd) {
-  flex: 0 0 calc(50% - 1rem);
-}
-
-.loading{
+.loading {
   display: flex;
   flex: 0 0 100%;
-  padding: 1rem;;
+  padding: 1rem;
+  ;
 }
 
-.articles{
+.articles {
   width: 100%;
 }
 
-
-@media (max-width: 1100px) {
-  .container {
-    width: 100%;
-    margin: 0 auto;
+@media (max-width: 700px) {
+  .subcategories {
+    grid-template-columns: 1fr;
   }
-  
-  .list {
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 1em;
-  }
-  
-  .list-item {
-    display: flex;
-    flex: 1 1 100%;
-    position: relative;
-  }
-  
 }

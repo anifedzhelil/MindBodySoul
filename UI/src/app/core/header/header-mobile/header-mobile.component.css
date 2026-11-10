@@ -24,7 +24,7 @@ img {
 .toogle-menu fa-icon {
   font-size: 33px;
   font-weight: 600;
-  color: #1e5375;
+  color: var(--primary-dark-color);
   cursor: pointer;
   display: flex;
   align-items: flex-end;

@@ -46,7 +46,7 @@ button {
   background-color: transparent;
   padding: 15px;
   border: 1px solid white;
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   color: white;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
