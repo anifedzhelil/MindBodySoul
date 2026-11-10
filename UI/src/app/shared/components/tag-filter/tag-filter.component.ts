@@ -26,13 +26,17 @@ export class TagFilterComponent implements OnInit {
   isAllTagsShown = false;
   isSearching = false;
   visibleTagsCount = 10;
+  innerWidth = window.innerWidth;
 
   @HostListener('window:resize')
   onResize() {
-   this.updateIsOpen();
+    if (this.innerWidth != window.innerWidth) {
+      this.updateIsOpen();
+      this.innerWidth = window.innerWidth;
+    }
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.updateIsOpen();
     console.log(window.innerWidth, this.isOpen);
   }
@@ -43,7 +47,7 @@ export class TagFilterComponent implements OnInit {
     }
   }
 
-  updateIsOpen(){
+  updateIsOpen() {
     this.isOpen = window.innerWidth > 800;
   }
 
