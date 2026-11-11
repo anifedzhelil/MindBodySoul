@@ -1,0 +1,196 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+  background-color: #f7f5f0; /* Много мек топъл фон на цялата страница за раздвижване */
+}
+
+.about {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background: #fbf9f5; /* Топъл крем/слонова кост вместо чисто бяло – носи усещане за уют и хартия */
+  border-radius: 24px 18px 24px 18px; /* Леко асиметрични, органични ръбове за артистичен щрих */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(60, 50, 40, 0.06); /* Мека, топла сянка */
+  border: 1px solid rgba(180, 165, 150, 0.2); /* Естествена тънка рамка */
+}
+
+/* Снимка с плавно сливане */
+.photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  background: url('/assets/images/leaves.jpg') center 30% / cover;
+  opacity: 0.38;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 100%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 72px clamp(24px, 8vw, 72px) 56px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary-dark-color);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.9);
+}
+
+.eyebrow.accent {
+  color: var(--dark-green-color); /* По-мек маслинено-зелен акцент */
+  text-shadow: none;
+}
+
+h1 {
+  font-size: clamp(2.3rem, 6vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--primary-dark-color);
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.8);
+}
+
+.accent-line {
+  width: 48px;
+  height: 3px;
+  border-radius: 2px;
+  background: #879875; /* Топъл зелен/природен тон */
+}
+
+p {
+  font-size: clamp(1rem, 0.93rem + 0.31vw, 1.125rem);
+  line-height: 1.85;
+  color: #38332e; /* По-мек тъмен цвят за текста, по-приятен за очите от чистото черно */
+}
+
+.lead {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+  line-height: 1.8;
+  color: #2c352b;
+  font-weight: 400;
+}
+
+/* Разделители с естествен привкус */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 1.2rem 0;
+}
+
+.divider .line {
+  flex: 1;
+  height: 1px;
+  background: rgba(135, 152, 117, 0.3);
+}
+
+.leaf {
+  color: #879875;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #879875;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+.quote {
+  background: #ecedd2;
+  border: 1px solid color-mix(in srgb, var(--primary-color) 20%, #fff);
+  border-radius: var(--radius-card);
+  padding: 2rem 1.5rem;
+}
+
+.quote blockquote p {
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: #2c352b;
+}
+
+/* Контакти */
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.email {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #38332e;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(135, 152, 117, 0.4);
+}
+
+.instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  /*background: #607255;*/
+  background: var(--green-color);
+  color: var(--green-button-text);
+  border-radius: var(--radius-card);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(145, 175, 126, 0.25);
+}
+
+@media (hover: hover) {
+  .instagram:hover {
+    background: var(--dark-green-color);
+    transform: translateY(-2px);
+    color: white;
+  }
+}
+
+.note {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 13px;
+  font-style: italic;
+  color: #7a7067;
+}
+
+@media (max-width: 480px) {
+  .inner {
+    padding-top: 48px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

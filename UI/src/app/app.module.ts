@@ -13,13 +13,13 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { ContactsComponent } from './contacts/contacts.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({ declarations: [
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
-        ContactsComponent,
+        AboutComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FontAwesomeModule,

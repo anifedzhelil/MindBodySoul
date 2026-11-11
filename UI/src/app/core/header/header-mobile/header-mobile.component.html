@@ -44,9 +44,9 @@
                 </li>
             </ng-container>
             <li>
-                <a [routerLink]="'/contacts'" (click)="toggleMenu()">
+                <a [routerLink]="'/about'" (click)="toggleMenu()">
                     <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>
-                    Контакти</a>
+                    За мен</a>
             </li>
             <li>
                 <ng-container *ngIf="user === undefined; else showLogout">

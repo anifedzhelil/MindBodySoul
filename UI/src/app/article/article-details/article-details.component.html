@@ -32,7 +32,7 @@
       <img [src]="article.imageUrl | cloudinary: 400" alt="Article Image"  class="backdrop" alt="" aria-hidden="true"/>
       <img [src]="article.imageUrl | cloudinary: 1200" alt="Article Image" />
     </div>
-    <div [innerHTML]="article.content"></div>
+    <div [innerHTML]="article.content" class="content"></div>
     <div class="tags">
       <div class="tag" *ngFor="let tag of article.tags" [routerLink]="['/articles/byTag', tag.id]">{{ tag.name }}</div>
     </div>
