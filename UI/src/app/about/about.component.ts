@@ -8,4 +8,5 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 })
 export class AboutComponent {
   faInstagram = faInstagram;
+  background_image = 'https://res.cloudinary.com/drhqukmht/image/upload/v1794391717/MineBodySoul/leaves_cgiusd.jpg';
 }

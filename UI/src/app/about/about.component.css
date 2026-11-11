@@ -2,28 +2,28 @@
   display: flex;
   justify-content: center;
   padding: 20px 10px;
-  background-color: #f7f5f0; /* Много мек топъл фон на цялата страница за раздвижване */
+  background-color: #f7f5f0;
 }
 
 .about {
   position: relative;
   width: 100%;
   max-width: 800px;
-  background: #fbf9f5; /* Топъл крем/слонова кост вместо чисто бяло – носи усещане за уют и хартия */
-  border-radius: 24px 18px 24px 18px; /* Леко асиметрични, органични ръбове за артистичен щрих */
+  background: #fbf9f5; 
+  border-radius: 24px 18px 24px 18px; 
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(60, 50, 40, 0.06); /* Мека, топла сянка */
-  border: 1px solid rgba(180, 165, 150, 0.2); /* Естествена тънка рамка */
+  box-shadow: 0 10px 30px rgba(60, 50, 40, 0.06); 
+  border: 1px solid rgba(180, 165, 150, 0.2); 
 }
 
-/* Снимка с плавно сливане */
 .photo {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 480px;
-  background: url('/assets/images/leaves.jpg') center 30% / cover;
+  /* Image comes from the template binding; only position and size stay here */
+  background: center 30% / cover;
   opacity: 0.38;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 100%);
@@ -55,7 +55,7 @@
 }
 
 .eyebrow.accent {
-  color: var(--dark-green-color); /* По-мек маслинено-зелен акцент */
+  color: var(--dark-green-color);
   text-shadow: none;
 }
 
@@ -71,13 +71,13 @@ h1 {
   width: 48px;
   height: 3px;
   border-radius: 2px;
-  background: #879875; /* Топъл зелен/природен тон */
+  background: #879875; 
 }
 
 p {
   font-size: clamp(1rem, 0.93rem + 0.31vw, 1.125rem);
   line-height: 1.85;
-  color: #38332e; /* По-мек тъмен цвят за текста, по-приятен за очите от чистото черно */
+  color: #38332e; 
 }
 
 .lead {
@@ -87,7 +87,6 @@ p {
   font-weight: 400;
 }
 
-/* Разделители с естествен привкус */
 .divider {
   display: flex;
   align-items: center;
