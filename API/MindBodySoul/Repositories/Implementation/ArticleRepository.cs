@@ -204,5 +204,11 @@ namespace MindBodySoul.Repositories.Implementation
             return await dbContext.Articles
                 .AnyAsync(a => a.Slug == slug && (id == null || a.Id != id));
         }
+
+        public async Task<bool> IsPublishedAsync(Guid id)
+        {
+            return await dbContext.Articles
+                .AnyAsync(a => a.Id == id && a.IsPublished && !a.IsArchived);
+        }
     }
 }

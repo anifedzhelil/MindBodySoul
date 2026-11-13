@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MindBodySoul.Models.DTO
+namespace MindBodySoul.Models.DTO.Comment
 {
     public class CommentDto
     {

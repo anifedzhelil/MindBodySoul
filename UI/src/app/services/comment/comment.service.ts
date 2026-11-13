@@ -18,8 +18,8 @@ export class CommentService {
     );
   }
 
-  addComment(request: AddCommentRequest): Observable<ArticleComment> {
-    return this.http.post<ArticleComment>(
+  addComment(request: AddCommentRequest): Observable<void> {
+    return this.http.post<void>(
       `${environment.apiBaseUrl}/api/comments?addAuth=true`,
       request
     );
@@ -31,15 +31,15 @@ export class CommentService {
     );
   }
 
-  updateComment(request: UpdateCommentRequest): Observable<ArticleComment> {
-    return this.http.put<ArticleComment>(
+  updateComment(request: UpdateCommentRequest): Observable<void> {
+    return this.http.put<void>(
       `${environment.apiBaseUrl}/api/comments?addAuth=true`,
       request
     );
   }
 
-  deleteComment(id: string): Observable<Comment> {
-    return this.http.delete<Comment>(
+  deleteComment(id: string): Observable<void> {
+    return this.http.delete<void>(
       `${environment.apiBaseUrl}/api/comments/${id}?addAuth=true`
     );
   }

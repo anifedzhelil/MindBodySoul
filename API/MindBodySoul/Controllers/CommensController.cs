@@ -1,10 +1,12 @@
-﻿using CodePulse.API.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MindBodySoul.Models.Domain;
-using MindBodySoul.Models.DTO;
+using MindBodySoul.Models.DTO.Comment;
+using MindBodySoul.Models.Enum;
 using MindBodySoul.Repositories.Interface;
+using MindBodySoul.Services.Interface;
+using System.Security.Claims;
 
 namespace MindBodySoul.Controllers
 {
@@ -12,135 +14,86 @@ namespace MindBodySoul.Controllers
     [ApiController]
     public class CommentsController : Controller
     {
-        private readonly ICommentRepository commentRepository;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly ICommentService commentService;
 
-        public CommentsController(ICommentRepository commentRepository, UserManager<IdentityUser> userManager)
+
+        public CommentsController(ICommentService commentService)
         {
-            this.commentRepository = commentRepository;
-            this.userManager = userManager;
+            this.commentService = commentService;
         }
-
 
         [HttpPost]
-        [Authorize(Roles = "Reader")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentRequestDto request)
         {
-
-            var comment = new Comment
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdClaim, out var userId))
             {
-                Content = request.Content,
-                ArticleId = request.ArticleId,
-                CreatedDate = request.CreatedDate,
-                UserId = request.UserId,
-            };
+                return Unauthorized();
+            }
+            var result = await commentService.CreateCommentAsync(request, userId);
 
-            await commentRepository.CreateAsync(comment);
-
-            var response = new CommentDto()
-            {
-                Id = comment.Id,
-                Content = comment.Content,
-                ArticleId = comment.ArticleId,
-                CreatedDate = comment.CreatedDate,
-                UserId = comment.UserId,
-            };
-
-
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [Route("{id:Guid}")]
-        public async Task<IActionResult> GetCommentById([FromRoute] Guid id)
-        {
-            var comment = await commentRepository.GetById(id);
-
-            //map domain method to Dto
-            if (comment == null)
+            if (result == OperationResult.NotFound)
             {
                 return NotFound();
             }
 
-            var response = new CommentDto
-            {
-                Id = comment.Id,
-                Content = comment.Content,
-                ArticleId = comment.ArticleId,
-                CreatedDate = comment.CreatedDate,
-                UserId = comment.UserId,
-                UpdatedDate = comment.UpdatedDate,
-            };
-
-            return Ok(response);
+            return Ok();
         }
+
 
         [HttpGet("allComments/{articleId:Guid}")]
         public async Task<IActionResult> GetAllComments([FromRoute] Guid articleId)
         {
-            var comments = await commentRepository.GetAllAsync(articleId);
-
-            //map domain method to Dto
-
-            var userIds = comments.Select(c => c.UserId).Distinct();
-
-            var response = new List<CommentDto>();
-            foreach (var comment in comments)
-            {
-            var user = await userManager.FindByIdAsync(comment.UserId.ToString());
-
-
-                response.Add(new CommentDto
-                {
-                    Id = comment.Id,
-                    ArticleId= comment.ArticleId,
-                    Content= comment.Content,
-                    CreatedDate= comment.CreatedDate, 
-                    UserId= comment.UserId,
-                    UpdatedDate = comment.UpdatedDate,
-                    UserName = user?.UserName,
-                });
-            }
-
+            var response = await commentService.GetCommentsByArticleAsync(articleId);
             return Ok(response);
         }
 
-        //PUT https:/localhost:7108/api/comment{id}
         [HttpPut]
-        [Authorize(Roles = "Reader")]
-        public async Task<IActionResult> UpdateComment(UpdateCommentRequestDto request)
+        [Authorize]
+        public async Task<IActionResult> UpdateComment([FromBody] UpdateCommentRequestDto request)
         {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
 
-            var comment = await commentRepository.UpdateAsync(request.Id, request.Content, request.UpdatedDate);
+            var result = await commentService.UpdateCommentAsync(request, userId);
 
-            if (comment == null)
+            if (result == OperationResult.NotFound)
             {
                 return NotFound();
             }
-            var response = new CommentDto()
-            {
-                Id  = comment.Id,
-                Content = request.Content,
-                ArticleId = comment.ArticleId,
-                CreatedDate = comment.CreatedDate,
-                UserId = comment.UserId,
-                UpdatedDate = comment.UpdatedDate
-            };
 
-            return Ok(response);
+            if (result == OperationResult.Forbidden)
+            {
+                return Forbid();
+            }
+
+            return Ok();
         }
 
-
-        //DELETE: https:/localhost:7108/api/categories{id}
-        [HttpDelete]
-        [Route("{id:Guid}")]
-        [Authorize(Roles = "Reader")]
-         public async Task<IActionResult> DeleteComment([FromRoute] Guid id)
+        [HttpDelete("{id:Guid}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteComment([FromRoute] Guid id)
         {
-            var comment = await commentRepository.DeleteAsync(id);
-            if (comment is null)
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await commentService.DeleteCommentAsync(id, userId);
+
+            if (result == OperationResult.NotFound)
             {
                 return NotFound();
+            }
+
+            if (result == OperationResult.Forbidden)
+            {
+                return Forbid();
             }
 
             return Ok();

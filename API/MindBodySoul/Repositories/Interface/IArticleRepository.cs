@@ -22,5 +22,7 @@ namespace MindBodySoul.Repositories.Interface
         Task IncrementVisitCountsAsync(Guid articleId, bool isUniqueVisit);
         Task<bool> ExistsAsync(Guid id);
         Task<bool> SlugExistsAsync(Guid? id, string slug);
+        Task<bool> IsPublishedAsync(Guid id);
+
     }
 }

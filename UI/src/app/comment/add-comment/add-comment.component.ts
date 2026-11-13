@@ -5,10 +5,10 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 import { User } from 'src/app/models/user/user.module';
 
 @Component({
-    selector: 'app-add-comment',
-    templateUrl: './add-comment.component.html',
-    styleUrls: ['./add-comment.component.css'],
-    standalone: false
+  selector: 'app-add-comment',
+  templateUrl: './add-comment.component.html',
+  styleUrls: ['./add-comment.component.css'],
+  standalone: false
 })
 export class AddCommentComponent {
   comment: string = '';
@@ -19,27 +19,33 @@ export class AddCommentComponent {
 
   constructor(
     private commentService: CommentService,
-  ) {}
+  ) { }
 
   onFormSubmit(form: NgForm): void {
     if (this.user && this.articleId) {
       if (form.invalid) {
+        form.control.markAllAsTouched();
+        return;
+      }
+      else if (!this.comment.trim()) {
+        this.errorMessage = "Коментарът не може да е празен.";
         return;
       }
       var request: AddCommentRequest = {
-        userId: this.user?.userId ? this.user.userId : '',
         articleId: this.articleId,
         content: this.comment,
-        createdDate: new Date(new Date().getTime() + 2 * 60 * 60 * 1000)
       };
 
       this.commentService.addComment(request).subscribe({
         next: () => {
-          this.comment = 'Добавете нов коментар...'; 
-          this.commentAdded.emit(); 
+          this.errorMessage = '';
+          form.resetForm();
+          this.commentAdded.emit();
         },
-        error:(err) =>{
-          console.error(err);
+        error: (err) => {
+          if (err.status === 404) {
+            this.errorMessage = 'Статията не е намерана';
+          }
         }
       });
     } else {

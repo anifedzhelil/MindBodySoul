@@ -14,6 +14,11 @@ namespace MindBodySoul.Repositories.Implementation
             this.dbContext = dbContext;
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<Comment> CreateAsync(Comment comment)
         {
             await dbContext.Comments.AddAsync(comment);
@@ -25,6 +30,7 @@ namespace MindBodySoul.Repositories.Implementation
         {
             return await dbContext.Comments.Where(x=> x.ArticleId == articleId)
                 .OrderByDescending(x => x.UpdatedDate ?? x.CreatedDate) 
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -51,33 +57,11 @@ namespace MindBodySoul.Repositories.Implementation
             return null;
         }
 
-        public async Task<Comment?> DeleteAsync(Guid id)
+
+        public async Task DeleteAsync(Comment comment)
         {
-            var existingComment = await dbContext.Comments
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (existingComment is null)
-            {
-                return null;
-            }
-
-            dbContext.Comments.Remove(existingComment);
+            dbContext.Comments.Remove(comment);
             await dbContext.SaveChangesAsync();
-
-            return existingComment;
-        }
-
-        public async Task<List<Comment>> DeleteRangeAsync(Guid articleId)
-        {
-            var comments = await dbContext.Comments
-               .Where(c => c.ArticleId == articleId)
-               .ToListAsync();
-
-            dbContext.Comments.RemoveRange(comments);
-
-            await dbContext.SaveChangesAsync();
-
-            return comments;
         }
     }
 }

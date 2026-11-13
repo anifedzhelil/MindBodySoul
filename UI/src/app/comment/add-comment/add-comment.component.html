@@ -2,17 +2,9 @@
   <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
     <h3>Добави коментар</h3>
     <p class="field">
-      <label for="name">Коментар</label>
-      <textarea
-        type=""
-        id="content"
-        class="form-control"
-        name="content"
-        required
-        [(ngModel)]="comment"
-        #inputContent="ngModel"
-        rows="6"
-      ></textarea>
+      <label for="content">Коментар</label>
+      <textarea id="content" class="form-control" name="content" required [(ngModel)]="comment"
+        #inputContent="ngModel" placeholder="Добавете нов коментар..." rows="6"></textarea>
     </p>
     <ng-container *ngIf="inputContent.touched">
       <p *ngIf="inputContent?.errors?.['required']" class="error">
